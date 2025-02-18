@@ -1,6 +1,18 @@
-title: Minimal theme
-logo: /assets/img/logo.png
-description: Minimal is a theme for GitHub Pages.
-show_downloads: true
-google_analytics:
+title: <p align="center"> Subham Srivastava </p>
+logo: /assets/img/subham_profile_picture.jpg
+
+description:
+  <p align="center">
+  <a href="assets/img/subham_srivastava_resume.pdf">Resume</a> |
+  <a href="https://www.linkedin.com/in/subhamsrivastava/">LinkedIn</a> |
+  <a href="https://github.com/subham0206">GitHub</a>
+  
+  <br>   
+  Expert in Data Science, Machine Learning, and AI with experience at BuzzClan, BD and TCS in advanced data solutions. 
+  Holding a degree from IIIT Bangalore in Data Science and AI.
+  <br>
+  </p>
+
+
+
 theme: jekyll-theme-minimal
