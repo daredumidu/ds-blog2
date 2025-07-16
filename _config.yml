@@ -1,6 +1,16 @@
-title: Minimal theme
+title: <p align='center"> PRATHIBHA M </p>
 logo: /assets/img/logo.png
-description: Minimal is a theme for GitHub Pages.
+description:
+  <p align="center">
+  <a href="pdf/resume.pdf">Resume</a> |
+  <a href="https://github.com/PrathiPanthera">GitHub</a>
+
+  <br>   
+  I’m a passionate and fast-learning Data Science enthusiast with hands-on experience in Python, MySQL, Machine Learning, NLP, and Generative AI. As a fresher, I’ve worked on multiple real-world projects that apply data-driven thinking to solve practical problems.
+
+  Currently diving deeper into Deep Learning and exploring NoSQL databases to expand my tech stack. Curious by nature, committed by practice — building one project at a time.
+  <br>
+  </p>
 show_downloads: true
 google_analytics:
 theme: jekyll-theme-minimal
