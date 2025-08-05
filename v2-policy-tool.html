@@ -5,18 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Policy Tool</title>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Try to load jsPDF, but provide fallback -->
     <script>
-        // Ensure jsPDF is available globally
+        // Create a simpler PDF alternative for local development
+        window.createSimplePDF = function() {
+            return {
+                content: [],
+                addPage: function() {
+                    this.content.push('\n--- NEW PAGE ---\n');
+                },
+                setFontSize: function(size) {
+                    // Store font size
+                },
+                setFont: function(font, style) {
+                    // Store font info  
+                },
+                text: function(text, x, y, options) {
+                    if (typeof text === 'string') {
+                        this.content.push(text);
+                        if (!options || !options.align) {
+                            this.content.push('\n');
+                        }
+                    }
+                },
+                setFillColor: function(r, g, b) {
+                    // Color info
+                },
+                setTextColor: function(r, g, b) {
+                    // Color info
+                },
+                rect: function(x, y, w, h, style) {
+                    // Rectangle
+                },
+                splitTextToSize: function(text, maxWidth) {
+                    // Simple text splitting
+                    const words = text.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    
+                    words.forEach(word => {
+                        if ((currentLine + word).length > 80) {
+                            if (currentLine) lines.push(currentLine.trim());
+                            currentLine = word + ' ';
+                        } else {
+                            currentLine += word + ' ';
+                        }
+                    });
+                    if (currentLine) lines.push(currentLine.trim());
+                    return lines;
+                },
+                internal: {
+                    pages: [''],
+                    pageSize: {
+                        getWidth: () => 210,
+                        getHeight: () => 297
+                    }
+                },
+                setPage: function(pageNum) {
+                    // Set page
+                },
+                save: function(filename) {
+                    // Create text version instead
+                    const textContent = this.content.join(' ').replace(/\n\s*\n/g, '\n\n');
+                    const blob = new Blob([textContent], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = filename.replace('.pdf', '.txt');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }
+            };
+        };
+
+        // Try to load jsPDF from CDN, fallback to local solution
         window.PDFReady = false;
-        window.addEventListener('load', function() {
+        window.jsPDFLoaded = false;
+        
+        // Load jsPDF dynamically
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        script.onload = function() {
             if (typeof window.jsPDF !== 'undefined') {
                 window.PDFReady = true;
-                console.log('PDF library loaded successfully');
-            } else {
-                console.error('PDF library failed to load');
+                window.jsPDFLoaded = true;
+                console.log('PDF library loaded successfully from CDN');
             }
-        });
+        };
+        script.onerror = function() {
+            console.log('CDN failed, using local fallback');
+            window.PDFReady = true; // Use fallback
+            window.jsPDFLoaded = false;
+        };
+        document.head.appendChild(script);
+        
+        // Fallback timeout
+        setTimeout(function() {
+            if (!window.jsPDFLoaded) {
+                console.log('PDF library timeout, using text export fallback');
+                window.PDFReady = true;
+            }
+        }, 3000);
     </script>
     <style>
         :root {
@@ -1176,7 +1267,7 @@
                 <div class="export-buttons">
                     <button class="export-btn export-pdf" onclick="exportToPDF()">
                         <span class="export-icon">📄</span>
-                        Export PDF Report
+                        Export Report (PDF/Text)
                     </button>
                     <button class="export-btn export-json" onclick="exportToJSON()">
                         <span class="export-icon">💾</span>
@@ -2111,7 +2202,7 @@
                         if (selectedCount === 0) {
                             exportInfoElement.textContent = 'Select policies to generate your implementation report';
                         } else {
-                            exportInfoElement.textContent = `Ready to export report with ${selectedCount} selected policy${selectedCount === 1 ? '' : 'ies'}`;
+                            exportInfoElement.textContent = `Ready to export report with ${selectedCount} selected policy${selectedCount === 1 ? '' : 'ies'} (PDF online, text locally)`;
                         }
                     }
                 }
@@ -2125,146 +2216,112 @@
                 }
 
                 // Check if PDF library is ready
-                if (!window.PDFReady || typeof window.jsPDF === 'undefined') {
+                if (!window.PDFReady) {
                     alert('PDF library is still loading. Please wait a moment and try again, or use the JSON export.');
                     return;
                 }
 
                 try {
-                    // Create new PDF document
-                    const pdf = new window.jsPDF({
-                        orientation: 'portrait',
-                        unit: 'mm',
-                        format: 'a4'
-                    });
+                    let pdf;
+                    let isRealPDF = false;
 
-                    const pageWidth = pdf.internal.pageSize.getWidth();
-                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    // Try to use real jsPDF first
+                    if (window.jsPDFLoaded && typeof window.jsPDF !== 'undefined') {
+                        pdf = new window.jsPDF({
+                            orientation: 'portrait',
+                            unit: 'mm', 
+                            format: 'a4'
+                        });
+                        isRealPDF = true;
+                        console.log('Using real PDF library');
+                    } else {
+                        // Use fallback for local development
+                        pdf = window.createSimplePDF();
+                        isRealPDF = false;
+                        console.log('Using text fallback (perfect for local development)');
+                    }
+
+                    const pageWidth = isRealPDF ? pdf.internal.pageSize.getWidth() : 210;
+                    const pageHeight = isRealPDF ? pdf.internal.pageSize.getHeight() : 297;
                     const margin = 20;
                     const contentWidth = pageWidth - (margin * 2);
-                    let currentY = margin;
-
-                    // Helper function to check page overflow and add new page
-                    const checkPageOverflow = (requiredSpace = 40) => {
-                        if (currentY > pageHeight - requiredSpace) {
-                            pdf.addPage();
-                            currentY = margin;
-                            return true;
-                        }
-                        return false;
-                    };
 
                     // Helper function to wrap text
                     const wrapText = (text, maxWidth) => {
-                        try {
+                        if (isRealPDF) {
+                            try {
+                                return pdf.splitTextToSize(text, maxWidth);
+                            } catch (e) {
+                                return pdf.splitTextToSize(text, maxWidth);
+                            }
+                        } else {
                             return pdf.splitTextToSize(text, maxWidth);
-                        } catch (e) {
-                            // Fallback if splitTextToSize fails
-                            const words = text.split(' ');
-                            const lines = [];
-                            let currentLine = '';
-                            
-                            words.forEach(word => {
-                                const testLine = currentLine ? currentLine + ' ' + word : word;
-                                if (testLine.length * 2 < maxWidth) { // Rough character width estimation
-                                    currentLine = testLine;
-                                } else {
-                                    if (currentLine) lines.push(currentLine);
-                                    currentLine = word;
-                                }
-                            });
-                            if (currentLine) lines.push(currentLine);
-                            return lines;
                         }
                     };
 
-                    // Helper function to render text safely
-                    const renderText = (text, x, y, maxWidth, fontSize = 9) => {
-                        if (!text) return 0;
-                        
-                        pdf.setFontSize(fontSize);
-                        const lines = wrapText(text.toString(), maxWidth);
-                        const lineHeight = fontSize * 0.5;
-                        
-                        lines.forEach((line, index) => {
-                            const lineY = y + (index * lineHeight);
-                            if (lineY > pageHeight - margin) {
-                                pdf.addPage();
-                                currentY = margin;
-                                pdf.text(line, x, currentY);
-                                currentY += lineHeight;
-                            } else {
-                                pdf.text(line, x, lineY);
-                            }
-                        });
-                        
-                        return lines.length * lineHeight;
-                    };
-
                     // Cover Page
-                    pdf.setFillColor(30, 58, 138);
-                    pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+                    if (isRealPDF) {
+                        pdf.setFillColor(30, 58, 138);
+                        pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+                        
+                        // Logo area
+                        pdf.setFillColor(255, 255, 255);
+                        pdf.rect(margin, margin, 60, 15, 'F');
+                        pdf.setTextColor(30, 58, 138);
+                    }
                     
-                    // G20 TPAF Logo area
-                    pdf.setFillColor(255, 255, 255);
-                    pdf.rect(margin, margin, 60, 15, 'F');
-                    pdf.setTextColor(30, 58, 138);
                     pdf.setFont('helvetica', 'bold');
                     pdf.setFontSize(12);
-                    pdf.text('G20 TPAF', margin + 5, margin + 10);
+                    pdf.text('G20 TECHNOLOGY POLICY ASSISTANCE FACILITY', 0, 0, { align: 'center' });
                     
                     // Title
-                    pdf.setTextColor(255, 255, 255);
+                    if (isRealPDF) {
+                        pdf.setTextColor(255, 255, 255);
+                    }
                     pdf.setFont('helvetica', 'bold');
                     pdf.setFontSize(28);
-                    pdf.text('AI Governance', pageWidth / 2, 80, { align: 'center' });
-                    pdf.text('Implementation Plan', pageWidth / 2, 105, { align: 'center' });
+                    pdf.text('AI GOVERNANCE IMPLEMENTATION PLAN', 0, 0, { align: 'center' });
                     
                     pdf.setFontSize(16);
                     pdf.setFont('helvetica', 'normal');
-                    pdf.text('G20 Technology Policy Assistance Facility', pageWidth / 2, 125, { align: 'center' });
                     
                     // Summary information
-                    pdf.setFillColor(255, 255, 255, 0.15);
-                    pdf.rect(margin + 20, 150, contentWidth - 40, 60, 'F');
-                    
-                    pdf.setFontSize(14);
-                    pdf.setFont('helvetica', 'normal');
                     const today = new Date().toLocaleDateString('en-US', { 
                         year: 'numeric', month: 'long', day: 'numeric' 
                     });
-                    pdf.text('Generated: ' + today, pageWidth / 2, 170, { align: 'center' });
-                    pdf.text('Selected Policies: ' + state.selectedPolicies.size, pageWidth / 2, 185, { align: 'center' });
+                    pdf.text('Generated: ' + today, 0, 0, { align: 'center' });
+                    pdf.text('Selected Policies: ' + state.selectedPolicies.size, 0, 0, { align: 'center' });
                     
                     const dimensionCount = new Set(Array.from(state.selectedPolicies).map(key => key.split('|')[0])).size;
-                    pdf.text('Covering ' + dimensionCount + ' policy dimensions', pageWidth / 2, 200, { align: 'center' });
+                    pdf.text('Covering ' + dimensionCount + ' policy dimensions', 0, 0, { align: 'center' });
 
-                    // Executive Summary Page
+                    // New page for content
                     pdf.addPage();
-                    currentY = margin;
 
-                    pdf.setTextColor(0, 0, 0);
+                    // Executive Summary
+                    if (isRealPDF) {
+                        pdf.setTextColor(0, 0, 0);
+                    }
                     pdf.setFont('helvetica', 'bold');
                     pdf.setFontSize(20);
-                    pdf.text('Executive Summary', margin, currentY);
-                    currentY += 15;
+                    pdf.text('EXECUTIVE SUMMARY');
 
                     pdf.setFont('helvetica', 'normal');
                     pdf.setFontSize(11);
                     
                     const summaryText = 'This implementation plan outlines ' + state.selectedPolicies.size + ' carefully selected AI governance policy options across ' + dimensionCount + ' key dimensions of the G20 Technology Policy Assistance Facility (TPAF) framework. These policies represent a comprehensive approach to establishing robust AI governance infrastructure, regulatory frameworks, and implementation strategies aligned with international best practices.';
                     
-                    const summaryHeight = renderText(summaryText, margin, currentY, contentWidth, 11);
-                    currentY += summaryHeight + 15;
+                    const summaryLines = wrapText(summaryText, contentWidth);
+                    summaryLines.forEach(line => {
+                        pdf.text(line);
+                    });
 
-                    // Detailed Content Page
+                    // New page for detailed content
                     pdf.addPage();
-                    currentY = margin;
 
                     pdf.setFont('helvetica', 'bold');
                     pdf.setFontSize(18);
-                    pdf.text('Selected Policy Options', margin, currentY);
-                    currentY += 15;
+                    pdf.text('SELECTED POLICY OPTIONS');
 
                     // Group policies by dimension
                     const policiesByDimension = {};
@@ -2294,126 +2351,85 @@
 
                     // Render each dimension
                     Object.entries(policiesByDimension).forEach(([dimension, policies]) => {
-                        checkPageOverflow(30);
-                        
                         // Dimension header
-                        const dimColors = {
-                            'Enabling Infrastructure': [107, 114, 128],
-                            'Legislation & Policy': [156, 163, 175],
-                            'Sustainability & Society': [75, 85, 99],
-                            'Economy & Innovation': [55, 65, 81],
-                            'Research & Education': [107, 114, 128]
-                        };
-                        
-                        const color = dimColors[dimension] || [107, 114, 128];
-                        pdf.setFillColor(color[0], color[1], color[2]);
-                        pdf.rect(margin, currentY, contentWidth, 12, 'F');
-                        
-                        pdf.setTextColor(255, 255, 255);
-                        pdf.setFont('helvetica', 'bold');
-                        pdf.setFontSize(14);
-                        pdf.text(dimension, margin + 5, currentY + 8);
-                        
-                        pdf.setFontSize(10);
-                        pdf.text(policies.length + ' policies selected', pageWidth - margin - 5, currentY + 8, { align: 'right' });
-                        
-                        currentY += 18;
+                        pdf.text('');
+                        pdf.text('='.repeat(50));
+                        pdf.text(dimension.toUpperCase());
+                        pdf.text(policies.length + ' policies selected');
+                        pdf.text('='.repeat(50));
 
                         // Render policies
-                        policies.forEach((policy) => {
-                            checkPageOverflow(50);
-                            
-                            // Policy background
-                            pdf.setFillColor(248, 250, 252);
-                            pdf.rect(margin, currentY, contentWidth, 8, 'F');
-                            
-                            // Color stripe
-                            pdf.setFillColor(color[0], color[1], color[2]);
-                            pdf.rect(margin, currentY, 3, 8, 'F');
-                            
-                            pdf.setTextColor(0, 0, 0);
-                            pdf.setFont('helvetica', 'bold');
-                            pdf.setFontSize(11);
-                            
-                            // Policy title
-                            const titleText = policy.id + ': ' + policy.policy;
-                            const titleHeight = renderText(titleText, margin + 6, currentY + 6, contentWidth - 12, 11);
-                            currentY += Math.max(8, titleHeight + 2) + 5;
-
-                            // Phase
-                            pdf.setFont('helvetica', 'normal');
-                            pdf.setFontSize(9);
-                            pdf.setTextColor(75, 85, 99);
-                            pdf.text('Implementation Phase: ' + policy.phase, margin, currentY);
-                            currentY += 10;
+                        policies.forEach((policy, index) => {
+                            pdf.text('');
+                            pdf.text((index + 1) + '. ' + policy.id + ': ' + policy.policy);
+                            pdf.text('   Implementation Phase: ' + policy.phase);
 
                             // Details
                             if (policy.details) {
-                                pdf.setTextColor(0, 0, 0);
-                                pdf.setFont('helvetica', 'normal');
-                                pdf.setFontSize(9);
-                                const detailHeight = renderText(policy.details, margin, currentY, contentWidth, 9);
-                                currentY += detailHeight + 5;
+                                pdf.text('   Details:');
+                                const detailLines = wrapText('   ' + policy.details, contentWidth);
+                                detailLines.forEach(line => {
+                                    pdf.text(line);
+                                });
                             }
 
-                            // Examples (abbreviated)
+                            // Examples
                             if (policy.examples) {
-                                checkPageOverflow(15);
-                                pdf.setFont('helvetica', 'bold');
-                                pdf.setFontSize(9);
-                                pdf.text('Examples:', margin, currentY);
-                                currentY += 5;
-
-                                pdf.setFont('helvetica', 'normal');
-                                pdf.setFontSize(8);
-                                const exampleText = policy.examples.length > 150 ? 
-                                    policy.examples.substring(0, 150) + '...' : 
+                                pdf.text('   Examples:');
+                                const exampleText = policy.examples.length > 200 ? 
+                                    policy.examples.substring(0, 200) + '...' : 
                                     policy.examples;
-                                const exampleHeight = renderText(exampleText, margin, currentY, contentWidth, 8);
-                                currentY += exampleHeight + 5;
+                                const exampleLines = wrapText('   ' + exampleText, contentWidth);
+                                exampleLines.forEach(line => {
+                                    pdf.text(line);
+                                });
                             }
 
                             // Keywords
                             if (policy.keywords && policy.keywords.length > 0) {
-                                checkPageOverflow(8);
-                                pdf.setFont('helvetica', 'bold');
-                                pdf.setFontSize(8);
-                                pdf.setTextColor(75, 85, 99);
-                                pdf.text('Keywords: ', margin, currentY);
-                                
-                                pdf.setFont('helvetica', 'normal');
                                 const keywordText = Array.isArray(policy.keywords) ? policy.keywords.join(', ') : policy.keywords;
-                                renderText(keywordText, margin + 20, currentY, contentWidth - 20, 8);
-                                currentY += 10;
+                                pdf.text('   Keywords: ' + keywordText);
                             }
-
-                            currentY += 8; // Space between policies
                         });
-
-                        currentY += 10; // Space between dimensions
                     });
 
-                    // Add page numbers
-                    const totalPages = pdf.internal.pages.length - 1;
-                    for (let i = 1; i <= totalPages; i++) {
-                        pdf.setPage(i);
-                        if (i > 1) { // Skip cover page
-                            pdf.setTextColor(128, 128, 128);
-                            pdf.setFontSize(8);
-                            pdf.text('Page ' + i + ' of ' + totalPages, pageWidth - margin, pageHeight - 10, { align: 'right' });
-                            pdf.text('AI Governance Implementation Plan', margin, pageHeight - 10);
-                        }
+                    // Implementation Timeline
+                    pdf.addPage();
+                    pdf.text('');
+                    pdf.text('IMPLEMENTATION TIMELINE & NEXT STEPS');
+                    pdf.text('');
+
+                    const timeline = [
+                        'Phase 1: Analysis (Months 1-3) - Conduct comprehensive assessments, stakeholder consultations, and establish foundational frameworks.',
+                        'Phase 2: Design (Months 4-9) - Develop detailed policy frameworks, draft regulations, and create implementation plans.',
+                        'Phase 3: Implementation (Months 10-18) - Deploy policies, establish governance structures, and begin operational activities.',
+                        'Phase 4: Monitoring (Ongoing) - Continuous evaluation, adjustment, and improvement of implemented policies.'
+                    ];
+
+                    timeline.forEach(item => {
+                        const lines = wrapText(item, contentWidth);
+                        lines.forEach(line => {
+                            pdf.text(line);
+                        });
+                        pdf.text('');
+                    });
+
+                    // Save the file
+                    const timestamp = new Date().toISOString().split('T')[0];
+                    const filename = 'AI_Governance_Implementation_Plan_' + timestamp;
+                    
+                    if (isRealPDF) {
+                        pdf.save(filename + '.pdf');
+                        console.log('Real PDF exported successfully');
+                    } else {
+                        pdf.save(filename + '.txt');
+                        console.log('Text report exported successfully (perfect for local development!)');
+                        alert('Report exported as text file (great for local development!)\nYou can copy this to Word or Google Docs for professional formatting.');
                     }
 
-                    // Save the PDF
-                    const timestamp = new Date().toISOString().split('T')[0];
-                    pdf.save('AI_Governance_Implementation_Plan_' + timestamp + '.pdf');
-
-                    console.log('PDF exported successfully');
-
                 } catch (error) {
-                    console.error('PDF export error:', error);
-                    alert('PDF export failed: ' + error.message + '. Please try the JSON export or refresh the page.');
+                    console.error('Export error:', error);
+                    alert('Export failed: ' + error.message + '. Please try the JSON export.');
                 }
             };
 
