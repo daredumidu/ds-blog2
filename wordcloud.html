@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Word Cloud Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .input-section {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .control-group label {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            margin: 5px 0;
+        }
+        
+        input[type="range"] + span {
+            font-size: 12px;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        #patternControls {
+            transition: all 0.3s ease;
+        }
+        
+        #patternControls.collapsed {
+            display: none;
+        }
+        
+        .export-button {
+            margin: 0 5px;
+        }
+        
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+        
+        button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        #wordcloud {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-top: 30px;
+            background: white;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .word-item {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .word-item:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .empty-state {
+            color: #999;
+            text-align: center;
+            font-style: italic;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Advanced Word Cloud Generator</h1>
+        
+        <div class="input-section">
+            <label for="textInput">Enter your text:</label>
+            <textarea id="textInput" placeholder="Paste your text here... The generator will extract both single words and phrases automatically!">Machine learning is revolutionizing the way we process data. Artificial intelligence and machine learning algorithms are becoming increasingly sophisticated. Natural language processing enables computers to understand human language. Deep learning models can recognize patterns in vast amounts of data.</textarea>
+        </div>
+        
+        <div class="input-section">
+            <label for="customStopwords">Custom Stop Words (comma-separated):</label>
+            <textarea id="customStopwords" placeholder="Enter additional words to ignore, separated by commas. Example: company, organization, system, process, method" style="height: 80px;"></textarea>
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                💡 Add domain-specific words you want to exclude (like "company", "system", "process")
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="maxWords">Maximum Words/Phrases:</label>
+                <input type="number" id="maxWords" value="50" min="10" max="200">
+            </div>
+            
+            <div class="control-group">
+                <label for="minFreq">Minimum Frequency:</label>
+                <input type="number" id="minFreq" value="1" min="1" max="10">
+            </div>
+            
+            <div class="control-group">
+                <label for="maxNgram">Max Phrase Length:</label>
+                <select id="maxNgram">
+                    <option value="1">Single words only</option>
+                    <option value="2" selected>Up to 2 words</option>
+                    <option value="3">Up to 3 words</option>
+                    <option value="4">Up to 4 words</option>
+                    <option value="5">Up to 5 words</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="colorScheme">Color Scheme:</label>
+                <select id="colorScheme">
+                    <option value="rainbow">Rainbow</option>
+                    <option value="blues">Blues</option>
+                    <option value="greens">Greens</option>
+                    <option value="warm">Warm</option>
+                    <option value="cool">Cool</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="removeStopwords" checked>
+            <label for="removeStopwords">Remove default stop words (the, and, is, etc.)</label>
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="useCustomStopwords" checked>
+            <label for="useCustomStopwords">Apply custom stop words</label>
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="smartPatterns" checked>
+            <label for="smartPatterns">Enable smart pattern detection</label>
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="semanticClusters" checked>
+            <label for="semanticClusters">Show semantic clusters</label>
+        </div>
+        
+        <button onclick="generateWordCloud()">Generate Word Cloud</button>
+        
+        <div id="wordcloud">
+            <div class="empty-state">Your word cloud will appear here...</div>
+        </div>
+        
+        <div id="stats" class="stats" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-value" id="totalWords">0</div>
+                <div class="stat-label">Total Words</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="uniqueWords">0</div>
+                <div class="stat-label">Unique Terms</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="avgWordLength">0</div>
+                <div class="stat-label">Avg Length</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="longestPhrase">-</div>
+                <div class="stat-label">Longest Phrase</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Common English stop words
+        const STOP_WORDS = new Set([
+            'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by',
+            'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did',
+            'will', 'would', 'could', 'should', 'may', 'might', 'must', 'can', 'shall',
+            'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them',
+            'my', 'your', 'his', 'her', 'its', 'our', 'their', 'this', 'that', 'these', 'those',
+            'what', 'when', 'where', 'why', 'how', 'which', 'who', 'whom', 'whose',
+            'not', 'no', 'yes', 'very', 'too', 'much', 'many', 'some', 'any', 'all', 'more', 'most',
+            'as', 'so', 'than', 'about', 'up', 'out', 'down', 'off', 'over', 'under', 'again', 'once'
+        ]);
+
+        // Color schemes
+        const COLOR_SCHEMES = {
+            rainbow: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'],
+            blues: ['#3498DB', '#2980B9', '#1ABC9C', '#16A085', '#34495E', '#2C3E50', '#5DADE2'],
+            greens: ['#2ECC71', '#27AE60', '#1ABC9C', '#16A085', '#52C41A', '#73D13D', '#95DE64'],
+            warm: ['#E74C3C', '#E67E22', '#F39C12', '#F1C40F', '#FF6B35', '#FF8E53', '#FF6B6B'],
+            cool: ['#3498DB', '#9B59B6', '#8E44AD', '#2980B9', '#1ABC9C', '#16A085', '#6C5CE7']
+        };
+
+        function preprocessText(text) {
+            // Convert to lowercase and remove extra whitespace
+            return text.toLowerCase()
+                      .replace(/[^\w\s]/g, ' ')  // Replace punctuation with spaces
+                      .replace(/\s+/g, ' ')      // Normalize whitespace
+                      .trim();
+        }
+
+        function getNgrams(words, n) {
+            const ngrams = [];
+            for (let i = 0; i <= words.length - n; i++) {
+                const ngram = words.slice(i, i + n).join(' ');
+                ngrams.push(ngram);
+            }
+            return ngrams;
+        }
+
+        function getCustomStopWords() {
+            const customStopwordsText = document.getElementById('customStopwords').value.trim();
+            const useCustomStopwords = document.getElementById('useCustomStopwords').checked;
+            
+            if (!useCustomStopwords || !customStopwordsText) {
+                return new Set();
+            }
+            
+            // Parse custom stop words (comma-separated, normalize to lowercase)
+            const customWords = customStopwordsText
+                .split(',')
+                .map(word => word.trim().toLowerCase())
+                .filter(word => word.length > 0);
+            
+            return new Set(customWords);
+        }
+
+        function shouldRemovePhrase(phrase, removeStopwords, customStopWords = new Set()) {
+            const words = phrase.split(' ');
+            
+            // Check custom stop words first
+            if (customStopWords.size > 0) {
+                // Remove if any word in the phrase is in custom stop words
+                if (words.some(word => customStopWords.has(word.toLowerCase()))) {
+                    return true;
+                }
+                
+                // For single words, also check if the entire phrase is a custom stop word
+                if (words.length === 1 && customStopWords.has(phrase.toLowerCase())) {
+                    return true;
+                }
+            }
+            
+            // Then apply default stop word logic if enabled
+            if (!removeStopwords) return false;
+            
+            // Remove if all words are default stop words
+            if (words.every(word => STOP_WORDS.has(word))) return true;
+            
+            // For multi-word phrases, keep if at least one word is not a default stop word
+            if (words.length > 1) {
+                return !words.some(word => !STOP_WORDS.has(word));
+            }
+            
+            // For single words, remove if it's a default stop word
+            return STOP_WORDS.has(phrase);
+        }
+
+        // UI Controls
+        function togglePatternTuning() {
+            const controls = document.getElementById('patternControls');
+            const icon = document.getElementById('patternToggleIcon');
+            
+            if (controls.classList.contains('collapsed')) {
+                controls.classList.remove('collapsed');
+                icon.textContent = '▼';
+            } else {
+                controls.classList.add('collapsed');
+                icon.textContent = '▶';
+            }
+        }
+
+        // Update range slider displays
+        document.addEventListener('DOMContentLoaded', function() {
+            ['technicalWeight', 'properNounWeight', 'wordLengthWeight'].forEach(id => {
+                const slider = document.getElementById(id);
+                const display = document.getElementById(id + 'Value');
+                
+                slider.addEventListener('input', function() {
+                    display.textContent = parseFloat(this.value).toFixed(1);
+                });
+            });
+        });
+
+        // Enhanced pattern detection with fine-tuning
+        function findPatterns(text) {
+            const patterns = new Map();
+            const enableTechnical = document.getElementById('enableTechnicalPatterns')?.checked ?? true;
+            const enableBusiness = document.getElementById('enableBusinessPatterns')?.checked ?? true;
+            const enableAcademic = document.getElementById('enableAcademicPatterns')?.checked ?? true;
+            const enableCompound = document.getElementById('enableCompoundTerms')?.checked ?? true;
+            const enableAbbreviations = document.getElementById('enableAbbreviations')?.checked ?? true;
+            
+            const patternRegexes = [];
+            
+            if (enableTechnical) {
+                patternRegexes.push(
+                    /\b(artificial|machine|deep|natural|computer|data|neural|algorithm)\s+\w+/gi,
+                    /\b\w+\s+(learning|intelligence|processing|analysis|science|technology|computing)/gi,
+                    /\b(software|hardware|cloud|web|mobile|smart|digital)\s+\w+/gi,
+                    /\b\w+\s+(system|platform|framework|database|network|protocol|algorithm)/gi
+                );
+            }
+            
+            if (enableBusiness) {
+                patternRegexes.push(
+                    /\b(business|enterprise|commercial|corporate|market|customer)\s+\w+/gi,
+                    /\b\w+\s+(strategy|solution|service|management|model|approach)/gi,
+                    /\b(sales|marketing|financial|operational|strategic)\s+\w+/gi
+                );
+            }
+            
+            if (enableAcademic) {
+                patternRegexes.push(
+                    /\b(research|academic|scientific|empirical|theoretical)\s+\w+/gi,
+                    /\b\w+\s+(study|analysis|methodology|experiment|paper|journal)/gi,
+                    /\b(statistical|experimental|analytical|comparative)\s+\w+/gi
+                );
+            }
+            
+            if (enableCompound) {
+                patternRegexes.push(
+                    /\b\w+[-_]\w+(?:[-_]\w+)*/gi,
+                    /\b(real|virtual|open|closed|multi|cross|inter|pre|post)\s*[-]?\s*\w+/gi
+                );
+            }
+            
+            if (enableAbbreviations) {
+                patternRegexes.push(
+                    /\b[A-Z]{2,}\s+\w+/gi,
+                    /\b\w+\s+[A-Z]{2,}/gi,
+                    /\b[A-Z]{2,}[-/]\w+/gi
+                );
+            }
+            
+            // Capitalized multi-word terms (always enabled)
+            patternRegexes.push(/\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+/g);
+            
+            patternRegexes.forEach(regex => {
+                const matches = text.match(regex) || [];
+                matches.forEach(match => {
+                    const normalized = match.toLowerCase().trim();
+                    if (normalized.length > 3) {
+                        patterns.set(normalized, (patterns.get(normalized) || 0) + 1);
+                    }
+                });
+            });
+            
+            return patterns;
+        }
+
+        function extractImportantPhrases(text, maxNgram) {
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+            const phrases = new Map();
+            
+            // Get fine-tuning weights
+            const technicalWeight = parseFloat(document.getElementById('technicalWeight')?.value ?? 2);
+            const properNounWeight = parseFloat(document.getElementById('properNounWeight')?.value ?? 1);
+            const wordLengthWeight = parseFloat(document.getElementById('wordLengthWeight')?.value ?? 1);
+            
+            sentences.forEach(sentence => {
+                const cleanSentence = preprocessText(sentence);
+                const words = cleanSentence.split(' ').filter(word => word.length > 0);
+                
+                for (let n = 2; n <= Math.min(maxNgram, words.length); n++) {
+                    const ngrams = getNgrams(words, n);
+                    
+                    ngrams.forEach(ngram => {
+                        let score = 0;
+                        const ngramWords = ngram.split(' ');
+                        
+                        // Technical terms scoring with weight
+                        const importantKeywords = ['artificial', 'machine', 'deep', 'neural', 'data', 'algorithm', 'model', 'system', 'technology', 'analysis', 'intelligence', 'learning', 'processing'];
+                        ngramWords.forEach(word => {
+                            if (importantKeywords.includes(word)) score += technicalWeight;
+                            if (word.length > 6) score += wordLengthWeight;
+                        });
+                        
+                        // Proper noun bonus with weight
+                        if (ngram !== ngram.toLowerCase()) score += properNounWeight;
+                        
+                        // Penalty for too many stop words
+                        const stopWordCount = ngramWords.filter(word => STOP_WORDS.has(word)).length;
+                        if (stopWordCount / ngramWords.length > 0.5) score -= 2;
+                        
+                        if (score > 0) {
+                            phrases.set(ngram, (phrases.get(ngram) || 0) + score);
+                        }
+                    });
+                }
+            });
+            
+            return phrases;
+        }
+
+        function findSemanticClusters(words) {
+            const clusters = new Map();
+            const minClusterSize = parseInt(document.getElementById('minClusterSize')?.value ?? 3);
+            
+            const semanticGroups = {
+                'AI/ML': ['artificial', 'intelligence', 'machine', 'learning', 'deep', 'neural', 'algorithm', 'model', 'training', 'prediction'],
+                'Data': ['data', 'dataset', 'database', 'information', 'analytics', 'mining', 'big', 'analysis', 'processing'],
+                'Technology': ['technology', 'software', 'hardware', 'computer', 'digital', 'system', 'platform', 'framework', 'tool'],
+                'Language': ['language', 'natural', 'text', 'speech', 'linguistic', 'nlp', 'processing', 'understanding', 'communication'],
+                'Business': ['business', 'enterprise', 'commercial', 'industry', 'market', 'customer', 'service', 'solution', 'strategy'],
+                'Research': ['research', 'study', 'analysis', 'experiment', 'scientific', 'academic', 'paper', 'journal', 'methodology']
+            };
+            
+            words.forEach(word => {
+                for (let [groupName, groupWords] of Object.entries(semanticGroups)) {
+                    if (groupWords.includes(word.toLowerCase())) {
+                        clusters.set(groupName, (clusters.get(groupName) || 0) + 1);
+                    }
+                }
+            });
+            
+            // Filter by minimum cluster size
+            const filteredClusters = new Map();
+            clusters.forEach((count, cluster) => {
+                if (count >= minClusterSize) {
+                    filteredClusters.set(cluster, count);
+                }
+            });
+            
+            return filteredClusters;
+        }
+
+        // Export functions
+        function exportAsPNG() {
+            const wordcloudDiv = document.getElementById('wordcloud');
+            const width = parseInt(document.getElementById('exportWidth').value);
+            const height = parseInt(document.getElementById('exportHeight').value);
+            const quality = parseInt(document.getElementById('exportQuality').value);
+            const backgroundColor = document.getElementById('exportBackground').value;
+            
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = width * quality;
+            canvas.height = height * quality;
+            const ctx = canvas.getContext('2d');
+            
+            // Set background
+            ctx.fillStyle = backgroundColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Scale for quality
+            ctx.scale(quality, quality);
+            
+            // Get all word elements
+            const wordElements = wordcloudDiv.querySelectorAll('.word-item');
+            const containerRect = wordcloudDiv.getBoundingClientRect();
+            
+            // Scale factors
+            const scaleX = width / containerRect.width;
+            const scaleY = height / containerRect.height;
+            
+            // Draw each word
+            wordElements.forEach(wordEl => {
+                const rect = wordEl.getBoundingClientRect();
+                const containerRect = wordcloudDiv.getBoundingClientRect();
+                
+                const x = (rect.left - containerRect.left) * scaleX;
+                const y = (rect.top - containerRect.top) * scaleY + parseInt(wordEl.style.fontSize) * scaleY;
+                
+                ctx.fillStyle = wordEl.style.color;
+                ctx.font = `${wordEl.style.fontWeight} ${parseInt(wordEl.style.fontSize) * scaleY}px Arial`;
+                ctx.fillText(wordEl.textContent, x, y);
+            });
+            
+            // Download
+            const link = document.createElement('a');
+            link.download = `wordcloud_${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function exportAsSVG() {
+            const wordcloudDiv = document.getElementById('wordcloud');
+            const width = parseInt(document.getElementById('exportWidth').value);
+            const height = parseInt(document.getElementById('exportHeight').value);
+            const backgroundColor = document.getElementById('exportBackground').value;
+            
+            // Create SVG
+            let svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">`;
+            svg += `<rect width="100%" height="100%" fill="${backgroundColor}"/>`;
+            
+            // Get all word elements
+            const wordElements = wordcloudDiv.querySelectorAll('.word-item');
+            const containerRect = wordcloudDiv.getBoundingClientRect();
+            
+            // Scale factors
+            const scaleX = width / containerRect.width;
+            const scaleY = height / containerRect.height;
+            
+            // Add each word as text element
+            wordElements.forEach(wordEl => {
+                const rect = wordEl.getBoundingClientRect();
+                const x = (rect.left - containerRect.left) * scaleX;
+                const y = (rect.top - containerRect.top) * scaleY + parseInt(wordEl.style.fontSize) * scaleY;
+                
+                const fontSize = parseInt(wordEl.style.fontSize) * scaleY;
+                const fontWeight = wordEl.style.fontWeight;
+                const fontStyle = wordEl.style.fontStyle || 'normal';
+                const color = wordEl.style.color;
+                const text = wordEl.textContent;
+                
+                svg += `<text x="${x}" y="${y}" font-family="Arial" font-size="${fontSize}" font-weight="${fontWeight}" font-style="${fontStyle}" fill="${color}">${text}</text>`;
+            });
+            
+            svg += '</svg>';
+            
+            // Download
+            const blob = new Blob([svg], { type: 'image/svg+xml' });
+            const link = document.createElement('a');
+            link.download = `wordcloud_${Date.now()}.svg`;
+            link.href = URL.createObjectURL(blob);
+            link.click();
+        }
+
+        function extractTerms(text, maxNgram, removeStopwords, customStopWords) {
+            const cleanText = preprocessText(text);
+            const words = cleanText.split(' ').filter(word => word.length > 0);
+            
+            const termCounts = new Map();
+            
+            // 1. Extract traditional n-grams
+            for (let n = 1; n <= maxNgram; n++) {
+                const ngrams = getNgrams(words, n);
+                
+                ngrams.forEach(ngram => {
+                    if (ngram.length > 1 && !shouldRemovePhrase(ngram, removeStopwords, customStopWords)) {
+                        termCounts.set(ngram, (termCounts.get(ngram) || 0) + 1);
+                    }
+                });
+            }
+            
+            // 2. Extract pattern-based phrases
+            const patterns = findPatterns(text);
+            patterns.forEach((count, pattern) => {
+                if (!shouldRemovePhrase(pattern, removeStopwords, customStopWords)) {
+                    termCounts.set(pattern, (termCounts.get(pattern) || 0) + count);
+                }
+            });
+            
+            // 3. Extract semantically important phrases
+            const importantPhrases = extractImportantPhrases(text, maxNgram);
+            importantPhrases.forEach((score, phrase) => {
+                if (!shouldRemovePhrase(phrase, removeStopwords, customStopWords)) {
+                    // Add weighted score to existing count
+                    const currentCount = termCounts.get(phrase) || 0;
+                    termCounts.set(phrase, currentCount + Math.ceil(score / 2));
+                }
+            });
+            
+            // 4. Add semantic clusters as virtual terms
+            const clusters = findSemanticClusters(words);
+            clusters.forEach((count, cluster) => {
+                const clusterTerm = `[${cluster} Terms]`;
+                if (!shouldRemovePhrase(clusterTerm, removeStopwords, customStopWords)) {
+                    termCounts.set(clusterTerm, Math.floor(count / 2));
+                }
+            });
+            
+            return termCounts;
+        }
+
+        function getRandomColor(colorScheme) {
+            const colors = COLOR_SCHEMES[colorScheme] || COLOR_SCHEMES.rainbow;
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function checkCollision(rect1, rect2) {
+            return !(rect1.right < rect2.left || 
+                    rect1.left > rect2.right || 
+                    rect1.bottom < rect2.top || 
+                    rect1.top > rect2.bottom);
+        }
+
+        function findNonOverlappingPosition(wordDiv, placedWords, containerWidth, containerHeight, centerX, centerY) {
+            // Get word dimensions
+            document.body.appendChild(wordDiv);
+            const rect = wordDiv.getBoundingClientRect();
+            const wordWidth = rect.width;
+            const wordHeight = rect.height;
+            document.body.removeChild(wordDiv);
+
+            let bestPosition = null;
+            let minDistance = Infinity;
+
+            // Try positions in expanding spiral
+            for (let radius = 0; radius < Math.min(containerWidth, containerHeight) / 2; radius += 10) {
+                for (let angle = 0; angle < Math.PI * 2; angle += 0.2) {
+                    const x = centerX + Math.cos(angle) * radius - wordWidth / 2;
+                    const y = centerY + Math.sin(angle) * radius - wordHeight / 2;
+
+                    // Check bounds
+                    if (x < 0 || y < 0 || x + wordWidth > containerWidth || y + wordHeight > containerHeight) {
+                        continue;
+                    }
+
+                    const testRect = {
+                        left: x,
+                        top: y,
+                        right: x + wordWidth,
+                        bottom: y + wordHeight
+                    };
+
+                    // Check collision with placed words
+                    let hasCollision = false;
+                    for (let placedRect of placedWords) {
+                        if (checkCollision(testRect, placedRect)) {
+                            hasCollision = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasCollision) {
+                        const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+                        if (distanceFromCenter < minDistance) {
+                            minDistance = distanceFromCenter;
+                            bestPosition = { x, y, rect: testRect };
+                        }
+                    }
+                }
+                
+                // If we found a position at this radius, use it
+                if (bestPosition) break;
+            }
+
+            return bestPosition;
+        }
+
+        function generateWordCloud() {
+            const text = document.getElementById('textInput').value.trim();
+            if (!text) {
+                alert('Please enter some text first!');
+                return;
+            }
+
+            const maxWords = parseInt(document.getElementById('maxWords').value);
+            const minFreq = parseInt(document.getElementById('minFreq').value);
+            const maxNgram = parseInt(document.getElementById('maxNgram').value);
+            const removeStopwords = document.getElementById('removeStopwords').checked;
+            const smartPatterns = document.getElementById('smartPatterns').checked;
+            const semanticClusters = document.getElementById('semanticClusters').checked;
+            const colorScheme = document.getElementById('colorScheme').value;
+            const customStopWords = getCustomStopWords();
+
+            // Extract terms with smart pattern detection
+            let termCounts;
+            if (smartPatterns || semanticClusters) {
+                termCounts = extractTerms(text, maxNgram, removeStopwords, customStopWords);
+                
+                // Remove semantic clusters if disabled
+                if (!semanticClusters) {
+                    const filteredTerms = new Map();
+                    termCounts.forEach((count, term) => {
+                        if (!term.startsWith('') || !term.endsWith(' Terms')) {
+                            filteredTerms.set(term, count);
+                        }
+                    });
+                    termCounts = filteredTerms;
+                }
+            } else {
+                // Use basic n-gram extraction only
+                const cleanText = preprocessText(text);
+                const words = cleanText.split(' ').filter(word => word.length > 0);
+                termCounts = new Map();
+                
+                for (let n = 1; n <= maxNgram; n++) {
+                    const ngrams = getNgrams(words, n);
+                    ngrams.forEach(ngram => {
+                        if (ngram.length > 1 && !shouldRemovePhrase(ngram, removeStopwords, customStopWords)) {
+                            termCounts.set(ngram, (termCounts.get(ngram) || 0) + 1);
+                        }
+                    });
+                }
+            }
+            
+            // Filter by minimum frequency and sort
+            const sortedTerms = Array.from(termCounts.entries())
+                .filter(([term, count]) => count >= minFreq)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, maxWords);
+
+            if (sortedTerms.length === 0) {
+                document.getElementById('wordcloud').innerHTML = 
+                    '<div class="empty-state">No terms found with the current settings. Try lowering the minimum frequency or adjusting other parameters.</div>';
+                document.getElementById('stats').style.display = 'none';
+                return;
+            }
+
+            // Generate word cloud
+            const wordcloudDiv = document.getElementById('wordcloud');
+            wordcloudDiv.innerHTML = '';
+
+            const maxCount = sortedTerms[0][1];
+            const minCount = sortedTerms[sortedTerms.length - 1][1];
+            
+            // Calculate container dimensions
+            const containerWidth = wordcloudDiv.clientWidth - 20;
+            const containerHeight = Math.max(400, wordcloudDiv.clientHeight - 20);
+
+            // Position words with collision detection
+            const centerX = containerWidth / 2;
+            const centerY = containerHeight / 2;
+            const placedWords = [];
+            
+            sortedTerms.forEach(([term, count], index) => {
+                const wordDiv = document.createElement('div');
+                wordDiv.className = 'word-item';
+                wordDiv.textContent = term;
+                
+                // Special styling for semantic clusters
+                if (term.startsWith('[') && term.endsWith(' Terms]')) {
+                    wordDiv.style.fontStyle = 'italic';
+                    wordDiv.style.opacity = '0.8';
+                    wordDiv.style.fontWeight = 'normal';
+                } else {
+                    wordDiv.style.fontWeight = 'bold';
+                }
+                
+                // Calculate font size based on frequency (14px to 48px)
+                const fontSize = 14 + ((count - minCount) / (maxCount - minCount)) * 34;
+                wordDiv.style.fontSize = fontSize + 'px';
+                wordDiv.style.color = getRandomColor(colorScheme);
+                wordDiv.style.whiteSpace = 'nowrap';
+                
+                // Find non-overlapping position
+                const position = findNonOverlappingPosition(
+                    wordDiv, placedWords, containerWidth, containerHeight, centerX, centerY
+                );
+                
+                if (position) {
+                    wordDiv.style.left = position.x + 'px';
+                    wordDiv.style.top = position.y + 'px';
+                    
+                    // Add to placed words list
+                    placedWords.push({
+                        ...position.rect,
+                        // Add some padding to prevent words from being too close
+                        left: position.rect.left - 5,
+                        top: position.rect.top - 5,
+                        right: position.rect.right + 5,
+                        bottom: position.rect.bottom + 5
+                    });
+                    
+                    // Add click event to show frequency and type
+                    wordDiv.onclick = () => {
+                        let message = `"${term}" appears ${count} time${count !== 1 ? 's' : ''}`;
+                        if (term.startsWith('[') && term.endsWith(' Terms]')) {
+                            message += '\n(This is a semantic cluster representing related concepts)';
+                        }
+                        if (customStopWords.size > 0) {
+                            message += '\n\n💡 Custom stop words are active';
+                        }
+                        alert(message);
+                    };
+                    
+                    wordcloudDiv.appendChild(wordDiv);
+                }
+            });
+
+            // Update statistics
+            updateStats(sortedTerms, text, customStopWords);
+        }
+
+        function updateStats(sortedTerms, originalText, customStopWords = new Set()) {
+            const totalWords = originalText.trim().split(/\s+/).length;
+            const uniqueWords = sortedTerms.length;
+            const avgLength = sortedTerms.reduce((sum, [term]) => sum + term.length, 0) / uniqueWords;
+            const longestPhrase = sortedTerms.reduce((longest, [term]) => 
+                term.length > longest.length ? term : longest, '');
+
+            document.getElementById('totalWords').textContent = totalWords;
+            document.getElementById('uniqueWords').textContent = uniqueWords;
+            document.getElementById('avgWordLength').textContent = avgLength.toFixed(1);
+            document.getElementById('longestPhrase').textContent = longestPhrase.length > 15 ? 
+                longestPhrase.substring(0, 15) + '...' : longestPhrase;
+
+            // Add custom stop words info to stats
+            if (customStopWords.size > 0) {
+                const existingCustomStat = document.getElementById('customStopwordsStat');
+                if (!existingCustomStat) {
+                    const statsDiv = document.getElementById('stats');
+                    const customStatDiv = document.createElement('div');
+                    customStatDiv.className = 'stat-item';
+                    customStatDiv.id = 'customStopwordsStat';
+                    customStatDiv.innerHTML = `
+                        <div class="stat-value">${customStopWords.size}</div>
+                        <div class="stat-label">Custom Stop Words</div>
+                    `;
+                    statsDiv.appendChild(customStatDiv);
+                } else {
+                    existingCustomStat.querySelector('.stat-value').textContent = customStopWords.size;
+                }
+            } else {
+                // Remove custom stop words stat if no custom words
+                const existingCustomStat = document.getElementById('customStopwordsStat');
+                if (existingCustomStat) {
+                    existingCustomStat.remove();
+                }
+            }
+
+            document.getElementById('stats').style.display = 'grid';
+        }
+
+        // Generate initial word cloud
+        generateWordCloud();
+    </script>
+</body>
+</html>
