@@ -178,8 +178,8 @@
         /* Header Banner Styles */
         .header-banner {
             width: 100vw;
-            height: min(400px, 35vw);
-            min-height: 350px;
+            height: min(90px, 35vw);
+            min-height: 30px;
             background-image: url('assets/icons/only-cover.png');
             background-size: cover;
             background-position: center center;
@@ -202,7 +202,7 @@
 
         .banner-content {
             position: relative;
-            height: 100%;
+            height: 50%;
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
@@ -1057,6 +1057,131 @@
             font-size: 0.75rem;
         }
 
+        .related-policies-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-gray-200);
+        }
+
+        .related-policies-section h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-gray-800);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .related-policies-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .related-policy-item {
+            padding: 0.5rem;
+            border: 1px solid var(--color-gray-200);
+            border-radius: 6px;
+            background: var(--color-gray-50);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .related-policy-item:hover {
+            border-color: var(--color-blue-300);
+            background: var(--color-blue-50);
+            transform: translateY(-1px);
+        }
+
+        .related-policy-dimension {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .related-policy-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .related-policy-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .related-policy-id {
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: var(--color-gray-200);
+            color: var(--color-gray-700);
+        }
+
+        .related-policy-phase {
+            font-size: 0.7rem;
+            color: var(--color-gray-500);
+            font-weight: 500;
+        }
+
+        .related-policy-title {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-gray-800);
+            line-height: 1.3;
+        }
+
+        .related-policy-match {
+            font-size: 0.65rem;
+            color: var(--color-gray-500);
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+
+        /* Policy bar tooltip */
+        .policy-bar-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            line-height: 1.3;
+            max-width: 200px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .policy-bar-tooltip.visible {
+            opacity: 1;
+        }
+
+        .policy-bar-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.9);
+        }
+
         .keywords-container {
             display: flex;
             flex-wrap: wrap;
@@ -1216,13 +1341,258 @@
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            opacity: 0.8;
+            opacity: 0.9;
             cursor: pointer;
+            position: relative;
+            border: 1px solid transparent;
         }
 
         .policy-bar:hover {
             opacity: 1;
-            transform: scaleY(1.2);
+            transform: scaleY(1.4);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .policy-bar.related {
+            opacity: 0.6;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            position: relative;
+        }
+
+        .policy-bar.related::after {
+            content: 'Related';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.5rem;
+            color: var(--color-gray-600);
+            background: white;
+            padding: 1px 3px;
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .policy-bar.related:hover::after {
+            opacity: 1;
+        }
+
+        .policy-bar.current-viewing {
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            opacity: 1;
+            position: relative;
+        }
+
+        .policy-bar.current-viewing::after {
+            content: 'Viewing';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.5rem;
+            color: var(--color-blue-600);
+            background: white;
+            padding: 1px 3px;
+            border-radius: 2px;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Smart Suggestions Styles */
+        .smart-suggestions-container {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-gray-200);
+            margin-bottom: 0.5rem;
+        }
+
+        .suggestions-section {
+            margin-bottom: 1rem;
+        }
+
+        .suggestions-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .suggestions-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-gray-800);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        .template-suggestion {
+            background: var(--color-blue-50);
+            border: 1px solid var(--color-blue-200);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-count {
+            font-size: 0.75rem;
+            color: var(--color-blue-600);
+            background: white;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .template-description {
+            font-size: 0.8rem;
+            color: var(--color-gray-700);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .template-context {
+            font-size: 0.75rem;
+            color: var(--color-gray-600);
+            font-style: italic;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .template-btn {
+            background: var(--color-blue-600);
+            color: white;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .template-btn:hover {
+            background: var(--color-blue-700);
+            transform: translateY(-1px);
+        }
+
+        .gap-analysis {
+            background: var(--color-green-50);
+            border: 1px solid var(--color-green-200);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gap-observation {
+            font-size: 0.8rem;
+            color: var(--color-green-700);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .gap-recommendation {
+            font-size: 0.75rem;
+            color: var(--color-gray-700);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .gap-suggestions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .suggestion-policy-btn {
+            background: var(--color-green-600);
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .suggestion-policy-btn:hover {
+            background: var(--color-green-700);
+            transform: translateY(-1px);
+        }
+
+        /* Matrix guidance */
+        .matrix-guidance {
+            font-size: 0.7rem;
+            color: var(--color-gray-600);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .matrix-legend {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.65rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .legend-bar {
+            width: 12px;
+            height: 4px;
+            border-radius: 1px;
+        }
+
+        .legend-bar.selected {
+            background: var(--color-blue-600);
+        }
+
+        .legend-bar.related {
+            background: var(--color-blue-600);
+            opacity: 0.6;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .legend-bar.viewing {
+            background: var(--color-blue-600);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        /* Related policies explanation */
+        .related-policies-explanation {
+            background: var(--color-gray-50);
+            border: 1px solid var(--color-gray-200);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--color-gray-600);
+            line-height: 1.4;
+        }
+
+        .policy-relationship-context {
+            background: var(--color-blue-50);
+            border-left: 3px solid var(--color-blue-400);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--color-blue-700);
+            line-height: 1.4;
         }
 
         /* Selected Policies Section Styles */
@@ -1793,9 +2163,9 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link">Home <span class="dropdown-arrow">▼</span></a>
                     </div>
-                    <div class="nav-item dropdown">
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link">Policies <span class="dropdown-arrow">▼</span></a>
-                    </div>
+                    </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link">Case Studies <span class="dropdown-arrow">▼</span></a>
                     </div>
@@ -1827,7 +2197,7 @@
         <div class="banner-content">
             <!-- Title text positioned on the left -->
             <div class="banner-title">
-                <h1>G20 Technology Policy<br />Assistance Facility</h1>
+                <!-- <h1>G20 Technology Policy<br />Assistance Facility</h1> -->
             </div>
         </div>
     </div>
@@ -1950,13 +2320,17 @@
 
         <!-- Right Panel -->
         <div class="right-panel">
+            <!-- Smart Suggestions -->
+                <!-- Smart suggestions will be populated by JavaScript -->
+            <!-- </div> -->
+
             <!-- Instructions with integrated export -->
             <div class="section">
                 <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">How to Use</h3>
                 <div style="font-size: 0.775rem; color: var(--color-gray-600); line-height: 1.4; margin-bottom: 1rem;">
                     <div>1. Search or filter by keywords to discover policies</div>
                     <div>2. Optionally narrow down by dimension and phase</div>
-                    <div>3. Select policies and export your implementation plan!</div>
+                    <div>3. Select policies and export your selected policies</div>
                 </div>
                 
                 <!-- Export integrated here -->
@@ -1976,6 +2350,28 @@
             <div class="selection-matrix-container">
                 <div class="matrix-title">Policy Selection Matrix</div>
                 <div class="matrix-subtitle">Track your selected policies across dimensions and phases</div>
+                
+                <!-- Matrix Guidance -->
+                <div class="matrix-guidance">
+                    Click any bar to explore that policy. Bars show your selections and related recommendations.
+                </div>
+                
+                <!-- Matrix Legend -->
+                <div class="matrix-legend">
+                    <div class="legend-item">
+                        <div class="legend-bar selected"></div>
+                        <span>Selected</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-bar related"></div>
+                        <span>Related</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-bar viewing"></div>
+                        <span>Viewing</span>
+                    </div>
+                </div>
+                
                 <div class="selection-coordinate-system">
                     <div class="coordinate-grid" style="position: relative;">
                         <div class="y-axis-labels">
@@ -2714,10 +3110,12 @@
                 selectedPhase: null,
                 selectedPolicy: null,
                 selectedPolicies: new Set(),
+                relatedPolicies: new Set(), // New: track related policies for current viewing policy
                 isLoading: false,
                 searchTerm: '',
                 activeKeywords: new Set(),
-                filteredPolicies: null
+                filteredPolicies: null,
+                suggestions: { templates: [], gaps: [], clusters: [] } // New: smart suggestions
             };
 
             // Utility functions
@@ -2766,8 +3164,152 @@
                         'Research & Education': 'research'
                     };
                     return mapping[dimension] || 'infrastructure';
+                },
+
+                // Related policies functionality
+                findRelatedPolicies: function(currentDimension, currentPhase, currentPolicyId, limit = 5) {
+                    if (!currentDimension || !currentPhase || !currentPolicyId) return [];
+                    
+                    const currentPolicy = policyData[currentDimension]?.[currentPhase]?.[currentPolicyId];
+                    if (!currentPolicy || !Array.isArray(currentPolicy.keywords)) return [];
+                    
+                    const currentKeywords = currentPolicy.keywords.map(k => k.toLowerCase());
+                    const relatedPolicies = [];
+                    
+                    // Search across all dimensions and phases
+                    Object.entries(policyData).forEach(([dimension, phaseData]) => {
+                        Object.entries(phaseData).forEach(([phase, policies]) => {
+                            Object.entries(policies).forEach(([policyId, policyInfo]) => {
+                                // Skip the current policy
+                                if (dimension === currentDimension && phase === currentPhase && policyId === currentPolicyId) {
+                                    return;
+                                }
+                                
+                                if (!Array.isArray(policyInfo.keywords)) return;
+                                
+                                const policyKeywords = policyInfo.keywords.map(k => k.toLowerCase());
+                                
+                                // Calculate keyword overlap
+                                const sharedKeywords = currentKeywords.filter(k => 
+                                    policyKeywords.some(pk => pk.includes(k) || k.includes(pk))
+                                );
+                                
+                                if (sharedKeywords.length >= 1) { // Minimum 1 shared keyword
+                                    // Calculate similarity score
+                                    const similarityScore = sharedKeywords.length / Math.max(currentKeywords.length, policyKeywords.length);
+                                    
+                                    // Bonus for cross-dimensional relationships
+                                    const crossDimensionalBonus = dimension !== currentDimension ? 0.1 : 0;
+                                    
+                                    relatedPolicies.push({
+                                        dimension,
+                                        phase,
+                                        policyId,
+                                        policy: policyInfo.policy,
+                                        keywords: policyInfo.keywords,
+                                        sharedKeywords,
+                                        similarityScore: similarityScore + crossDimensionalBonus,
+                                        key: `${dimension}|${phase}|${policyId}`
+                                    });
+                                }
+                            });
+                        });
+                    });
+                    
+                    // Sort by similarity score and return top results
+                    return relatedPolicies
+                        .sort((a, b) => b.similarityScore - a.similarityScore)
+                        .slice(0, limit);
+                },
+
+                updateRelatedPolicies: function(currentDimension, currentPhase, currentPolicyId) {
+                    // Clear previous related policies
+                    state.relatedPolicies.clear();
+                    
+                    if (!currentDimension || !currentPhase || !currentPolicyId) {
+                        return;
+                    }
+                    
+                    // Find and store related policies
+                    const related = this.findRelatedPolicies(currentDimension, currentPhase, currentPolicyId);
+                    related.forEach(rp => state.relatedPolicies.add(rp.key));
                 }
             };
+
+            // Smart Templates and Gap Analysis System
+            const SMART_TEMPLATES = {
+                'privacy-first': {
+                    name: 'Privacy-First Approach',
+                    policies: ['P25', 'P29', 'P51', 'P52', 'P62', 'P41', 'P43'],
+                    triggers: ['privacy', 'data protection', 'rights', 'gdpr', 'personal data'],
+                    description: 'Comprehensive data protection and privacy framework',
+                    strategic_context: 'This approach prioritizes individual rights and data protection as the foundation for AI governance.'
+                },
+                'innovation-focused': {
+                    name: 'Innovation-First Strategy',
+                    policies: ['P9', 'P15', 'P16', 'P40', 'P69', 'P70', 'P89', 'P94'],
+                    triggers: ['innovation', 'startup', 'sandbox', 'research', 'economic', 'funding'],
+                    description: 'Promotes AI innovation through incentives and regulatory flexibility',
+                    strategic_context: 'This strategy balances oversight with economic growth, using sandboxes and incentives to drive innovation.'
+                },
+                'comprehensive-governance': {
+                    name: 'Comprehensive AI Governance',
+                    policies: ['P1', 'P25', 'P31', 'P36', 'P39', 'P22', 'P41', 'P73', 'P76', 'P82'],
+                    triggers: ['governance', 'regulation', 'compliance', 'oversight', 'framework'],
+                    description: 'Full-spectrum AI governance covering all implementation phases',
+                    strategic_context: 'This framework ensures systematic governance from analysis through monitoring and evaluation.'
+                },
+                'infrastructure-foundation': {
+                    name: 'AI Infrastructure Foundation',
+                    policies: ['P1', 'P4', 'P5', 'P8', 'P10', 'P17', 'P18', 'P22'],
+                    triggers: ['infrastructure', 'computing', 'data centers', 'cloud', 'networks'],
+                    description: 'Essential infrastructure for AI development and deployment',
+                    strategic_context: 'Strong infrastructure is the foundation that enables all other AI governance initiatives.'
+                }
+            };
+
+            const GAP_ANALYSIS_PATTERNS = {
+                'missing-implementation': {
+                    detect: (matrix) => {
+                        const hasPlanning = (matrix.Analyse + matrix.Design) >= 3;
+                        const hasImplementation = matrix.Implementation === 0;
+                        return hasPlanning && hasImplementation;
+                    },
+                    message: "Strong planning foundation detected",
+                    recommendation: "Consider adding implementation policies to operationalize your framework",
+                    suggestions: ['P17', 'P36', 'P73', 'P94'],
+                    priority: 'high'
+                },
+                'no-monitoring': {
+                    detect: (matrix) => matrix.Monitoring === 0 && matrix.total >= 4,
+                    message: "Comprehensive policy selection in progress",
+                    recommendation: "Add monitoring policies to measure effectiveness and ensure continuous improvement",
+                    suggestions: ['P22', 'P41', 'P82', 'P96'],
+                    priority: 'medium'
+                },
+                'single-dimension': {
+                    detect: (matrix) => {
+                        const activeDimensions = Object.keys(matrix.byDimension).filter(dim => matrix.byDimension[dim] > 0);
+                        return activeDimensions.length === 1 && matrix.total >= 3;
+                    },
+                    message: "Deep focus in one policy area established",
+                    recommendation: "Consider policies from other dimensions for comprehensive coverage and cross-sector synergies",
+                    suggestions: [], // Dynamic based on missing dimensions
+                    priority: 'medium'
+                },
+                'infrastructure-gap': {
+                    detect: (matrix) => {
+                        const hasRegulation = (matrix.byDimension['Legislation & Policy'] || 0) >= 2;
+                        const hasInfrastructure = (matrix.byDimension['Enabling Infrastructure'] || 0) === 0;
+                        return hasRegulation && hasInfrastructure;
+                    },
+                    message: "Regulatory framework development in progress",
+                    recommendation: "Infrastructure policies will help ensure your regulations can be effectively implemented",
+                    suggestions: ['P1', 'P8', 'P17', 'P22'],
+                    priority: 'high'
+                }
+            };
+
 
             // Enhanced Button System Class with Toggle Functionality
             class TPAFButtonSystem {
@@ -3036,6 +3578,8 @@
                     // Initialize keyword filters (empty state)
                     this.populateKeywordFilters();
                     this.updateClearFiltersButton();
+                    
+
                 },
 
                 renderDimensions: function() {
@@ -3117,6 +3661,8 @@
                             }
                             
                             this.updateClearFiltersButton();
+
+
                         });
 
                         // Clear search when phase changes
@@ -3168,7 +3714,10 @@
                     
                     this.updateCurrentSelection();
                     this.updateSelectionGrid();
+
+
                     utils.setLoading(false);
+
                 },
 
                 deselectDimension: function() {
@@ -3177,6 +3726,7 @@
                     state.selectedDimension = null;
                     state.selectedPhase = null;
                     state.selectedPolicy = null;
+                    state.relatedPolicies.clear(); // Clear related policies
 
                     // Hide phases section and clear policy view
                     this.clearPolicyView();
@@ -3195,6 +3745,7 @@
                     
                     this.updateCurrentSelection();
                     this.updateSelectionGrid();
+
                     utils.setLoading(false);
                 },
 
@@ -3224,7 +3775,7 @@
                     
                     this.updateCurrentSelection();
                     this.updateSelectionGrid();
-                    
+
                     utils.setLoading(false);
                 },
 
@@ -3233,6 +3784,7 @@
                     
                     state.selectedPhase = null;
                     state.selectedPolicy = null;
+                    state.relatedPolicies.clear(); // Clear related policies
                     
                     // Clear search input but keep keyword filters
                     const searchInput = document.getElementById('policySearchInput');
@@ -3254,7 +3806,6 @@
                     this.updateClearFiltersButton();
                     this.updateCurrentSelection();
                     this.updateSelectionGrid();
-                    
                     utils.setLoading(false);
                 },
 
@@ -3482,6 +4033,9 @@
                 },
 
                 selectCrossDimensionalPolicy: function(dimension, phase, policyId) {
+                    // Clear any existing related policies first
+                    state.relatedPolicies.clear();
+                    
                     // Highlight the corresponding dimension and phase
                     this.highlightDimensionAndPhase(dimension, phase);
                     
@@ -3507,11 +4061,10 @@
                     // Show policy section and details
                     this.showPolicySection();
                     this.showPolicyList();
-                    this.showPolicyDetails();
+                    this.showPolicyDetails(); // This will update related policies
                     
                     // Update everything else
                     this.updateCurrentSelection();
-                    this.updateSelectionGrid();
                 },
 
                 highlightDimensionAndPhase: function(dimension, phase) {
@@ -3742,6 +4295,7 @@
                     if (dropdown) {
                         dropdown.value = '';
                     }
+
                 },
 
                 removeKeywordFilter: function(keyword) {
@@ -3819,9 +4373,8 @@
                         selectedItem.classList.add('active');
                     }
 
-                    this.showPolicyDetails();
+                    this.showPolicyDetails(); // This will update related policies and matrix
                     this.updateCurrentSelection();
-                    this.updateSelectionGrid();
                     
                     utils.setLoading(false);
                 },
@@ -3837,6 +4390,18 @@
                     
                     const policyKey = utils.getPolicyKey(state.selectedDimension, state.selectedPhase, state.selectedPolicy);
                     const isSelected = state.selectedPolicies.has(policyKey);
+                    
+                    // Update related policies
+                    utils.updateRelatedPolicies(state.selectedDimension, state.selectedPhase, state.selectedPolicy);
+                    
+                    // Find related policies for display
+                    const relatedPolicies = utils.findRelatedPolicies(state.selectedDimension, state.selectedPhase, state.selectedPolicy);
+                    
+                    // Generate contextual explanation for related policies
+                    let relationshipContext = '';
+                    if (relatedPolicies.length > 0) {
+                        const crossDimensionalCount = relatedPolicies.filter(rp => rp.dimension !== state.selectedDimension).length;
+                    }
                     
                     detailsContent.innerHTML = `
                         <div class="detail-section">
@@ -3866,18 +4431,76 @@
                                 ).join('')}
                             </div>
                         </div>
+                        
+                        ${relatedPolicies.length > 0 ? `
+                        <div class="related-policies-section">
+                            <h3>
+                                Related Policies
+                                <span style="font-size: 0.7rem; font-weight: normal; color: var(--color-gray-500);">
+                                    (${relatedPolicies.length} found)
+                                </span>
+                            </h3>
+                            
+                            ${relationshipContext ? `
+                            <div class="policy-relationship-context">
+                                ${relationshipContext}
+                            </div>
+                            ` : ''}
+                            
+                            <div class="related-policies-list">
+                                ${relatedPolicies.map(related => `
+                                    <div class="related-policy-item" data-dimension="${utils.escapeHtml(related.dimension)}" data-phase="${utils.escapeHtml(related.phase)}" data-policy-id="${utils.escapeHtml(related.policyId)}">
+                                        <div class="related-policy-dimension" style="background-color: ${this.getDimensionColor(related.dimension)}">
+                                            ${this.getDimensionInitial(related.dimension)}
+                                        </div>
+                                        <div class="related-policy-content">
+                                            <div class="related-policy-header">
+                                                <span class="related-policy-id">${utils.escapeHtml(related.policyId)}</span>
+                                                <span class="related-policy-phase">${utils.escapeHtml(related.phase)}</span>
+                                            </div>
+                                            <div class="related-policy-title">${utils.escapeHtml(related.policy)}</div>
+                                            <div class="related-policy-match">
+                                                ${related.dimension !== state.selectedDimension ? 'Cross-dimensional • ' : ''}Shared: ${related.sharedKeywords.join(', ')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <!-- <div class="related-policies-explanation">
+                                Related policies are shown based on shared keywords and strategic complementarity. Click any related policy to navigate to it, or view them in the matrix above as highlighted bars.
+                            </div> -->
+                        </div>
+                        ` : ''}
                     `;
 
+                    // Add click handlers for related policies
+                    detailsContent.querySelectorAll('.related-policy-item').forEach(item => {
+                        item.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const dimension = item.dataset.dimension;
+                            const phase = item.dataset.phase;
+                            const policyId = item.dataset.policyId;
+                            this.navigateToPolicy(dimension, phase, policyId);
+                        });
+                    });
+
                     if (selectPolicyBtn) {
-                        utils.setText(selectPolicyBtn, isSelected ? 'Selected ✔' : 'Select Policy');
+                        utils.setText(selectPolicyBtn, isSelected ? 'Selected' : 'Select Policy');
                         selectPolicyBtn.disabled = isSelected;
                         selectPolicyBtn.classList.remove('hidden');
                     }
+                    
+                    // Update matrix to show related policies
+                    this.updateSelectionGrid();
                 },
 
                 clearPolicyDetails: function() {
                     const detailsContent = document.getElementById('policyDetailsContent');
                     const selectPolicyBtn = document.getElementById('selectPolicyBtn');
+                    
+                    // Clear related policies when clearing details
+                    state.relatedPolicies.clear();
                     
                     if (detailsContent) {
                         detailsContent.innerHTML = `
@@ -3893,6 +4516,63 @@
                     if (selectPolicyBtn) {
                         selectPolicyBtn.classList.add('hidden');
                     }
+                    
+                    // Update matrix to remove related policy visualization
+                    this.updateSelectionGrid();
+                },
+
+                navigateToPolicy: function(dimension, phase, policyId) {
+                    // Update navigation state
+                    state.selectedDimension = dimension;
+                    state.selectedPhase = phase;
+                    state.selectedPolicy = policyId;
+
+                    // Update UI buttons
+                    document.querySelectorAll('.dimension-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelector(`[data-dimension="${dimension}"]`)?.classList.add('active');
+
+                    document.querySelectorAll('.phase-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelector(`[data-phase="${phase}"]`)?.classList.add('active');
+
+                    // Set dimension attribute for phase container styling
+                    const phasesContainer = document.getElementById('phaseGrid');
+                    if (phasesContainer) {
+                        phasesContainer.setAttribute('data-dimension', dimension);
+                    }
+
+                    // Show phases section
+                    dom.showPhases();
+                    
+                    // Show policy section and update lists
+                    this.showPolicySection();
+                    this.showPolicyList();
+                    
+                    // Select the specific policy in the list
+                    document.querySelectorAll('.policy-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    const targetPolicyItem = document.querySelector(`[data-policy-id="${policyId}"]`);
+                    if (targetPolicyItem) {
+                        targetPolicyItem.classList.add('active');
+                        targetPolicyItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Add temporary highlight
+                        targetPolicyItem.style.backgroundColor = '#fef3c7';
+                        setTimeout(() => {
+                            targetPolicyItem.style.backgroundColor = '';
+                        }, 2000);
+                    }
+                    
+                    // Show policy details
+                    this.showPolicyDetails();
+                    
+                    // Update everything else
+                    this.updateCurrentSelection();
                 },
 
                 addPolicyToSelection: function() {
@@ -3911,6 +4591,7 @@
                     this.showPolicyDetails();
                     this.updateSelectionGrid();
                     this.updateSelectedPoliciesSection();
+
                 },
 
                 clearAllPolicies: function() {
@@ -3922,6 +4603,7 @@
                         this.updateSelectedPoliciesSection();
                         this.showPolicyList(); // Refresh to update selected indicators
                         this.showPolicyDetails(); // Refresh to update select button
+
                     }
                 },
 
@@ -3931,7 +4613,113 @@
                     this.updateSelectedPoliciesSection();
                     this.showPolicyList(); // Refresh to update selected indicators
                     this.showPolicyDetails(); // Refresh to update select button if current policy was removed
+
                 },
+
+
+                // Apply a template by selecting all its policies
+                applyTemplate: function(templateKey) {
+                    const template = SMART_TEMPLATES[templateKey];
+                    if (!template) return;
+                    
+                    let addedCount = 0;
+                    const errors = [];
+                    
+                    template.policies.forEach(policyId => {
+                        const policyLocation = this.findPolicyLocation(policyId);
+                        if (policyLocation) {
+                            const policyKey = utils.getPolicyKey(policyLocation.dimension, policyLocation.phase, policyId);
+                            if (!state.selectedPolicies.has(policyKey)) {
+                                state.selectedPolicies.add(policyKey);
+                                addedCount++;
+                            }
+                        } else {
+                            errors.push(policyId);
+                        }
+                    });
+                    
+                    // Update all relevant UI components
+                    this.updateSelectionGrid();
+                    this.updateSelectedPoliciesSection();
+                    this.showPolicyList();
+                    this.showPolicyDetails();
+
+                    
+                    // Show feedback to user
+                    if (addedCount > 0) {
+                        const message = `Added ${addedCount} policies from ${template.name} template.`;
+                        this.showTemporaryMessage(message, 'success');
+                    }
+                    
+                    if (errors.length > 0) {
+                        console.warn('Could not find policies:', errors);
+                    }
+                },
+
+                // Navigate to a specific policy by ID
+                navigateToPolicyById: function(policyId) {
+                    const policyLocation = this.findPolicyLocation(policyId);
+                    if (policyLocation) {
+                        this.navigateToPolicy(policyLocation.dimension, policyLocation.phase, policyId);
+                        
+                        // Show temporary highlight message
+                        this.showTemporaryMessage(`Navigated to policy ${policyId}`, 'info');
+                    } else {
+                        console.error('Policy not found:', policyId);
+                    }
+                },
+
+                // Find which dimension and phase a policy ID belongs to
+                findPolicyLocation: function(policyId) {
+                    for (const dimension of Object.keys(policyData)) {
+                        for (const phase of Object.keys(policyData[dimension])) {
+                            if (policyData[dimension][phase][policyId]) {
+                                return { dimension, phase };
+                            }
+                        }
+                    }
+                    return null;
+                },
+
+                // Show temporary feedback messages
+                showTemporaryMessage: function(message, type = 'info') {
+                    const messageEl = document.createElement('div');
+                    messageEl.className = `temp-message temp-message-${type}`;
+                    messageEl.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+                        color: white;
+                        padding: 12px 20px;
+                        border-radius: 6px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                        z-index: 10000;
+                        font-size: 0.875rem;
+                        max-width: 300px;
+                        transform: translateX(400px);
+                        transition: transform 0.3s ease;
+                    `;
+                    messageEl.textContent = message;
+                    
+                    document.body.appendChild(messageEl);
+                    
+                    // Animate in
+                    setTimeout(() => {
+                        messageEl.style.transform = 'translateX(0)';
+                    }, 10);
+                    
+                    // Animate out and remove
+                    setTimeout(() => {
+                        messageEl.style.transform = 'translateX(400px)';
+                        setTimeout(() => {
+                            if (messageEl.parentNode) {
+                                messageEl.parentNode.removeChild(messageEl);
+                            }
+                        }, 300);
+                    }, 3000);
+                },
+
 
                 highlightSelectedPolicy: function(policyKey) {
                     // Remove previous highlights
@@ -4060,7 +4848,7 @@
                     return initials[dimension] || 'P';
                 },
 
-                // NEW: Replace the pillar architecture with matrix grid
+                // matrix grid
                 generateSelectionGrid: function() {
                     const grid = document.getElementById('selectionGrid');
                     if (!grid) return;
@@ -4103,6 +4891,17 @@
                         return dim === dimension && ph === phase;
                     });
 
+                    // Find related policies for this cell (only if viewing a policy)
+                    const relatedPoliciesInCell = Array.from(state.relatedPolicies).filter(policyKey => {
+                        const [dim, ph, policyId] = policyKey.split('|');
+                        return dim === dimension && ph === phase;
+                    });
+
+                    // Get all policies for this cell (selected + related)
+                    const allPoliciesInCell = [...selectedPoliciesInCell, ...relatedPoliciesInCell];
+                    
+                    if (allPoliciesInCell.length === 0) return;
+
                     // Get dimension color
                     const dimColor = this.getDimensionColor(dimension);
                     
@@ -4112,7 +4911,7 @@
                     const maxBarHeight = 16;
                     const gapHeight = 1; // Gap between bars
                     
-                    const policyCount = selectedPoliciesInCell.length;
+                    const policyCount = allPoliciesInCell.length;
                     let barHeight = minBarHeight;
                     
                     if (policyCount > 0) {
@@ -4121,26 +4920,104 @@
                         barHeight = Math.max(minBarHeight, Math.min(maxBarHeight, Math.floor(availableHeight / policyCount)));
                     }
                     
-                    // Create bars for each selected policy
+                    // Create bars for each policy (selected first, then related)
                     selectedPoliciesInCell.forEach(policyKey => {
-                        const [dim, ph, policyId] = policyKey.split('|');
-                        const policyInfo = policyData[dim]?.[ph]?.[policyId];
-                        const policyTitle = policyInfo ? `${policyId}: ${policyInfo.policy}` : `${policyId}`;
+                        this.createPolicyBar(container, policyKey, dimColor, barHeight, 'selected');
+                    });
+
+                    relatedPoliciesInCell.forEach(policyKey => {
+                        this.createPolicyBar(container, policyKey, dimColor, barHeight, 'related');
+                    });
+                },
+
+                createPolicyBar: function(container, policyKey, dimColor, barHeight, type) {
+                    const [dim, ph, policyId] = policyKey.split('|');
+                    const policyInfo = policyData[dim]?.[ph]?.[policyId];
+                    const policyTitle = policyInfo ? `${policyId}: ${policyInfo.policy}` : `${policyId}`;
+                    
+                    const bar = document.createElement('div');
+                    bar.className = `policy-bar ${type}`;
+                    bar.style.backgroundColor = dimColor;
+                    bar.style.height = `${barHeight}px`;
+                    bar.setAttribute('data-policy-key', policyKey);
+                    bar.setAttribute('data-dimension', dim);
+                    bar.setAttribute('data-phase', ph);
+                    bar.setAttribute('data-policy-id', policyId);
+                    
+                    // Check if this is the currently viewing policy
+                    if (state.selectedDimension === dim && state.selectedPhase === ph && state.selectedPolicy === policyId) {
+                        bar.classList.add('current-viewing');
+                    }
+                    
+                    // Add hover functionality
+                    this.addBarTooltip(bar, policyInfo, dim, ph, policyId, type);
+                    
+                    // Add click handler
+                    bar.addEventListener('click', (e) => {
+                        e.stopPropagation();
                         
-                        const bar = document.createElement('div');
-                        bar.className = 'policy-bar';
-                        bar.style.backgroundColor = dimColor;
-                        bar.style.height = `${barHeight}px`;
-                        bar.setAttribute('title', policyTitle);
-                        bar.setAttribute('data-policy-key', policyKey);
-                        
-                        // Add click handler to navigate to policy in selected policies section
-                        bar.addEventListener('click', (e) => {
-                            e.stopPropagation();
+                        if (type === 'selected') {
+                            // For selected policies, highlight them in the selected policies section
                             this.highlightSelectedPolicy(policyKey);
-                        });
+                        } else {
+                            // For related policies, navigate to view them
+                            this.navigateToPolicy(dim, ph, policyId);
+                        }
+                    });
+                    
+                    container.appendChild(bar);
+                },
+
+                addBarTooltip: function(bar, policyInfo, dimension, phase, policyId, type) {
+                    let tooltip = null;
+                    
+                    bar.addEventListener('mouseenter', (e) => {
+                        if (tooltip) return; // Prevent multiple tooltips
                         
-                        container.appendChild(bar);
+                        tooltip = document.createElement('div');
+                        tooltip.className = 'policy-bar-tooltip';
+                        
+                        const typeLabel = type === 'selected' ? 'Selected Policy' : 'Related Policy';
+                        const matchInfo = type === 'related' && state.selectedPolicy ? 
+                            '<div style="font-size: 0.65rem; opacity: 0.8; margin-top: 0.25rem;">Click to view details</div>' : '';
+                        
+                        tooltip.innerHTML = `
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">${utils.escapeHtml(policyId)}</div>
+                            <div style="margin-bottom: 0.25rem;">${utils.escapeHtml(policyInfo?.policy || 'Policy details unavailable')}</div>
+                            <div style="font-size: 0.65rem; opacity: 0.8;">
+                                ${utils.escapeHtml(dimension)} • ${utils.escapeHtml(phase)}
+                            </div>
+                            <div style="font-size: 0.65rem; color: ${type === 'selected' ? '#10b981' : '#f59e0b'}; margin-top: 0.25rem;">
+                                ${typeLabel}
+                            </div>
+                            ${matchInfo}
+                        `;
+                        
+                        document.body.appendChild(tooltip);
+                        
+                        // Position tooltip
+                        const rect = bar.getBoundingClientRect();
+                        const tooltipRect = tooltip.getBoundingClientRect();
+                        
+                        let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+                        let top = rect.top - tooltipRect.height - 8;
+                        
+                        // Keep tooltip in viewport
+                        left = Math.max(8, Math.min(left, window.innerWidth - tooltipRect.width - 8));
+                        if (top < 8) {
+                            top = rect.bottom + 8;
+                        }
+                        
+                        tooltip.style.left = `${left}px`;
+                        tooltip.style.top = `${top}px`;
+                        tooltip.classList.add('visible');
+                    });
+                    
+                    bar.addEventListener('mouseleave', () => {
+                        if (tooltip) {
+                            tooltip.remove();
+                            tooltip = null;
+                        }
                     });
                 },
 
