@@ -2271,7 +2271,7 @@
                             <div class="empty-state">
                                 <div class="empty-state-icon">📋</div>
                                 <div class="empty-state-text">
-                                    Choose a dimension and phase<br>to view available policies
+                                    Choose a policy area and phase to view available initiatives
                                 </div>
                             </div>
                         </div>
@@ -2289,11 +2289,11 @@
                             <div class="empty-state">
                                 <div class="empty-state-icon">📄</div>
                                 <div class="empty-state-text">
-                                    Select a policy from the list<br>to view its details
+                                    Select a policy initiative from the list to view its details
                                 </div>
                             </div>
                         </div>
-                        <span id="select-help" class="sr-only">Select this policy to add it to your selection matrix</span>
+                        <span id="select-help" class="sr-only">Select this policy initiative to add it to your implementation plan</span>
                     </div>
                 </div>
             </div>
@@ -2310,7 +2310,7 @@
                         <div class="empty-state">
                             <div class="empty-state-icon">📋</div>
                             <div class="empty-state-text">
-                                No policies selected yet<br>Select policies to see them here
+                                No policy initiatives selected yet. Select initiatives to see them here
                             </div>
                         </div>
                     </div>
@@ -2348,12 +2348,12 @@
             
             <!-- Matrix with Bars -->
             <div class="selection-matrix-container">
-                <div class="matrix-title">Policy Selection Matrix</div>
-                <div class="matrix-subtitle">Track your selected policies across dimensions and phases</div>
+                <div class="matrix-title">Implementation Plan Dashboard</div>
+                <div class="matrix-subtitle">Track your selected policy initiatives across areas and phases</div>
                 
                 <!-- Matrix Guidance -->
                 <div class="matrix-guidance">
-                    Click any bar to explore that policy. Bars show your selections and related recommendations.
+                    Click any bar to explore that policy initiative. Bars show your selections and related recommendations.
                 </div>
                 
                 <!-- Matrix Legend -->
@@ -3525,7 +3525,7 @@
                     if (isSelected) {
                         button.classList.add('selected');
                     }
-                    button.setAttribute('aria-label', `Select policy ${policyId}: ${policyInfo.policy}`);
+                    button.setAttribute('aria-label', `Select policy initiative ${policyId}: ${policyInfo.policy}`);
                     button.setAttribute('data-policy-id', policyId);
                     
                     const selectedIcon = isSelected ? '<div class="selected-icon">✓</div>' : '';
@@ -3847,7 +3847,7 @@
                         <div class="empty-state">
                             <div class="empty-state-icon">🔍</div>
                             <div class="empty-state-text">
-                                Search for policies or select a dimension<br>to get started
+                                Search for policy initiatives or select a policy area to get started
                             </div>
                         </div>
                     `;
@@ -3902,7 +3902,7 @@
                             <div class="empty-state">
                                 <div class="empty-state-icon">🔍</div>
                                 <div class="empty-state-text">
-                                    No policies found matching your search criteria
+                                    No policy initiatives found matching your search criteria
                                 </div>
                             </div>
                         `;
@@ -3936,7 +3936,7 @@
                             <div class="empty-state">
                                 <div class="empty-state-icon">📋</div>
                                 <div class="empty-state-text">
-                                    No policies available<br>for this combination
+                                    No policy initiatives available for this combination
                                 </div>
                             </div>
                         `;
@@ -4765,7 +4765,7 @@
                             <div class="empty-state">
                                 <div class="empty-state-icon">📋</div>
                                 <div class="empty-state-text">
-                                    No policies selected yet<br>Select policies to see them here
+                                    No policy initiatives selected yet. Select initiatives to see them here
                                 </div>
                             </div>
                         `;
@@ -5392,7 +5392,7 @@
                         pdf.setTextColor(...hexToRgb(DESIGN.colors.primary));
                         pdf.setFont('helvetica', 'bold');
                         pdf.setFontSize(DESIGN.typography.sectionTitle);
-                        pdf.text('Policy Selection Matrix', margin, currentY);
+                        pdf.text('Implementation Plan Dashboard', margin, currentY);
                         currentY += 15;
 
                         const imgWidth = contentWidth;
