@@ -283,7 +283,7 @@
             transform: translateY(1px);
         }
 
-         /* Compact Dimension Buttons - Horizontal Layout */
+         /* Compact PolicyArea Buttons - Horizontal Layout */
         .dimensions-container {
             display: flex;
             flex-wrap: nowrap;
@@ -349,7 +349,7 @@
             transition: opacity 0.2s ease;
         }
 
-        /* Dimension-specific colors - Original scheme */
+        /* PolicyArea-specific colors - Original scheme */
         .dimension-btn[data-dimension="Enabling Infrastructure"] {
             background: #ffffff;
             color: rgb(114, 114, 114);
@@ -1595,7 +1595,7 @@
             line-height: 1.4;
         }
 
-        /* Selected Policies Section Styles */
+        /* Selected Policy Initiatives Section Styles */
         .selected-policies-container {
             display: flex;
             flex-direction: column;
@@ -2216,7 +2216,7 @@
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <path d="m21 21-4.35-4.35"></path>
                             </svg>
-                            <input type="text" class="search-input" id="policySearchInput" placeholder="Search policies...">
+                            <input type="text" class="search-input" id="policySearchInput" placeholder="Search policy initiatives...">
                         </div>
                         <div class="keyword-filters-container">
                             <select class="keyword-dropdown" id="keywordDropdown">
@@ -2245,9 +2245,9 @@
                     </div>
                 </div>
 
-                <h2>Select Policy Dimension</h2>
+                <h2>Select Policy Area</h2>
                 <div class="dimensions-container" id="dimensionGrid">
-                    <!-- Dimensions will be populated by JavaScript -->
+                    <!-- Policy Areas will be populated by JavaScript -->
                 </div>
                 
                 <!-- Progressive Disclosure: Phases -->
@@ -2277,12 +2277,12 @@
                         </div>
                     </div>
 
-                    <!-- Right Column: Policy Details -->
+                    <!-- Right Column: Initiative Details -->
                     <div class="policy-details-column" id="policyDetailsColumn">
                         <div class="details-header">
-                            <div class="details-title">Policy Details</div>
+                            <div class="details-title">Policy Initiative Details</div>
                             <button class="btn-select hidden" id="selectPolicyBtn" aria-describedby="select-help">
-                                Select Policy
+                                Add policy initiative to your plan
                             </button>
                         </div>
                         <div class="details-content" id="policyDetailsContent">
@@ -2298,12 +2298,12 @@
                 </div>
             </div>
 
-            <!-- Selected Policies Section -->
+            <!-- Selected Policy Initiatives Section -->
             <div class="section hidden" id="selectedPoliciesSection">
-                <h2>Selected Policies</h2>
+                <h2>Selected Policy Initiatives</h2>
                 <div class="selected-policies-container">
                     <div class="selected-policies-header">
-                        <span class="selected-count" id="selectedPoliciesCount">0 policies selected</span>
+                        <span class="selected-count" id="selectedPoliciesCount">0 policy initiatives selected</span>
                         <button class="clear-all-btn" id="clearAllBtn">Clear All</button>
                     </div>
                     <div class="selected-policies-list" id="selectedPoliciesList">
@@ -2328,9 +2328,9 @@
             <div class="section">
                 <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">How to Use</h3>
                 <div style="font-size: 0.775rem; color: var(--color-gray-600); line-height: 1.4; margin-bottom: 1rem;">
-                    <div>1. Search or filter by keywords to discover policies</div>
-                    <div>2. Optionally narrow down by dimension and phase</div>
-                    <div>3. Select policies and export your selected policies</div>
+                    <div>1. Search or filter by keywords to discover policy initiatives</div>
+                    <div>2. Narrow down by policy area and phase</div>
+                    <div>3. Select policy initiatives and export your policy plan </div>
                 </div>
                 
                 <!-- Export integrated here -->
@@ -2338,10 +2338,10 @@
                 <!-- <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-gray-700); margin-bottom: 0.1rem;">Export Report</div> -->
                 <button class="export-btn export-pdf" onclick="exportToPDF()" style="width: 100%; justify-content: center;">
                     <!-- <span class="export-icon"></span> -->
-                    Export selected policies into a PDF
+                    Export Your Policy Plan as a PDF
                 </button>
                 <!-- <div style="font-size: 0.65rem; color: var(--color-gray-500); text-align: center; font-style: italic; margin-top: 0.1rem;">
-                    <span id="exportInfo">Export selected policies into a PDF</span>
+                    <span id="exportInfo">Export Your Policy Plan as a PDF</span>
                 </div> -->
                 <!-- </div> -->
             </div>
@@ -2375,10 +2375,10 @@
                 <div class="selection-coordinate-system">
                     <div class="coordinate-grid" style="position: relative;">
                         <div class="y-axis-labels">
-                            <div class="y-axis-label">Monitoring</div>
+                            <div class="y-axis-label">Monitoring and Evaluation</div>
                             <div class="y-axis-label">Implementation</div>
                             <div class="y-axis-label">Design</div>
-                            <div class="y-axis-label">Analyse</div>
+                            <div class="y-axis-label">Analysis</div>
                         </div>
                         
                         <div class="main-grid" id="selectionGrid">
@@ -2408,7 +2408,7 @@
 
             <!-- Expert Profiles -->
             <div class="experts-section">
-                <div class="experts-title">Policy Experts</div>
+                <div class="experts-title">Relevant Experts</div>
                 <div class="experts-grid">
                     <div class="expert-card" title="Click to view Dr. X Y's profile">
                         <div class="expert-avatar" style="background-color: #4F8EDB;">SC</div>
@@ -2485,17 +2485,17 @@
                     }
                 ],
                 PHASES: [
-                    { id: 'Analyse', short: 'Analyse' },
+                    { id: 'Analysis', short: 'Analysis' },
                     { id: 'Design', short: 'Design' },
                     { id: 'Implementation', short: 'Implementation' },
-                    { id: 'Monitoring', short: 'Monitoring' }
+                    { id: 'Monitoring and Evaluation', short: 'Monitoring and Evaluation' }
                 ]
             };
             const maxVisibleChips = 3;
             // data structure
             const policyData = Object.freeze({
                 'Enabling Infrastructure': Object.freeze({
-                    'Analyse': Object.freeze({
+                    'Analysis': Object.freeze({
                         'P1': Object.freeze({
                             policy: 'Identify infrastructure needs, gaps, and areas for improvement.',
                             details: 'Conduct comprehensive needs-based audits to systematically assess Infrastructure. For effective auditing, it is important to begin with an evidence-based assessment of current infrastructure needs, structured stakeholder consultations, and careful documentation of decisions, laying a solid foundation for transparent and measurable analysis.',
@@ -2627,7 +2627,7 @@
                             keywords: Object.freeze(['cooperative', 'community-owned', 'Enabling Infrastructure', 'alternatives'])
                         })
                     }),
-                    'Monitoring': Object.freeze({
+                    'Monitoring and Evaluation': Object.freeze({
                         'P22': Object.freeze({
                             policy: 'Develop a set of performance indicators to monitor and evaluate progress at each phase of the policy cycle',
                             details: 'Establishing performance indicators and feedback mechanisms helps assess progress, identify gaps, and refine strategies.',
@@ -2649,7 +2649,7 @@
                     })
                 }),
                 'Legislation & Policy': Object.freeze({
-                    'Analyse': Object.freeze({
+                    'Analysis': Object.freeze({
                         'P25': Object.freeze({
                             policy: 'Review and assess existing AI laws, definitions, and regulations.',
                             details: 'Conduct comprehensive reviews of current AI-related laws and definitions. Flexible definitions that focus on the risk profiles of AI systems, ensures the systems posing minimal risks are subject to lighter oversight.',
@@ -2751,7 +2751,7 @@
                             keywords: Object.freeze(['regulatory sandboxes', 'testing', 'compliance', 'innovation'])
                         })
                     }),
-                    'Monitoring': Object.freeze({
+                    'Monitoring and Evaluation': Object.freeze({
                         'P41': Object.freeze({
                             policy: 'Establish key performance indicators to monitor regulatory impact and compliance.',
                             details: 'Use international benchmarking to compare and refine policies based on global best practices.',
@@ -2779,7 +2779,7 @@
                     })
                 }),
                 'Sustainability & Society': Object.freeze({
-                    'Analyse': Object.freeze({
+                    'Analysis': Object.freeze({
                         'P45': Object.freeze({
                             policy: 'Assess the availability, accessibility, and gaps in digital literacy and AI skills',
                             details: '1. Skills gap analyses 2. Development of competency frameworks 3. Occupational standards 4. Certification programs 5. Labor market assessments 6. Training program benchmarks 7. National and regional AI skills indexes',
@@ -2881,7 +2881,7 @@
                             keywords: Object.freeze(['certification', 'validation', 'ethical implications', 'risk awareness'])
                         })
                     }),
-                    'Monitoring': Object.freeze({
+                    'Monitoring and Evaluation': Object.freeze({
                         'P65': Object.freeze({
                             policy: 'Establish systematic monitoring of AI environmental and social impacts',
                             details: 'Roll out public and private sector partnerships for AI apprenticeships, internships; and tailored skills-building programs',
@@ -2891,7 +2891,7 @@
                     })
                 }),
                 'Economy & Innovation': Object.freeze({
-                    'Analyse': Object.freeze({
+                    'Analysis': Object.freeze({
                         'P66': Object.freeze({
                             policy: 'Conduct scoping studies and foresight assessments',
                             details: '1) Conduct cross-sector assessments of AI R&D capacity and digital infrastructure 2) Map the evolving opportunity-risk landscape 3) Analyze public finance capacity for AI innovation and redistribution.',
@@ -2981,7 +2981,7 @@
                             keywords: Object.freeze(['reporting standards', 'benefit-sharing', 'cross-border', 'fairness'])
                         })
                     }),
-                    'Monitoring': Object.freeze({
+                    'Monitoring and Evaluation': Object.freeze({
                         'P82': Object.freeze({
                             policy: 'Establish robust evaluation frameworks to track effectiveness',
                             details: '1) Develop multi-dimensional evaluation metrics 2) Build systems for real-time policy monitoring 3) Embed iterative policy reviews into national strategies.',
@@ -3009,7 +3009,7 @@
                     })
                 }),
                 'Research & Education': Object.freeze({
-                    'Analyse': Object.freeze({
+                    'Analysis': Object.freeze({
                         'P86': Object.freeze({
                             policy: 'Identify public interest research priorities',
                             details: 'Conduct collaborative needs assessments with stakeholders to design strategies for public interest-driven innovation.',
@@ -3075,7 +3075,7 @@
                             keywords: Object.freeze(['R&D programs', 'ethical alignment', 'grants', 'technical assistance'])
                         })
                     }),
-                    'Monitoring': Object.freeze({
+                    'Monitoring and Evaluation': Object.freeze({
                         'P96': Object.freeze({
                             policy: 'Develop performance indicators to measure the impact of AI policies on societal outcomes.',
                             details: 'Conduct impact assessments. Track equity metrics. Require post-grant transparency reports.',
@@ -3106,7 +3106,7 @@
 
             // Application state
             let state = {
-                selectedDimension: null,
+                selectedPolicyArea: null,
                 selectedPhase: null,
                 selectedPolicy: null,
                 selectedPolicies: new Set(),
@@ -3137,7 +3137,7 @@
                     document.body.classList.toggle('loading', isLoading);
                 },
 
-                isValidDimension: function(dimension) {
+                isValidPolicyArea: function(dimension) {
                     return CONFIG.DIMENSIONS.some(d => d.id === dimension);
                 },
 
@@ -3155,7 +3155,7 @@
                     return `${dimension}|${phase}|${policyId}`;
                 },
 
-                getDimensionShortName: function(dimension) {
+                getPolicyAreaShortName: function(dimension) {
                     const mapping = {
                         'Enabling Infrastructure': 'infrastructure',
                         'Legislation & Policy': 'legislation',
@@ -3167,10 +3167,10 @@
                 },
 
                 // Related policies functionality
-                findRelatedPolicies: function(currentDimension, currentPhase, currentPolicyId, limit = 5) {
-                    if (!currentDimension || !currentPhase || !currentPolicyId) return [];
+                findRelatedPolicies: function(currentPolicyArea, currentPhase, currentPolicyId, limit = 5) {
+                    if (!currentPolicyArea || !currentPhase || !currentPolicyId) return [];
                     
-                    const currentPolicy = policyData[currentDimension]?.[currentPhase]?.[currentPolicyId];
+                    const currentPolicy = policyData[currentPolicyArea]?.[currentPhase]?.[currentPolicyId];
                     if (!currentPolicy || !Array.isArray(currentPolicy.keywords)) return [];
                     
                     const currentKeywords = currentPolicy.keywords.map(k => k.toLowerCase());
@@ -3181,7 +3181,7 @@
                         Object.entries(phaseData).forEach(([phase, policies]) => {
                             Object.entries(policies).forEach(([policyId, policyInfo]) => {
                                 // Skip the current policy
-                                if (dimension === currentDimension && phase === currentPhase && policyId === currentPolicyId) {
+                                if (dimension === currentPolicyArea && phase === currentPhase && policyId === currentPolicyId) {
                                     return;
                                 }
                                 
@@ -3199,7 +3199,7 @@
                                     const similarityScore = sharedKeywords.length / Math.max(currentKeywords.length, policyKeywords.length);
                                     
                                     // Bonus for cross-dimensional relationships
-                                    const crossDimensionalBonus = dimension !== currentDimension ? 0.1 : 0;
+                                    const crossPolicyAreaBonus = dimension !== currentPolicyArea ? 0.1 : 0;
                                     
                                     relatedPolicies.push({
                                         dimension,
@@ -3208,7 +3208,7 @@
                                         policy: policyInfo.policy,
                                         keywords: policyInfo.keywords,
                                         sharedKeywords,
-                                        similarityScore: similarityScore + crossDimensionalBonus,
+                                        similarityScore: similarityScore + crossPolicyAreaBonus,
                                         key: `${dimension}|${phase}|${policyId}`
                                     });
                                 }
@@ -3222,16 +3222,16 @@
                         .slice(0, limit);
                 },
 
-                updateRelatedPolicies: function(currentDimension, currentPhase, currentPolicyId) {
+                updateRelatedPolicies: function(currentPolicyArea, currentPhase, currentPolicyId) {
                     // Clear previous related policies
                     state.relatedPolicies.clear();
                     
-                    if (!currentDimension || !currentPhase || !currentPolicyId) {
+                    if (!currentPolicyArea || !currentPhase || !currentPolicyId) {
                         return;
                     }
                     
                     // Find and store related policies
-                    const related = this.findRelatedPolicies(currentDimension, currentPhase, currentPolicyId);
+                    const related = this.findRelatedPolicies(currentPolicyArea, currentPhase, currentPolicyId);
                     related.forEach(rp => state.relatedPolicies.add(rp.key));
                 }
             };
@@ -3271,7 +3271,7 @@
             const GAP_ANALYSIS_PATTERNS = {
                 'missing-implementation': {
                     detect: (matrix) => {
-                        const hasPlanning = (matrix.Analyse + matrix.Design) >= 3;
+                        const hasPlanning = (matrix.Analysis + matrix.Design) >= 3;
                         const hasImplementation = matrix.Implementation === 0;
                         return hasPlanning && hasImplementation;
                     },
@@ -3289,8 +3289,8 @@
                 },
                 'single-dimension': {
                     detect: (matrix) => {
-                        const activeDimensions = Object.keys(matrix.byDimension).filter(dim => matrix.byDimension[dim] > 0);
-                        return activeDimensions.length === 1 && matrix.total >= 3;
+                        const activePolicyAreas = Object.keys(matrix.byPolicyArea).filter(dim => matrix.byPolicyArea[dim] > 0);
+                        return activePolicyAreas.length === 1 && matrix.total >= 3;
                     },
                     message: "Deep focus in one policy area established",
                     recommendation: "Consider policies from other dimensions for comprehensive coverage and cross-sector synergies",
@@ -3299,8 +3299,8 @@
                 },
                 'infrastructure-gap': {
                     detect: (matrix) => {
-                        const hasRegulation = (matrix.byDimension['Legislation & Policy'] || 0) >= 2;
-                        const hasInfrastructure = (matrix.byDimension['Enabling Infrastructure'] || 0) === 0;
+                        const hasRegulation = (matrix.byPolicyArea['Legislation & Policy'] || 0) >= 2;
+                        const hasInfrastructure = (matrix.byPolicyArea['Enabling Infrastructure'] || 0) === 0;
                         return hasRegulation && hasInfrastructure;
                     },
                     message: "Regulatory framework development in progress",
@@ -3322,16 +3322,16 @@
                         'Research & Education': 'Research, Education & Capacity'
                     };
                     this.phaseNames = {
-                        'Analyse': 'Analyse',
+                        'Analysis': 'Analysis',
                         'Design': 'Design',
                         'Implementation': 'Implementation',
-                        'Monitoring': 'Monitoring'
+                        'Monitoring and Evaluation': 'Monitoring and Evaluation'
                     };
                 }
 
-                selectDimension(dimension) {
+                selectPolicyArea(dimension) {
                     // Toggle functionality: if same dimension is clicked, deselect it
-                    if (state.selectedDimension === dimension) {
+                    if (state.selectedPolicyArea === dimension) {
                         // Deselect dimension
                         document.querySelectorAll('.dimension-btn').forEach(btn => {
                             btn.classList.remove('active');
@@ -3346,7 +3346,7 @@
                         });
                         
                         // Clear state and trigger deselection in main app
-                        app.deselectDimension();
+                        app.deselectPolicyArea();
                         
                         this.dispatchSelectionEvent();
                         return;
@@ -3369,7 +3369,7 @@
                     // Trigger dimension selection in main app
                     const dimConfig = CONFIG.DIMENSIONS.find(d => d.id === dimension);
                     if (dimConfig) {
-                        app.selectDimension(dimension, dimConfig.color);
+                        app.selectPolicyArea(dimension, dimConfig.color);
                     }
                     
                     this.dispatchSelectionEvent();
@@ -3405,9 +3405,9 @@
                 dispatchSelectionEvent() {
                     const event = new CustomEvent('tpafSelectionChange', {
                         detail: {
-                            dimension: state.selectedDimension,
+                            dimension: state.selectedPolicyArea,
                             phase: state.selectedPhase,
-                            dimensionName: this.dimensionNames[state.selectedDimension],
+                            dimensionName: this.dimensionNames[state.selectedPolicyArea],
                             phaseName: this.phaseNames[state.selectedPhase]
                         }
                     });
@@ -3418,13 +3418,13 @@
                     const activeElement = document.activeElement;
                     
                     if (activeElement.classList.contains('dimension-btn')) {
-                        this.handleDimensionKeyboard(e, activeElement);
+                        this.handlePolicyAreaKeyboard(e, activeElement);
                     } else if (activeElement.classList.contains('phase-btn')) {
                         this.handlePhaseKeyboard(e, activeElement);
                     }
                 }
 
-                handleDimensionKeyboard(e, activeBtn) {
+                handlePolicyAreaKeyboard(e, activeBtn) {
                     const dimensionBtns = Array.from(document.querySelectorAll('.dimension-btn'));
                     const currentIndex = dimensionBtns.indexOf(activeBtn);
                     let newIndex;
@@ -3445,7 +3445,7 @@
                         case 'Enter':
                         case ' ':
                             e.preventDefault();
-                            this.selectDimension(activeBtn.dataset.dimension);
+                            this.selectPolicyArea(activeBtn.dataset.dimension);
                             break;
                     }
                 }
@@ -3477,7 +3477,7 @@
 
             // DOM manipulation functions
             const dom = {
-                createDimensionButton: function(dimension, index) {
+                createPolicyAreaButton: function(dimension, index) {
                     const button = document.createElement('button');
                     button.className = 'dimension-btn';
                     button.setAttribute('data-dimension', dimension.id);
@@ -3490,8 +3490,8 @@
                     
                     button.addEventListener('click', function(e) {
                         e.preventDefault();
-                        if (!state.isLoading && utils.isValidDimension(dimension.id)) {
-                            buttonSystem.selectDimension(dimension.id);
+                        if (!state.isLoading && utils.isValidPolicyArea(dimension.id)) {
+                            buttonSystem.selectPolicyArea(dimension.id);
                         }
                     });
                     
@@ -3517,7 +3517,7 @@
                 },
 
                 createPolicyItem: function(policyId, policyInfo) {
-                    const policyKey = utils.getPolicyKey(state.selectedDimension, state.selectedPhase, policyId);
+                    const policyKey = utils.getPolicyKey(state.selectedPolicyArea, state.selectedPhase, policyId);
                     const isSelected = state.selectedPolicies.has(policyKey);
                     
                     const button = document.createElement('button');
@@ -3541,7 +3541,7 @@
                     
                     button.addEventListener('click', function(e) {
                         e.preventDefault();
-                        if (!state.isLoading && utils.isValidPolicy(state.selectedDimension, state.selectedPhase, policyId)) {
+                        if (!state.isLoading && utils.isValidPolicy(state.selectedPolicyArea, state.selectedPhase, policyId)) {
                             app.selectPolicy(policyId);
                         }
                     });
@@ -3570,7 +3570,7 @@
             // Main application logic
             const app = {
                 init: function() {
-                    this.renderDimensions();
+                    this.renderPolicyAreas();
                     this.renderPhases();
                     this.setupEventListeners();
                     this.generateSelectionGrid();
@@ -3582,13 +3582,13 @@
 
                 },
 
-                renderDimensions: function() {
+                renderPolicyAreas: function() {
                     const container = document.getElementById('dimensionGrid');
                     if (!container) return;
                     
                     container.innerHTML = '';
                     CONFIG.DIMENSIONS.forEach((dimension, index) => {
-                        const button = dom.createDimensionButton(dimension, index);
+                        const button = dom.createPolicyAreaButton(dimension, index);
                         container.appendChild(button);
                     });
                 },
@@ -3655,7 +3655,7 @@
                             if (state.searchTerm || state.activeKeywords.size > 0) {
                                 this.showPolicySection();
                                 this.showPolicyList();
-                            } else if (!state.selectedDimension || !state.selectedPhase) {
+                            } else if (!state.selectedPolicyArea || !state.selectedPhase) {
                                 // Hide policy section if no filters and no dimension/phase selected
                                 this.clearPolicyView();
                             }
@@ -3690,12 +3690,12 @@
                     });
                 },
 
-                selectDimension: function(dimension, color) {
-                    if (!utils.isValidDimension(dimension)) return;
+                selectPolicyArea: function(dimension, color) {
+                    if (!utils.isValidPolicyArea(dimension)) return;
                     
                     utils.setLoading(true);
                     
-                    state.selectedDimension = dimension;
+                    state.selectedPolicyArea = dimension;
                     state.selectedPhase = null;
                     state.selectedPolicy = null;
 
@@ -3720,10 +3720,10 @@
 
                 },
 
-                deselectDimension: function() {
+                deselectPolicyArea: function() {
                     utils.setLoading(true);
                     
-                    state.selectedDimension = null;
+                    state.selectedPolicyArea = null;
                     state.selectedPhase = null;
                     state.selectedPolicy = null;
                     state.relatedPolicies.clear(); // Clear related policies
@@ -3794,7 +3794,7 @@
                     state.searchTerm = '';
 
                     // If dimension is still selected or there are filters, show appropriate results
-                    if (state.selectedDimension || state.searchTerm || state.activeKeywords.size > 0) {
+                    if (state.selectedPolicyArea || state.searchTerm || state.activeKeywords.size > 0) {
                         this.showPolicySection();
                         this.showPolicyList();
                     } else {
@@ -3837,9 +3837,9 @@
                     }
 
                     // Secondary workflow: Traditional dimension-phase navigation
-                    if (state.selectedDimension && state.selectedPhase) {
+                    if (state.selectedPolicyArea && state.selectedPhase) {
                         // Show specific dimension-phase policies
-                        return this.showDimensionPhaseResults();
+                        return this.showPolicyAreaPhaseResults();
                     }
 
                     // Default empty state
@@ -3860,8 +3860,8 @@
                     
                     // Remove dimension-specific styling for cross-dimensional results
                     if (listColumn) {
-                        if (state.selectedDimension && state.selectedPhase) {
-                            listColumn.setAttribute('data-dimension', state.selectedDimension);
+                        if (state.selectedPolicyArea && state.selectedPhase) {
+                            listColumn.setAttribute('data-dimension', state.selectedPolicyArea);
                         } else {
                             listColumn.removeAttribute('data-dimension');
                         }
@@ -3869,10 +3869,10 @@
 
                     // Build title based on active filters
                     let titleText = 'Search Results';
-                    if (state.selectedDimension && state.selectedPhase) {
-                        titleText = `${state.selectedDimension} - ${state.selectedPhase}`;
-                    } else if (state.selectedDimension) {
-                        titleText = `${state.selectedDimension} - All Phases`;
+                    if (state.selectedPolicyArea && state.selectedPhase) {
+                        titleText = `${state.selectedPolicyArea} - ${state.selectedPhase}`;
+                    } else if (state.selectedPolicyArea) {
+                        titleText = `${state.selectedPolicyArea} - All Phases`;
                     } else if (state.searchTerm || state.activeKeywords.size > 0) {
                         // Handle case where dimension is deselected but filters are active
                         let filterParts = [];
@@ -3894,7 +3894,7 @@
                     
                     if (policyEntries.length > 0) {
                         policyEntries.forEach(([key, policyInfo]) => {
-                            const policyItem = this.createCrossDimensionalPolicyItem(key, policyInfo);
+                            const policyItem = this.createCrossPolicyAreaPolicyItem(key, policyInfo);
                             list.appendChild(policyItem);
                         });
                     } else {
@@ -3909,19 +3909,19 @@
                     }
                 },
 
-                showDimensionPhaseResults: function() {
+                showPolicyAreaPhaseResults: function() {
                     const title = document.getElementById('policyListTitle');
                     const list = document.getElementById('policyList');
                     const listColumn = document.querySelector('.policy-list-column');
                     
                     // Set dimension attribute for styling
-                    if (listColumn && state.selectedDimension) {
-                        listColumn.setAttribute('data-dimension', state.selectedDimension);
+                    if (listColumn && state.selectedPolicyArea) {
+                        listColumn.setAttribute('data-dimension', state.selectedPolicyArea);
                     }
 
-                    utils.setText(title, `${state.selectedDimension} - ${state.selectedPhase}`);
+                    utils.setText(title, `${state.selectedPolicyArea} - ${state.selectedPhase}`);
                     
-                    const allPolicies = policyData[state.selectedDimension]?.[state.selectedPhase] || {};
+                    const allPolicies = policyData[state.selectedPolicyArea]?.[state.selectedPhase] || {};
                     const policyEntries = Object.entries(allPolicies);
                     
                     list.innerHTML = '';
@@ -3949,7 +3949,7 @@
                     // Search across all dimensions and phases
                     Object.entries(policyData).forEach(([dimension, phaseData]) => {
                         // Apply dimension filter if selected
-                        if (state.selectedDimension && dimension !== state.selectedDimension) return;
+                        if (state.selectedPolicyArea && dimension !== state.selectedPolicyArea) return;
                         
                         Object.entries(phaseData).forEach(([phase, policies]) => {
                             // Apply phase filter if selected
@@ -3989,7 +3989,7 @@
                     return filteredPolicies;
                 },
 
-                createCrossDimensionalPolicyItem: function(key, policyInfo) {
+                createCrossPolicyAreaPolicyItem: function(key, policyInfo) {
                     const [dimension, phase, policyId] = key.split('|');
                     const policyKey = utils.getPolicyKey(dimension, phase, policyId);
                     const isSelected = state.selectedPolicies.has(policyKey);
@@ -4005,7 +4005,7 @@
                     button.setAttribute('data-phase', phase);
                     
                     const selectedIcon = isSelected ? '<div class="selected-icon">✓</div>' : '';
-                    const dimensionColor = this.getDimensionColor(dimension);
+                    const dimensionColor = this.getPolicyAreaColor(dimension);
                     
                     button.innerHTML = `
                         <div class="policy-header">
@@ -4025,22 +4025,22 @@
                     button.addEventListener('click', (e) => {
                         e.preventDefault();
                         if (!state.isLoading) {
-                            this.selectCrossDimensionalPolicy(dimension, phase, policyId);
+                            this.selectCrossPolicyAreaPolicy(dimension, phase, policyId);
                         }
                     });
                     
                     return button;
                 },
 
-                selectCrossDimensionalPolicy: function(dimension, phase, policyId) {
+                selectCrossPolicyAreaPolicy: function(dimension, phase, policyId) {
                     // Clear any existing related policies first
                     state.relatedPolicies.clear();
                     
                     // Highlight the corresponding dimension and phase
-                    this.highlightDimensionAndPhase(dimension, phase);
+                    this.highlightPolicyAreaAndPhase(dimension, phase);
                     
                     // Set the state to match the selected policy
-                    state.selectedDimension = dimension;
+                    state.selectedPolicyArea = dimension;
                     state.selectedPhase = phase;
                     state.selectedPolicy = policyId;
 
@@ -4067,7 +4067,7 @@
                     this.updateCurrentSelection();
                 },
 
-                highlightDimensionAndPhase: function(dimension, phase) {
+                highlightPolicyAreaAndPhase: function(dimension, phase) {
                     // Add temporary highlighting to dimension button
                     const dimensionBtn = document.querySelector(`[data-dimension="${dimension}"]`);
                     if (dimensionBtn) {
@@ -4089,8 +4089,8 @@
 
                 getFilteredPolicies: function(policies) {
                     // If no dimension selected, search across all policies
-                    if (!state.selectedDimension && (state.searchTerm || state.activeKeywords.size > 0)) {
-                        return this.getCrossDimensionalFilteredPolicies();
+                    if (!state.selectedPolicyArea && (state.searchTerm || state.activeKeywords.size > 0)) {
+                        return this.getCrossPolicyAreaFilteredPolicies();
                     }
                     
                     if (!state.searchTerm && state.activeKeywords.size === 0) {
@@ -4125,8 +4125,8 @@
                     return filtered;
                 },
 
-                getCrossDimensionalFilteredPolicies: function() {
-                    const crossDimensionalPolicies = {};
+                getCrossPolicyAreaFilteredPolicies: function() {
+                    const crossPolicyAreaPolicies = {};
                     
                     // Search across all dimensions and phases
                     Object.entries(policyData).forEach(([dimension, phaseData]) => {
@@ -4151,7 +4151,7 @@
 
                                 if (matchesSearch && matchesKeywords) {
                                     const key = `${dimension}|${phase}|${policyId}`;
-                                    crossDimensionalPolicies[key] = {
+                                    crossPolicyAreaPolicies[key] = {
                                         ...policyInfo,
                                         _dimension: dimension,
                                         _phase: phase,
@@ -4162,11 +4162,11 @@
                         });
                     });
 
-                    return crossDimensionalPolicies;
+                    return crossPolicyAreaPolicies;
                 },
 
                 applyFilters: function() {
-                    if (state.selectedDimension && state.selectedPhase) {
+                    if (state.selectedPolicyArea && state.selectedPhase) {
                         this.showPolicyList();
                     } else if (state.searchTerm || state.activeKeywords.size > 0) {
                         this.showPolicyList(); // This will show cross-dimensional results
@@ -4338,7 +4338,7 @@
                     }
                     
                     // Hide policy section if no dimension/phase selected
-                    if (!state.selectedDimension || !state.selectedPhase) {
+                    if (!state.selectedPolicyArea || !state.selectedPhase) {
                         this.clearPolicyView();
                     } else {
                         // Refresh policy list to show dimension-phase results
@@ -4358,7 +4358,7 @@
                 },
 
                 selectPolicy: function(policyId) {
-                    if (!utils.isValidPolicy(state.selectedDimension, state.selectedPhase, policyId)) return;
+                    if (!utils.isValidPolicy(state.selectedPolicyArea, state.selectedPhase, policyId)) return;
                     
                     utils.setLoading(true);
                     
@@ -4380,7 +4380,7 @@
                 },
 
                 showPolicyDetails: function() {
-                    const policyInfo = policyData[state.selectedDimension]?.[state.selectedPhase]?.[state.selectedPolicy];
+                    const policyInfo = policyData[state.selectedPolicyArea]?.[state.selectedPhase]?.[state.selectedPolicy];
                     if (!policyInfo) return;
                     
                     const detailsContent = document.getElementById('policyDetailsContent');
@@ -4388,35 +4388,35 @@
                     
                     if (!detailsContent) return;
                     
-                    const policyKey = utils.getPolicyKey(state.selectedDimension, state.selectedPhase, state.selectedPolicy);
+                    const policyKey = utils.getPolicyKey(state.selectedPolicyArea, state.selectedPhase, state.selectedPolicy);
                     const isSelected = state.selectedPolicies.has(policyKey);
                     
                     // Update related policies
-                    utils.updateRelatedPolicies(state.selectedDimension, state.selectedPhase, state.selectedPolicy);
+                    utils.updateRelatedPolicies(state.selectedPolicyArea, state.selectedPhase, state.selectedPolicy);
                     
                     // Find related policies for display
-                    const relatedPolicies = utils.findRelatedPolicies(state.selectedDimension, state.selectedPhase, state.selectedPolicy);
+                    const relatedPolicies = utils.findRelatedPolicies(state.selectedPolicyArea, state.selectedPhase, state.selectedPolicy);
                     
                     // Generate contextual explanation for related policies
                     let relationshipContext = '';
                     if (relatedPolicies.length > 0) {
-                        const crossDimensionalCount = relatedPolicies.filter(rp => rp.dimension !== state.selectedDimension).length;
+                        const crossPolicyAreaCount = relatedPolicies.filter(rp => rp.dimension !== state.selectedPolicyArea).length;
                     }
                     
                     detailsContent.innerHTML = `
                         <div class="detail-section">
-                            <h3>Policy</h3>
+                            <h3>Initiative Overview</h3>
                             <p>${utils.escapeHtml(policyInfo.policy)}</p>
                         </div>
                         
                         <div class="detail-section">
-                            <h3>Details</h3>
+                            <h3>Possible Implementation Guidance and Actions</h3>
                             <p>${utils.escapeHtml(policyInfo.details)}</p>
                         </div>
                         
                         ${policyInfo.examples ? `
                         <div class="detail-section">
-                            <h3>Examples</h3>
+                            <h3>Implementation Examples</h3>
                             <div class="examples-box">
                                 ${utils.escapeHtml(policyInfo.examples)}
                             </div>
@@ -4450,8 +4450,8 @@
                             <div class="related-policies-list">
                                 ${relatedPolicies.map(related => `
                                     <div class="related-policy-item" data-dimension="${utils.escapeHtml(related.dimension)}" data-phase="${utils.escapeHtml(related.phase)}" data-policy-id="${utils.escapeHtml(related.policyId)}">
-                                        <div class="related-policy-dimension" style="background-color: ${this.getDimensionColor(related.dimension)}">
-                                            ${this.getDimensionInitial(related.dimension)}
+                                        <div class="related-policy-dimension" style="background-color: ${this.getPolicyAreaColor(related.dimension)}">
+                                            ${this.getPolicyAreaInitial(related.dimension)}
                                         </div>
                                         <div class="related-policy-content">
                                             <div class="related-policy-header">
@@ -4460,7 +4460,7 @@
                                             </div>
                                             <div class="related-policy-title">${utils.escapeHtml(related.policy)}</div>
                                             <div class="related-policy-match">
-                                                ${related.dimension !== state.selectedDimension ? 'Cross-dimensional • ' : ''}Shared: ${related.sharedKeywords.join(', ')}
+                                                ${related.dimension !== state.selectedPolicyArea ? 'Cross Policy Areas • ' : ''}Shared: ${related.sharedKeywords.join(', ')}
                                             </div>
                                         </div>
                                     </div>
@@ -4468,7 +4468,7 @@
                             </div>
                             
                             <!-- <div class="related-policies-explanation">
-                                Related policies are shown based on shared keywords and strategic complementarity. Click any related policy to navigate to it, or view them in the matrix above as highlighted bars.
+                                Related policies are shown based on shared keywords and strategic complementarity. Click any related policy to navigate to it, or view them in the Implementation Plan Dashboard above as highlighted bars.
                             </div> -->
                         </div>
                         ` : ''}
@@ -4486,7 +4486,7 @@
                     });
 
                     if (selectPolicyBtn) {
-                        utils.setText(selectPolicyBtn, isSelected ? 'Selected' : 'Select Policy');
+                        utils.setText(selectPolicyBtn, isSelected ? 'Selected' : 'Add policy initiative to your plan');
                         selectPolicyBtn.disabled = isSelected;
                         selectPolicyBtn.classList.remove('hidden');
                     }
@@ -4523,7 +4523,7 @@
 
                 navigateToPolicy: function(dimension, phase, policyId) {
                     // Update navigation state
-                    state.selectedDimension = dimension;
+                    state.selectedPolicyArea = dimension;
                     state.selectedPhase = phase;
                     state.selectedPolicy = policyId;
 
@@ -4578,7 +4578,7 @@
                 addPolicyToSelection: function() {
                     if (!state.selectedPolicy) return;
                     
-                    const policyKey = utils.getPolicyKey(state.selectedDimension, state.selectedPhase, state.selectedPolicy);
+                    const policyKey = utils.getPolicyKey(state.selectedPolicyArea, state.selectedPhase, state.selectedPolicy);
                     state.selectedPolicies.add(policyKey);
                     
                     const selectedPolicy = document.querySelector('.policy-item.active');
@@ -4597,7 +4597,7 @@
                 clearAllPolicies: function() {
                     if (state.selectedPolicies.size === 0) return;
                     
-                    if (confirm(`Are you sure you want to clear all ${state.selectedPolicies.size} selected policies?`)) {
+                    if (confirm(`Are you sure you want to clear all ${state.selectedPolicies.size} selected policy initiatives?`)) {
                         state.selectedPolicies.clear();
                         this.updateSelectionGrid();
                         this.updateSelectedPoliciesSection();
@@ -4778,17 +4778,17 @@
                     listElement.innerHTML = '';
                     
                     // Group policies by dimension
-                    const policiesByDimension = {};
+                    const policiesByPolicyArea = {};
                     Array.from(state.selectedPolicies).forEach(policyKey => {
                         const [dimension, phase, policyId] = policyKey.split('|');
-                        if (!policiesByDimension[dimension]) {
-                            policiesByDimension[dimension] = [];
+                        if (!policiesByPolicyArea[dimension]) {
+                            policiesByPolicyArea[dimension] = [];
                         }
-                        policiesByDimension[dimension].push({ policyKey, dimension, phase, policyId });
+                        policiesByPolicyArea[dimension].push({ policyKey, dimension, phase, policyId });
                     });
                     
                     // Render each dimension's policies
-                    Object.entries(policiesByDimension).forEach(([dimension, policies]) => {
+                    Object.entries(policiesByPolicyArea).forEach(([dimension, policies]) => {
                         policies.forEach(({ policyKey, dimension, phase, policyId }) => {
                             const policyInfo = policyData[dimension]?.[phase]?.[policyId];
                             if (!policyInfo) return;
@@ -4797,8 +4797,8 @@
                             item.className = 'selected-policy-item';
                             item.setAttribute('data-policy-key', policyKey);
                             
-                            const dimensionColor = this.getDimensionColor(dimension);
-                            const dimensionInitial = this.getDimensionInitial(dimension);
+                            const dimensionColor = this.getPolicyAreaColor(dimension);
+                            const dimensionInitial = this.getPolicyAreaInitial(dimension);
                             
                             item.innerHTML = `
                                 <div class="selected-policy-dimension" style="background-color: ${dimensionColor}">
@@ -4837,7 +4837,7 @@
                     });
                 },
 
-                getDimensionInitial: function(dimension) {
+                getPolicyAreaInitial: function(dimension) {
                     const initials = {
                         'Enabling Infrastructure': 'I',
                         'Legislation & Policy': 'L',
@@ -4855,7 +4855,7 @@
                     
                     grid.innerHTML = '';
                     
-                    const phases = ['Monitoring', 'Implementation', 'Design', 'Analyse'];
+                    const phases = ['Monitoring and Evaluation', 'Implementation', 'Design', 'Analysis'];
                     const dimensions = CONFIG.DIMENSIONS.map(d => d.id);
                     
                     // Create grid cells (4 rows x 5 columns)
@@ -4867,7 +4867,7 @@
                             cell.setAttribute('data-phase', phase);
                             
                             // Add selection indicator
-                            if (state.selectedDimension === dimension && state.selectedPhase === phase) {
+                            if (state.selectedPolicyArea === dimension && state.selectedPhase === phase) {
                                 cell.classList.add('selected');
                             }
                             
@@ -4903,7 +4903,7 @@
                     if (allPoliciesInCell.length === 0) return;
 
                     // Get dimension color
-                    const dimColor = this.getDimensionColor(dimension);
+                    const dimColor = this.getPolicyAreaColor(dimension);
                     
                     // Calculate dynamic bar height based on number of policies
                     const maxCellHeight = 52; // Available height in cell (60px - padding)
@@ -4945,7 +4945,7 @@
                     bar.setAttribute('data-policy-id', policyId);
                     
                     // Check if this is the currently viewing policy
-                    if (state.selectedDimension === dim && state.selectedPhase === ph && state.selectedPolicy === policyId) {
+                    if (state.selectedPolicyArea === dim && state.selectedPhase === ph && state.selectedPolicy === policyId) {
                         bar.classList.add('current-viewing');
                     }
                     
@@ -5021,7 +5021,7 @@
                     });
                 },
 
-                getDimensionColor: function(dimension) {
+                getPolicyAreaColor: function(dimension) {
                     const colorMapping = {
                         'Enabling Infrastructure': 'rgb(22, 102, 106)',
                         'Legislation & Policy': '#cb9b3d',
@@ -5043,15 +5043,15 @@
                     
                     let content = '';
                     
-                    if (state.selectedDimension) {
-                        content += `<div><strong>Dimension:</strong> ${utils.escapeHtml(state.selectedDimension)}</div>`;
+                    if (state.selectedPolicyArea) {
+                        content += `<div><strong>Policy Area:</strong> ${utils.escapeHtml(state.selectedPolicyArea)}</div>`;
                     }
                     if (state.selectedPhase) {
                         content += `<div><strong>Phase:</strong> ${utils.escapeHtml(state.selectedPhase)}</div>`;
                     }
                     if (state.selectedPolicy) {
-                        content += `<div><strong>Policy:</strong> ${utils.escapeHtml(state.selectedPolicy)}</div>`;
-                        const policyKey = utils.getPolicyKey(state.selectedDimension, state.selectedPhase, state.selectedPolicy);
+                        content += `<div><strong>Initiative Overview:</strong> ${utils.escapeHtml(state.selectedPolicy)}</div>`;
+                        const policyKey = utils.getPolicyKey(state.selectedPolicyArea, state.selectedPhase, state.selectedPolicy);
                         const isSelected = state.selectedPolicies.has(policyKey);
                         content += `<div class="status-badge ${isSelected ? 'status-selected' : 'status-viewing'}" style="background: ${isSelected ? 'var(--color-green-100)' : '#fef3c7'}; color: ${isSelected ? 'var(--color-green-700)' : '#92400e'}; display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; margin-top: 0.5rem;">
                             ${isSelected ? 'Selected' : 'Viewing'}
@@ -5059,7 +5059,7 @@
                     }
                     
                     // Show active filters if no dimension/phase selected
-                    if (!state.selectedDimension && !state.selectedPhase) {
+                    if (!state.selectedPolicyArea && !state.selectedPhase) {
                         if (state.searchTerm || state.activeKeywords.size > 0) {
                             content = '<div><strong>Active Filters:</strong></div>';
                             if (state.searchTerm) {
@@ -5094,7 +5094,7 @@
             };
             window.exportToPDF = async function() {
                 if (state.selectedPolicies.size === 0) {
-                    alert('Please select at least one policy before exporting.');
+                    alert('Please select at least one policy initiative before exporting.');
                     return;
                 }
 
@@ -5154,7 +5154,7 @@
                 };
 
                 // Helper: Get dimension color
-                const getDimensionColor = (dimension) => {
+                const getPolicyAreaColor = (dimension) => {
                     const colorMap = {
                         'Enabling Infrastructure': DESIGN.colors.infrastructure,
                         'Legislation and Policy': DESIGN.colors.legislation,
@@ -5237,7 +5237,7 @@
 
                         return canvas.toDataURL('image/png', 0.95);
                     } catch (error) {
-                        console.error('Matrix capture failed:', error);
+                        console.error('Implementation Plan Dashboard capture failed:', error);
                         return null;
                     }
                 };
@@ -5277,16 +5277,16 @@
                     const savedCount = state.selectedPolicies.size;
                     
                     // Group policies by dimension
-                    const policiesByDimension = {};
+                    const policiesByPolicyArea = {};
                     Array.from(state.selectedPolicies).forEach(policyKey => {
                         const [dimension, phase, policyId] = policyKey.split('|');
-                        if (!policiesByDimension[dimension]) {
-                            policiesByDimension[dimension] = [];
+                        if (!policiesByPolicyArea[dimension]) {
+                            policiesByPolicyArea[dimension] = [];
                         }
                         
                         const policyInfo = policyData[dimension]?.[phase]?.[policyId];
                         if (policyInfo) {
-                            policiesByDimension[dimension].push({
+                            policiesByPolicyArea[dimension].push({
                                 id: policyId,
                                 phase: phase,
                                 policy: policyInfo.policy,
@@ -5313,7 +5313,7 @@
                     pdf.setTextColor(255, 255, 255);
                     pdf.setFont('helvetica', 'bold');
                     pdf.setFontSize(24);
-                    pdf.text('Document with Selected Policies', pageWidth/2, 87, { align: 'center' });
+                    pdf.text('Implementation Plan: Selected Policy Initiatives', pageWidth/2, 87, { align: 'center' });
                     // Subtitle
                     pdf.setFontSize(14);
                     pdf.setFont('helvetica', 'normal');
@@ -5321,9 +5321,9 @@
                         year: 'numeric', month: 'long', day: 'numeric' 
                     });
                     pdf.text(`Generated: ${today}`, pageWidth/2, 120, { align: 'center' });
-                    pdf.text(`Selected Policies: ${savedCount}`, pageWidth/2, 135, { align: 'center' });
+                    pdf.text(`Selected Policy Initiatives: ${savedCount}`, pageWidth/2, 135, { align: 'center' });
 
-                    const dimensionCount = Object.keys(policiesByDimension).length;
+                    const dimensionCount = Object.keys(policiesByPolicyArea).length;
                     pdf.text(`Covering ${dimensionCount} policy dimensions`, pageWidth/2, 150, { align: 'center' });
 
                     // Summary information at bottom
@@ -5331,7 +5331,7 @@
                     pdf.setFontSize(DESIGN.typography.body);
                     const summaryTextY = summaryBoxY + 15;
                     pdf.text('G20 Technology Policy Assistance Facility (TPAF)', pageWidth / 2, summaryTextY, { align: 'center' });
-                    pdf.text('Selected Policy Options for National Implementation', pageWidth / 2, summaryTextY + 10, { align: 'center' });
+                    pdf.text('Selected Policy Initiatives', pageWidth / 2, summaryTextY + 10, { align: 'center' });
 
                     // ==================== EXECUTIVE SUMMARY ====================
                     pdf.addPage();
@@ -5352,7 +5352,7 @@
                     currentY += renderParagraph(pdf, overviewText, margin, currentY, contentWidth, pageWidth, DESIGN.typography.body);
                     currentY += DESIGN.spacing.paragraph;
 
-                    // Dimension Overview
+                    // PolicyArea Overview
                     pdf.setFont('helvetica', 'bold');
                     pdf.setFontSize(DESIGN.typography.heading);
                     pdf.text('Selected Policy Areas', margin, currentY);
@@ -5361,13 +5361,13 @@
                     pdf.setFont('helvetica', 'normal');
                     pdf.setFontSize(DESIGN.typography.body);
 
-                    Object.entries(policiesByDimension).forEach(([dimension, policies]) => {
+                    Object.entries(policiesByPolicyArea).forEach(([dimension, policies]) => {
                         if (currentY > pageHeight - 40) {
                             pdf.addPage();
                             currentY = margin;
                         }
 
-                        const dimColor = getDimensionColor(dimension);
+                        const dimColor = getPolicyAreaColor(dimension);
                         
                         pdf.setFillColor(...hexToRgb(dimColor));
                         pdf.rect(margin, currentY - 2, 3, 6, 'F');
@@ -5409,16 +5409,16 @@
                     }
 
                     // ==================== DETAILED POLICY SECTIONS ====================
-                    Object.entries(policiesByDimension).forEach(([dimension, policies]) => {
+                    Object.entries(policiesByPolicyArea).forEach(([dimension, policies]) => {
                         pdf.addPage();
                         currentY = margin;
 
-                        const dimColor = getDimensionColor(dimension);
+                        const dimColor = getPolicyAreaColor(dimension);
                         
                         // Calculate total policies in this dimension for percentage
-                        const totalInDimension = Object.values(policyData[dimension] || {})
+                        const totalInPolicyArea = Object.values(policyData[dimension] || {})
                             .reduce((total, phaseData) => total + Object.keys(phaseData).length, 0);
-                        const percentageSelected = Math.round((policies.length / totalInDimension) * 100);
+                        const percentageSelected = Math.round((policies.length / totalInPolicyArea) * 100);
 
                         const headerHeight = drawSectionHeader(
                             pdf, 
