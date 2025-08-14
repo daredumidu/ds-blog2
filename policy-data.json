@@ -1,0 +1,780 @@
+{
+  "policyAreas": {
+    "Enabling Infrastructure": {
+      "description": "Policies focused on building and maintaining the foundational technological infrastructure necessary for AI development and deployment.",
+      "phases": {
+        "Analysis": {
+          "description": "Assessment and evaluation phase for infrastructure planning and needs identification.",
+          "policies": [
+            {
+              "id": "P1",
+              "title": "Identify infrastructure needs, gaps, and areas for improvement",
+              "description": "Conduct comprehensive needs-based audits to systematically assess Infrastructure. For effective auditing, it is important to begin with an evidence-based assessment of current infrastructure needs, structured stakeholder consultations, and careful documentation of decisions, laying a solid foundation for transparent and measurable analysis.",
+              "examples": "Quantitative indicators and statistical sources such as the ITU's flagship Facts and Figures, tracks global connectivity through key indicators. Singapore's Smart Nation Initiative involves regular extensive needs assessments. UK's National Infrastructure Commission advises government on digital technologies rollout. South Korea's AI Framework Act Article 25 mandates comprehensive government support for AI data center development.",
+              "keywords": ["needs assessment", "audits", "stakeholder consultation", "evidence-based", "infrastructure", "gaps analysis", "systematic assessment"]
+            },
+            {
+              "id": "P2",
+              "title": "Consult key stakeholders",
+              "description": "Consult key stakeholders to ensure audits reflect national and regional economic and social priorities, leveraging shared expertise.",
+              "examples": "",
+              "keywords": ["stakeholder engagement", "consultation", "priorities", "shared expertise", "economic priorities", "social priorities", "national priorities", "regional priorities"]
+            },
+            {
+              "id": "P3",
+              "title": "Assess national, regional, and international partnerships on Infrastructure and strengthen cooperation",
+              "description": "International and regional cooperation offers opportunities to leverage collaborative strategies, share knowledge, and ensure that infrastructure systems are interoperable across borders.",
+              "examples": "",
+              "keywords": ["partnerships", "cooperation", "interoperability", "collaboration", "international cooperation", "regional cooperation", "cross-border", "knowledge sharing"]
+            },
+            {
+              "id": "P4",
+              "title": "Invest in HPCs, data centers, and networks",
+              "description": "Joint investments in HPC, data centers, and networks reduce costs for individual countries while fostering a competitive and inclusive global AI landscape.",
+              "examples": "",
+              "keywords": ["HPC", "data centers", "networks", "joint investments", "high-performance computing", "infrastructure investment", "inclusive AI", "competitive landscape"]
+            },
+            {
+              "id": "P5",
+              "title": "Measure AI computing resource needs",
+              "description": "AI infrastructure readiness also depends on cloud services and data center capabilities. Key indicators include data center density and distribution, and cloud service adoption rates.",
+              "examples": "Datacenter Map provides information on data centers from all over the world.",
+              "keywords": ["computing resources", "cloud services", "data centers", "indicators", "AI infrastructure", "resource measurement", "capacity planning", "cloud adoption"]
+            },
+            {
+              "id": "P6",
+              "title": "Develop a national AI compute strategy",
+              "description": "A national AI compute strategy should align with broader national AI policies and address: 1. Current AI compute capacity 2. National AI compute needs 3. International comparison.",
+              "examples": "N/A",
+              "keywords": ["compute strategy", "capacity", "needs assessment", "benchmarking", "national strategy", "AI policy", "strategic planning", "international comparison"]
+            },
+            {
+              "id": "P7",
+              "title": "Select indicators to evaluate the effectiveness of AI compute investments",
+              "description": "Indicators to evaluate effectiveness and social impact: Economies of scale, scope, social relevance, and long-term sustainability/resilience indicators.",
+              "examples": "",
+              "keywords": ["indicators", "evaluation", "social impact", "sustainability", "investment effectiveness", "economies of scale", "resilience", "performance measurement"]
+            }
+          ]
+        },
+        "Design": {
+          "description": "Strategic design and planning phase for infrastructure development and implementation frameworks.",
+          "policies": [
+            {
+              "id": "P8",
+              "title": "Develop publicly owned infrastructure as a foundational layer",
+              "description": "By positioning the state as an active investor of AI infrastructure, governments can counteract current monopolistic tendencies in AI compute and create a more inclusive and responsible AI ecosystem.",
+              "examples": "Direct public investment in infrastructure, such as in national supercomputing centers or regional data hubs.",
+              "keywords": ["public infrastructure", "state investment", "inclusive ecosystem", "foundational layer", "government investment", "responsible AI", "monopolistic tendencies", "AI compute"]
+            },
+            {
+              "id": "P9",
+              "title": "Encourage private-and not-for profit sector participation",
+              "description": "By combining direct public investments with financial incentives and policies that encourage private and non-profit sector participation and innovation.",
+              "examples": "Indonesia secured IDR120.2 trillion in AI investments in 2022-2023, including Microsoft's $1.7 billion investment in 2024.",
+              "keywords": ["private sector", "non-profit", "participation", "innovation", "financial incentives", "public-private partnerships", "sector collaboration", "investment attraction"]
+            },
+            {
+              "id": "P10",
+              "title": "Establish open-access data-sharing frameworks",
+              "description": "Investing in publicly funded computing infrastructure. Governments and international organizations can create open-access systems that provide academia with computational power and datasets.",
+              "examples": "Canada's Digital Research Alliance and the European Open Science Cloud.",
+              "keywords": ["open-access", "data-sharing", "public infrastructure", "academia", "computational power", "datasets", "research infrastructure", "open science"]
+            },
+            {
+              "id": "P11",
+              "title": "Open source AI approaches",
+              "description": "By offering freely accessible tools, models, and frameworks, open-source initiatives allow academic institutions and independent researchers to participate in AI development without proprietary constraints.",
+              "examples": "India's Bhashini platform supports open-source AI models for natural language processing in regional languages.",
+              "keywords": ["open-source", "accessible tools", "models", "frameworks", "academic institutions", "independent researchers", "AI development", "proprietary constraints"]
+            },
+            {
+              "id": "P12",
+              "title": "Open Data Initiatives",
+              "description": "Many national AI strategies emphasize open government data, alongside investments in data centers to ensure secure, contextualized and high-quality data for AI applications.",
+              "examples": "Kenya leads the Africa Open Data Initiative. Open Data Inventory (ODIN) measures offer insights into open data practices.",
+              "keywords": ["open data", "government data", "data quality", "transparency", "national strategies", "data centers", "contextualized data", "AI applications"]
+            },
+            {
+              "id": "P13",
+              "title": "Offer incentives and lower financial hurdles to drive innovation (SME Support)",
+              "description": "By offering incentives and tailored support programs, governments help SMEs navigate the costs and complexities of AI adoption.",
+              "examples": "",
+              "keywords": ["incentives", "financial support", "SMEs", "innovation", "tailored support", "AI adoption", "cost reduction", "complexity management"]
+            },
+            {
+              "id": "P14",
+              "title": "Offer incentives and lower financial hurdles to drive innovation (Infrastructure Access)",
+              "description": "By lowering financial hurdles, governments aim to drive innovation, expand cloud and data service utilization, and make advanced AI infrastructure more widely available.",
+              "examples": "",
+              "keywords": ["financial support", "innovation", "cloud services", "accessibility", "infrastructure access", "data services", "advanced AI", "widespread availability"]
+            },
+            {
+              "id": "P15",
+              "title": "Offer incentives and lower financial hurdles to drive innovation (Tax Policy)",
+              "description": "Establish tax incentives, grants, and subsidies to drive private sector investments in accordance with the public interest and common benefit.",
+              "examples": "South Africa's National AI Policy Framework provides tax incentives and grants. Rwanda supports AI startups through Kigali Innovation City.",
+              "keywords": ["tax incentives", "grants", "subsidies", "public interest", "private sector investment", "common benefit", "startup support", "innovation funding"]
+            },
+            {
+              "id": "P16",
+              "title": "Strengthen capital markets to support an inclusive, public-interest-oriented, responsible AI innovation ecosystem",
+              "description": "Focus on high-impact sectors, SMEs, and startups. Robust infrastructure is crucial for startups and SMEs to innovate without prohibitive costs.",
+              "examples": "Chile: Publicly funded AI testbeds in mining and agriculture. Rwanda provides subsidized cloud services for startups.",
+              "keywords": ["capital markets", "SMEs", "startups", "innovation ecosystem", "high-impact sectors", "robust infrastructure", "prohibitive costs", "testbeds"]
+            }
+          ]
+        },
+        "Implementation": {
+          "description": "Practical deployment and operationalization phase for infrastructure policies and systems.",
+          "policies": [
+            {
+              "id": "P17",
+              "title": "Cloud Procurement Policy and Governance",
+              "description": "Procurement Policies and Requirements for the use of Cloud in the Public Sector. Centralized online platforms can provide procuring agencies with a curated list of preapproved cloud service providers.",
+              "examples": "UK's 'Government Cloud First' policy. Sovereign cloud initiatives like Gaia-X in Europe, India's MeghRaj, and Africa's AfriCloud. Australia's Hosting Certification Framework.",
+              "keywords": ["cloud procurement", "governance", "public sector", "security standards", "centralized platforms", "preapproved providers", "sovereign cloud", "certification"]
+            },
+            {
+              "id": "P18",
+              "title": "Dedicated frameworks and guidelines on procuring AI technologies for the public sector",
+              "description": "Effective AI adoption in the public sector demands procurement policies capable of keeping pace with AI's fast-moving landscape.",
+              "examples": "UK's AI Dynamic Purchasing System. US Request for Information to align AI acquisitions. EU Commission's AI Public Procurement Community. Canada's list of qualified suppliers.",
+              "keywords": ["AI procurement", "public sector", "frameworks", "guidelines", "fast-moving landscape", "dynamic purchasing", "qualified suppliers", "AI acquisitions"]
+            },
+            {
+              "id": "P19",
+              "title": "Technical deployment of models and infrastructure (Decentralized)",
+              "description": "Decentralized cloud computing models that leverage distributed networks to offer peer-to-peer cloud services that minimize centralization.",
+              "examples": "N/A",
+              "keywords": ["decentralized", "cloud computing", "peer-to-peer", "distributed", "distributed networks", "minimize centralization", "technical deployment", "alternative models"]
+            },
+            {
+              "id": "P20",
+              "title": "Technical deployment of models and infrastructure (Hybrid)",
+              "description": "Open-source cloud platforms that enable organizations to develop and control their own cloud environments. Hybrid and multi-cloud strategies.",
+              "examples": "",
+              "keywords": ["open-source", "cloud platforms", "hybrid cloud", "multi-cloud", "organizational control", "cloud environments", "technical deployment", "strategic flexibility"]
+            },
+            {
+              "id": "P21",
+              "title": "Technical deployment of models and infrastructure (Community-Owned)",
+              "description": "Cooperative and community-owned services which can provide an alternative to corporate-owned infrastructure.",
+              "examples": "",
+              "keywords": ["cooperative", "community-owned", "infrastructure alternatives", "corporate alternatives", "community services", "collaborative ownership", "technical deployment", "democratic infrastructure"]
+            }
+          ]
+        },
+        "Monitoring and Evaluation": {
+          "description": "Assessment and continuous improvement phase for infrastructure policy effectiveness and impact.",
+          "policies": [
+            {
+              "id": "P22",
+              "title": "Develop a set of performance indicators to monitor and evaluate progress at each phase of the policy cycle",
+              "description": "Establishing performance indicators and feedback mechanisms helps assess progress, identify gaps, and refine strategies.",
+              "examples": "N/A",
+              "keywords": ["performance indicators", "monitoring", "evaluation", "feedback", "policy cycle", "progress assessment", "gap identification", "strategy refinement"]
+            },
+            {
+              "id": "P23",
+              "title": "Conduct regular audits and impact assessments",
+              "description": "International benchmarking is particularly valuable, allowing countries to compare their approaches with global trends.",
+              "examples": "",
+              "keywords": ["audits", "impact assessments", "benchmarking", "international", "global trends", "comparative analysis", "regular evaluation", "performance comparison"]
+            },
+            {
+              "id": "P24",
+              "title": "Engage stakeholders in feedback loops for continual improvement",
+              "description": "Embedding Monitoring into each phase, countries can ensure their infrastructure development efforts remain dynamic, responsive, and inclusive.",
+              "examples": "",
+              "keywords": ["stakeholder engagement", "feedback loops", "continual improvement", "inclusive", "dynamic response", "responsive development", "embedded monitoring", "participatory evaluation"]
+            }
+          ]
+        }
+      }
+    },
+    "Legislation & Policy": {
+      "description": "Policies focused on developing legal frameworks, regulations, and governance structures for AI systems and technologies.",
+      "phases": {
+        "Analysis": {
+          "description": "Assessment and review phase for existing legal frameworks and regulatory gaps in AI governance.",
+          "policies": [
+            {
+              "id": "P25",
+              "title": "Review and assess existing AI laws, definitions, and regulations (Legal Review)",
+              "description": "Conduct comprehensive reviews of current AI-related laws and definitions. Flexible definitions that focus on the risk profiles of AI systems, ensures the systems posing minimal risks are subject to lighter oversight.",
+              "examples": "The OECD definition articulates what an AI system is. The European Union's AI Act defines an AI system. UNESCO's approach has been to not provide a single definition.",
+              "keywords": ["legal review", "AI definitions", "risk-based", "regulations", "comprehensive review", "AI laws", "oversight", "legal framework"]
+            },
+            {
+              "id": "P26",
+              "title": "Review and assess existing AI laws, definitions, and regulations (Gap Analysis)",
+              "description": "Identify regulatory gaps and assess risks associated with AI systems.",
+              "examples": "The OECD definition articulates what an AI system is. The European Union's AI Act defines an AI system. UNESCO's approach has been to not provide a single definition.",
+              "keywords": ["regulatory gaps", "risk assessment", "AI systems", "legal framework", "gap analysis", "system risks", "regulatory analysis", "compliance gaps"]
+            },
+            {
+              "id": "P27",
+              "title": "Review and assess existing AI laws, definitions, and regulations (Flexible Definitions)",
+              "description": "Apply flexible, risk-based definitions that allow lighter oversight for low-risk AI but enable reassessment as risk profiles evolve.",
+              "examples": "The OECD definition articulates what an AI system is. The European Union's AI Act defines an AI system. UNESCO's approach has been to not provide a single definition.",
+              "keywords": ["flexible definitions", "risk-based", "oversight", "evolution", "adaptive regulation", "risk profiles", "regulatory flexibility", "proportionate oversight"]
+            },
+            {
+              "id": "P28",
+              "title": "Review and assess existing AI laws, definitions, and regulations (Lifecycle Coverage)",
+              "description": "Ensure regulation covers all AI lifecycle phases: design, data, model building, testing, deployment, monitoring, and decommissioning.",
+              "examples": "The EU AI Act Article 5 provides a comprehensive framework of 8 prohibited AI practices.",
+              "keywords": ["lifecycle phases", "regulation", "prohibited practices", "compliance", "AI lifecycle", "comprehensive coverage", "system deployment", "regulatory scope"]
+            },
+            {
+              "id": "P29",
+              "title": "Update or develop privacy legislation reflecting AI's data reliance",
+              "description": "Modernise privacy laws to address AI-specific challenges, emphasising strong data protection principles throughout AI system lifecycles.",
+              "examples": "Italy's data protection authority imposed a temporary ban on ChatGPT. Colombia has made progress in formulating a national strategic vision for AI.",
+              "keywords": ["privacy legislation", "data protection", "AI lifecycle", "modernization", "data reliance", "privacy laws", "AI challenges", "protection principles"]
+            },
+            {
+              "id": "P30",
+              "title": "Establish inclusive stakeholder consultation processes",
+              "description": "Engage a broad range of stakeholders early in the policy cycle to gather input, build consensus, and develop ethical principles.",
+              "examples": "Latin American parliamentarians issued a joint statement on the need for a solid legislative framework. Indonesia is focused on advancing AI governance through international collaboration.",
+              "keywords": ["stakeholder consultation", "consensus-building", "ethical principles", "inclusive", "policy cycle", "broad engagement", "early involvement", "collaborative governance"]
+            }
+          ]
+        },
+        "Design": {
+          "description": "Strategic design phase for developing ethical guidelines, standards, and regulatory frameworks for AI governance.",
+          "policies": [
+            {
+              "id": "P31",
+              "title": "Issue guidelines for ethical AI development and consult on hard vs soft legislative options (Guidelines)",
+              "description": "Develop ethical AI guidelines that promote responsible innovation and public trust.",
+              "examples": "UK promotes global AI standards through its AI Standards Hub. Germany champions AI standards via DIN. China uses a hybrid approach. Japan sets AI Governance Guidelines.",
+              "keywords": ["ethical guidelines", "hard law", "soft law", "public trust", "responsible innovation", "AI standards", "governance guidelines", "regulatory approaches"]
+            },
+            {
+              "id": "P32",
+              "title": "Issue guidelines for ethical AI development and consult on hard vs soft legislative options (Law Types)",
+              "description": "Clarify when enforceable laws (hard law) are necessary versus when voluntary or advisory approaches (soft law) are appropriate.",
+              "examples": "",
+              "keywords": ["hard law", "soft law", "enforceable", "voluntary", "advisory approaches", "regulatory clarity", "legal enforcement", "compliance mechanisms"]
+            },
+            {
+              "id": "P33",
+              "title": "Issue guidelines for ethical AI development and consult on hard vs soft legislative options (Standards-Based)",
+              "description": "Use standards-based regulation to complement legal rules, guiding practical implementation through technical norms and best practices.",
+              "examples": "",
+              "keywords": ["standards-based", "regulation", "technical norms", "best practices", "practical implementation", "complementary rules", "technical standards", "implementation guidance"]
+            },
+            {
+              "id": "P34",
+              "title": "Develop and adopt technical standards for responsible AI innovation (Legal Alignment)",
+              "description": "Link legal requirements with practical standards that ensure fairness, safety, and inclusiveness.",
+              "examples": "Article 40 of the EU AI Act explicitly connects compliance with harmonized technical standards.",
+              "keywords": ["technical standards", "legal requirements", "fairness", "safety", "inclusiveness", "harmonized standards", "responsible innovation", "standard alignment"]
+            },
+            {
+              "id": "P35",
+              "title": "Develop and adopt technical standards for responsible AI innovation (International Standards)",
+              "description": "Encourage the use of internationally recognised standards to provide clear tools for compliance and to operationalise ethical principles.",
+              "examples": "In the United States, the NIST AI Risk Management Framework offers methodologies for AI risk management.",
+              "keywords": ["international standards", "compliance", "ethical principles", "operationalization", "risk management", "compliance tools", "standardization", "global frameworks"]
+            }
+          ]
+        },
+        "Implementation": {
+          "description": "Practical implementation phase for deploying regulatory frameworks, training, and enforcement mechanisms.",
+          "policies": [
+            {
+              "id": "P36",
+              "title": "Strengthen resources and training for regulatory bodies (Training)",
+              "description": "Invest in regulator training on AI ethics, accountability, bias detection, and privacy.",
+              "examples": "Germany and South Korea have invested in AI-specific monitoring systems.",
+              "keywords": ["regulator training", "AI ethics", "accountability", "bias detection", "privacy training", "regulatory capacity", "ethics training", "skill development"]
+            },
+            {
+              "id": "P37",
+              "title": "Strengthen resources and training for regulatory bodies (Resources)",
+              "description": "Equip regulatory bodies with modern tools and sufficient budgets to effectively oversee AI technologies.",
+              "examples": "Germany and South Korea have invested in AI-specific monitoring systems.",
+              "keywords": ["regulatory capacity", "oversight", "AI technologies", "resources", "modern tools", "sufficient budgets", "monitoring systems", "regulatory equipment"]
+            },
+            {
+              "id": "P38",
+              "title": "Establish cross-functional teams to manage and address AI-specific regulatory compliance and enforcement challenges (Team Formation)",
+              "description": "Create cross-functional teams combining legal, technical, ethical, and policy expertise.",
+              "examples": "UK's Responsible Technology Adoption Unit provides a model for integrating diverse perspectives.",
+              "keywords": ["cross-functional teams", "compliance", "enforcement", "expertise", "legal expertise", "technical expertise", "ethical expertise", "policy expertise"]
+            },
+            {
+              "id": "P39",
+              "title": "Establish cross-functional teams to manage and address AI-specific regulatory compliance and enforcement challenges (Institutional Setup)",
+              "description": "Set up dedicated AI regulatory bodies or assign responsibilities to existing agencies with clear coordination mechanisms.",
+              "examples": "European Union adopts a multi-tiered structure under its AI Act with national supervisory authorities and European Artificial Intelligence Board.",
+              "keywords": ["regulatory bodies", "coordination", "mandates", "oversight", "institutional setup", "supervisory authorities", "multi-tiered structure", "agency coordination"]
+            },
+            {
+              "id": "P40",
+              "title": "Promote regulatory sandboxes to support compliance",
+              "description": "Use sandboxes as controlled environments to test AI systems. Key areas: Regulatory Alignment, Risk Assessment, Technical Validation, Cross-Sector Applications, Transparency, Facilitating Innovation.",
+              "examples": "Saudi Central Bank launched its Regulatory Sandbox in 2018, interlinked with National Strategy for Data and AI.",
+              "keywords": ["regulatory sandboxes", "testing", "compliance", "innovation", "controlled environments", "risk assessment", "technical validation", "regulatory alignment"]
+            }
+          ]
+        },
+        "Monitoring and Evaluation": {
+          "description": "Assessment and continuous improvement phase for regulatory effectiveness, compliance monitoring, and policy refinement.",
+          "policies": [
+            {
+              "id": "P41",
+              "title": "Establish key performance indicators to monitor regulatory impact and compliance",
+              "description": "Use international benchmarking to compare and refine policies based on global best practices.",
+              "examples": "N/A",
+              "keywords": ["KPIs", "monitoring", "benchmarking", "compliance", "performance indicators", "regulatory impact", "international comparison", "best practices"]
+            },
+            {
+              "id": "P42",
+              "title": "Assess sandbox effectiveness for balancing innovation and safety",
+              "description": "Regularly evaluate sandbox outcomes to inform policy adjustments and improvements.",
+              "examples": "N/A",
+              "keywords": ["sandbox evaluation", "innovation", "safety", "policy adjustments", "effectiveness assessment", "outcome evaluation", "balance assessment", "regulatory improvement"]
+            },
+            {
+              "id": "P43",
+              "title": "Conduct regular audits and involve civil society to ensure community concerns are addressed",
+              "description": "Institutionalise periodic audits and public consultations to reflect societal concerns and adapt policies accordingly",
+              "examples": "N/A",
+              "keywords": ["audits", "civil society", "community concerns", "policy adaptation", "periodic audits", "public consultations", "societal concerns", "institutionalized review"]
+            },
+            {
+              "id": "P44",
+              "title": "Implement continuous feedback loops for policy refinement",
+              "description": "Create dynamic regulatory processes that integrate lessons learned, enabling iterative updates and improvement.",
+              "examples": "N/A",
+              "keywords": ["feedback loops", "policy refinement", "iterative", "continuous improvement", "dynamic processes", "lessons learned", "regulatory updates", "adaptive governance"]
+            }
+          ]
+        }
+      }
+    },
+    "Sustainability & Society": {
+      "description": "Policies focused on sustainable AI development, digital inclusion, skills development, and addressing AI's societal and environmental impacts.",
+      "phases": {
+        "Analysis": {
+          "description": "Assessment phase for skills gaps, digital literacy, environmental impacts, and societal needs in AI development.",
+          "policies": [
+            {
+              "id": "P45",
+              "title": "Assess the availability, accessibility, and gaps in digital literacy and AI skills",
+              "description": "1. Skills gap analyses 2. Development of competency frameworks 3. Occupational standards 4. Certification programs 5. Labor market assessments 6. Training program benchmarks 7. National and regional AI skills indexes",
+              "examples": "Singapore's SkillsFuture initiative. Saudi Data and AI Authority National Occupational Standards Framework.",
+              "keywords": ["skills assessment", "digital literacy", "competency frameworks", "labor market", "skills gap", "occupational standards", "certification programs", "training benchmarks"]
+            },
+            {
+              "id": "P46",
+              "title": "Develop equitable education and training policies",
+              "description": "Form multi-stakeholder task forces to co-develop policies based on needs. Disaggregated Data Collection by gender, ethnicity, socioeconomic background.",
+              "examples": "",
+              "keywords": ["education policy", "training", "equity", "data collection", "equitable education", "multi-stakeholder", "disaggregated data", "inclusive policy"]
+            },
+            {
+              "id": "P47",
+              "title": "Engage with marginalized communities through feedback surveys",
+              "description": "Essential for developing inclusive and equitable digital and AI systems that serve all segments of society effectively.",
+              "examples": "National Telecommunications and Information Administration (NTIA) Surveys in the US.",
+              "keywords": ["marginalized communities", "feedback", "inclusion", "equity", "community engagement", "digital inclusion", "societal segments", "equitable systems"]
+            },
+            {
+              "id": "P48",
+              "title": "Gender-equitable opportunities",
+              "description": "",
+              "examples": "UNESCO 'Women for Ethical AI' report highlights lack of gender-disaggregated data. Singapore's SkillsFuture provides data on effectiveness for women and low-income communities.",
+              "keywords": ["gender equity", "opportunities", "data disaggregation", "inclusion", "women for ethical AI", "gender equality", "low-income communities", "equitable opportunities"]
+            },
+            {
+              "id": "P51",
+              "title": "Conduct comprehensive environmental and social impact assessments of AI systems",
+              "description": "Assess environmental impacts across AI lifecycle. Measure power consumption, carbon footprint, and resource intensity. Consider environmental implications of AI use cases.",
+              "examples": "UNESCO's Ethical Impact Assessment Tool requires environmental impact evaluation across AI lifecycle phases.",
+              "keywords": ["environmental impact", "social impact", "lifecycle assessment", "sustainability", "carbon footprint", "power consumption", "resource intensity", "impact evaluation"]
+            },
+            {
+              "id": "P52",
+              "title": "Assess AI's impact on vulnerable populations and fundamental rights",
+              "description": "Identify communities disproportionately affected. Evaluate differential impacts on protected groups. Conduct human rights impact assessments for high-impact AI systems.",
+              "examples": "Japan's AI Act requires analysis of rights infringements. Brazil's LGPD establishes comprehensive protections for children's data.",
+              "keywords": ["vulnerable populations", "human rights", "impact assessment", "protection", "disproportionate impacts", "protected groups", "rights infringements", "comprehensive protection"]
+            },
+            {
+              "id": "P53",
+              "title": "Develop strategies to prepare individuals with AI competencies",
+              "description": "Many countries have developed National Digital Skills Strategies that prioritize digital skilling and literacy as essential precursors to advanced AI training.",
+              "examples": "Uruguay's Digital Agenda 2021-2025. Japan's AI Act mandates comprehensive human resource development.",
+              "keywords": ["AI competencies", "digital skills", "training strategies", "workforce development", "digital skilling", "human resource development", "national strategies", "advanced training"]
+            }
+          ]
+        },
+        "Design": {
+          "description": "Strategic design phase for sustainable AI practices, cultural integration, and inclusive program development.",
+          "policies": [
+            {
+              "id": "P54",
+              "title": "Provide guidance on sustainable and resource-efficient AI practices",
+              "description": "",
+              "examples": "UNESCO's Energy-Efficient AI Solutions & Policy Guidance initiative supports policymakers in addressing sustainability and equity challenges of generative AI.",
+              "keywords": ["sustainability", "resource efficiency", "guidance", "policy", "energy-efficient AI", "generative AI", "sustainable practices", "efficiency guidance"]
+            },
+            {
+              "id": "P55",
+              "title": "Develop comprehensive national AI strategies in cultural sectors",
+              "description": "Governments to create inclusive, ethical, multilateral policies integrating AI into culture, guided by expert groups and aligned with UNESCO frameworks.",
+              "examples": "UNESCO is supporting Member States in designing policies that integrate AI into culture and arts education.",
+              "keywords": ["cultural sectors", "national strategies", "inclusive", "ethical", "culture integration", "arts education", "multilateral policies", "UNESCO frameworks"]
+            },
+            {
+              "id": "P57",
+              "title": "Design programs to promote inclusivity addressing diverse community needs",
+              "description": "Assess which financial incentives could bridge accessibility gaps: scholarships, grants, tax incentives",
+              "examples": "Canada's Digital Charter prioritizes lifelong learning for marginalized communities. Rwanda provides dedicated scholarships for women in STEM. Botswana's eBotho Digital Literacy Program.",
+              "keywords": ["inclusivity", "financial incentives", "accessibility", "diversity", "diverse communities", "accessibility gaps", "lifelong learning", "digital literacy"]
+            }
+          ]
+        },
+        "Implementation": {
+          "description": "Practical implementation phase for targeted measures, partnerships, and certification systems to promote inclusive AI development.",
+          "policies": [
+            {
+              "id": "P59",
+              "title": "Choose targeted measures such as scholarships, grants, and tax incentives (Diverse Learners)",
+              "description": "Flexibility and inclusivity in program design play a crucial role in attracting diverse learners. Address unique challenges faced by underrepresented groups.",
+              "examples": "South Korea's Digital New Deal offers flexible online learning. Kenya's AkiraChix offers AI training for young women from underserved communities. Australia's Women in STEM Ambassador Program.",
+              "keywords": ["targeted measures", "scholarships", "grants", "inclusivity", "diverse learners", "underrepresented groups", "flexible learning", "women in STEM"]
+            },
+            {
+              "id": "P60",
+              "title": "Choose targeted measures such as scholarships, grants, and tax incentives (Diversity Partnerships)",
+              "description": "Leveraging partnerships to create structural incentives that promote diversity in AI upskilling.",
+              "examples": "Japan incentivizes companies to train and hire women and minorities. UK's Skills Bootcamps guarantee job interviews. Canada's Digital Charter emphasizes inclusivity.",
+              "keywords": ["partnerships", "diversity", "incentives", "upskilling", "structural incentives", "diversity promotion", "skills bootcamps", "inclusive hiring"]
+            },
+            {
+              "id": "P61",
+              "title": "Choose targeted measures such as scholarships, grants, and tax incentives (Public-Private Solutions)",
+              "description": "Public-Private partnerships can create inclusive, scalable solutions to address the digital skills gap.",
+              "examples": "Brazil's Caminho Digital Programme provides free, online courses certified by the Ministry of Labour.",
+              "keywords": ["public-private partnerships", "scalable solutions", "skills gap", "inclusive", "digital skills", "certified courses", "collaborative solutions", "ministry collaboration"]
+            },
+            {
+              "id": "P62",
+              "title": "Choose targeted measures such as scholarships, grants, and tax incentives (AI Literacy)",
+              "description": "Implement mandatory AI literacy requirements for AI system providers, deployers, and affected persons to ensure informed deployment and risk awareness.",
+              "examples": "The EU AI Act mandates AI literacy.",
+              "keywords": ["AI literacy", "mandatory requirements", "risk awareness", "compliance", "informed deployment", "system providers", "literacy requirements", "AI education"]
+            },
+            {
+              "id": "P63",
+              "title": "Choose targeted measures such as scholarships, grants, and tax incentives (Legal Competency)",
+              "description": "Establish legal frameworks requiring demonstration of AI competency before system deployment",
+              "examples": "The EU AI Act mandates AI literacy.",
+              "keywords": ["legal frameworks", "competency", "deployment", "requirements", "AI competency", "competency demonstration", "legal requirements", "system deployment"]
+            },
+            {
+              "id": "P64",
+              "title": "Choose targeted measures such as scholarships, grants, and tax incentives (Certification)",
+              "description": "Create certification systems that validate understanding of AI opportunities, risks, and ethical implications",
+              "examples": "The EU AI Act mandates AI literacy.",
+              "keywords": ["certification", "validation", "ethical implications", "risk awareness", "certification systems", "AI opportunities", "understanding validation", "ethics certification"]
+            }
+          ]
+        },
+        "Monitoring and Evaluation": {
+          "description": "Assessment and monitoring phase for environmental and social impacts, with focus on partnership outcomes and skill development programs.",
+          "policies": [
+            {
+              "id": "P65",
+              "title": "Establish systematic monitoring of AI environmental and social impacts",
+              "description": "Roll out public and private sector partnerships for AI apprenticeships, internships; and tailored skills-building programs",
+              "examples": "",
+              "keywords": ["monitoring", "environmental impact", "social impact", "partnerships", "systematic monitoring", "apprenticeships", "internships", "skills-building"]
+            }
+          ]
+        }
+      }
+    },
+    "Economy & Innovation": {
+      "description": "Policies focused on economic development, innovation ecosystems, market dynamics, and financial mechanisms for responsible AI advancement.",
+      "phases": {
+        "Analysis": {
+          "description": "Assessment phase for economic capacity, innovation gaps, and market opportunities in AI development.",
+          "policies": [
+            {
+              "id": "P66",
+              "title": "Conduct scoping studies and foresight assessments",
+              "description": "1) Conduct cross-sector assessments of AI R&D capacity and digital infrastructure 2) Map the evolving opportunity-risk landscape 3) Analyze public finance capacity for AI innovation and redistribution.",
+              "examples": "India's National Strategy for AI approaches sector prioritization with careful consideration. African Union High Level Panel on Emerging Technologies scoping study.",
+              "keywords": ["scoping studies", "foresight", "R&D capacity", "opportunity-risk", "cross-sector assessments", "digital infrastructure", "public finance", "innovation redistribution"]
+            },
+            {
+              "id": "P67",
+              "title": "Define public interest innovation priorities",
+              "description": "1) Identify strategic sectors where AI can deliver public value 2) Analyse innovation gaps in underinvested markets or demographics.",
+              "examples": "UNDP Accelerator Labs. Brazil's participatory innovation diagnostics.",
+              "keywords": ["public interest", "innovation priorities", "strategic sectors", "gaps", "public value", "underinvested markets", "innovation gaps", "participatory diagnostics"]
+            },
+            {
+              "id": "P68",
+              "title": "Assess economic instruments for responsible AI development",
+              "description": "1) Review tax incentives, grants and subsidies 2) Assess public procurement leverage 3) Review digital taxation gaps and fiscal incentives landscape.",
+              "examples": "Germany incorporated responsible AI into 'Industry 4.0'. OECD Base Erosion and Profit Shifting monitoring.",
+              "keywords": ["economic instruments", "tax incentives", "procurement", "fiscal policy", "grants", "subsidies", "digital taxation", "responsible AI"]
+            }
+          ]
+        },
+        "Design": {
+          "description": "Strategic design phase for economic frameworks, funding mechanisms, and market structure policies.",
+          "policies": [
+            {
+              "id": "P69",
+              "title": "Embed public interest objectives into AI economic strategy",
+              "description": "1) Translate sectoral priorities into funding strategies 2) Align public values with funding criteria 3) Establish intervention models for high-potential sectors.",
+              "examples": "Startup Chile Program and CORFO Innovation Grants. Rwanda Innovation Fund. South Korea's AI Framework Act Article 17. Japan's AI Act Articles 3-4.",
+              "keywords": ["public interest", "economic strategy", "funding", "intervention models", "sectoral priorities", "public values", "funding criteria", "high-potential sectors"]
+            },
+            {
+              "id": "P70",
+              "title": "Align and reform economic instruments for responsible AI development",
+              "description": "1) Adapt grants, subsidies, and tax incentives 2) Develop new tools to de-risk private capital and advance socially valuable innovation.",
+              "examples": "Chile has prioritized AI in mining and agriculture. Rwanda focuses on agriculture and healthcare.",
+              "keywords": ["economic instruments", "reform", "responsible AI", "innovation", "de-risk capital", "socially valuable", "private capital", "economic reform"]
+            },
+            {
+              "id": "P71",
+              "title": "Ensure coherence across innovation, industrial, and regional policy domains, reducing fragmentation",
+              "description": "1) Promote multi-stakeholder R&D partnerships 2) Support innovation clusters, regulatory sandboxes 3) Align funding mechanisms through a National Strategy.",
+              "examples": "Chile: CORFO's grants encourage partnerships. Rwanda: AI One Team Initiative. EU Platform Work Directive. African Continental Free Trade Area.",
+              "keywords": ["policy coherence", "innovation", "industrial policy", "regional", "multi-stakeholder", "innovation clusters", "regulatory sandboxes", "national strategy"]
+            },
+            {
+              "id": "P72",
+              "title": "Design pro-competition and fairness measures to address market concentration risks",
+              "description": "1) Establish frameworks for data portability, interoperability 2) Design trade and tax policy reforms 3) Structure public investment to diversify AI infrastructure 4) Develop oversight mechanisms.",
+              "examples": "OECD's Base Erosion and Profit Shifting project. European Commission's Digital Services Tax.",
+              "keywords": ["competition", "fairness", "market concentration", "oversight", "data portability", "interoperability", "trade policy", "public investment"]
+            }
+          ]
+        },
+        "Implementation": {
+          "description": "Practical implementation phase for governance structures, procurement policies, and international coordination mechanisms.",
+          "policies": [
+            {
+              "id": "P73",
+              "title": "Establish governance mechanisms to support AI policy delivery",
+              "description": "Apply dynamic budgeting to realign spending based on performance and need",
+              "examples": "Singapore's Smart Nation & Digital Government Group",
+              "keywords": ["governance", "policy delivery", "dynamic budgeting", "performance", "governance mechanisms", "spending realignment", "performance-based", "delivery support"]
+            },
+            {
+              "id": "P74",
+              "title": "Develop clear implementation plans with designated responsibilities and resourcing strategies",
+              "description": "Integrate procurement, tax, and innovation levers into one delivery framework",
+              "examples": "Singapore's Smart Nation & Digital Government Group",
+              "keywords": ["implementation", "responsibilities", "resources", "delivery", "implementation plans", "resourcing strategies", "delivery framework", "integration"]
+            },
+            {
+              "id": "P75",
+              "title": "Set up centralised governance bodies/oversight bodies to coordinate economic and innovation policy across sectors",
+              "description": "Use dynamic budgeting to adjust support based on evolving needs.",
+              "examples": "UK's regular assessments of AI adoption and impact provide a model for iterative evaluation.",
+              "keywords": ["governance bodies", "coordination", "economic policy", "innovation", "centralized governance", "oversight bodies", "cross-sector", "dynamic support"]
+            },
+            {
+              "id": "P76",
+              "title": "Mandate ethical and economic standards in public AI procurement and deployment",
+              "description": "Require risk management and ethical impact assessments in public sector AI deployment.",
+              "examples": "UNESCO's Ethical Impact Assessment Tool proposed to procurers of AI systems.",
+              "keywords": ["ethical standards", "procurement", "public sector", "impact assessments", "risk management", "economic standards", "AI deployment", "procurement standards"]
+            },
+            {
+              "id": "P77",
+              "title": "Include economic impact assessments and minimum transparency obligations in procurement criteria",
+              "description": "Ensure public AI investments/deployment contribute to equitable innovation.",
+              "examples": "Canada's Directive on Automated Decision-Making. US NIST AI Risk Management Framework.",
+              "keywords": ["economic impact", "transparency", "procurement", "equitable", "impact assessments", "transparency obligations", "procurement criteria", "equitable innovation"]
+            },
+            {
+              "id": "P79",
+              "title": "Implement international frameworks for transparency and equitable outcomes",
+              "description": "Adopt global standards for transparency in AI investment and taxation to prevent regulatory arbitrage.",
+              "examples": "EU's Green Public Procurement framework. ASEAN's Digital Integration Framework.",
+              "keywords": ["international frameworks", "transparency", "equitable outcomes", "standards", "global standards", "AI investment", "regulatory arbitrage", "taxation transparency"]
+            },
+            {
+              "id": "P80",
+              "title": "Work toward coordinated reporting standards and benefit-sharing mechanisms",
+              "description": "Ensure cross-border fairness and reduce market distortions.",
+              "examples": "",
+              "keywords": ["reporting standards", "benefit-sharing", "cross-border", "fairness", "coordinated reporting", "market distortions", "benefit mechanisms", "international coordination"]
+            }
+          ]
+        },
+        "Monitoring and Evaluation": {
+          "description": "Assessment and evaluation phase for economic impact measurement, adaptive policymaking, and international collaboration.",
+          "policies": [
+            {
+              "id": "P82",
+              "title": "Establish robust evaluation frameworks to track effectiveness",
+              "description": "1) Develop multi-dimensional evaluation metrics 2) Build systems for real-time policy monitoring 3) Embed iterative policy reviews into national strategies.",
+              "examples": "",
+              "keywords": ["evaluation frameworks", "metrics", "monitoring", "policy reviews", "multi-dimensional", "real-time monitoring", "iterative reviews", "effectiveness tracking"]
+            },
+            {
+              "id": "P83",
+              "title": "Iterative Assessment Cycles to guide adaptive policymaking",
+              "description": "1) Conduct periodic reviews of economic impact 2) Public reporting of outcomes 3) Adjust policies based on lived experience.",
+              "examples": "",
+              "keywords": ["assessment cycles", "adaptive", "policymaking", "periodic reviews", "economic impact", "public reporting", "lived experience", "policy adjustment"]
+            },
+            {
+              "id": "P84",
+              "title": "Support international knowledge-sharing and capacity transfer",
+              "description": "1) Join international M&E collaborations 2) Promote open-access platforms 3) Provide technical assistance to lower-capacity governments.",
+              "examples": "OECD Going Digital Toolkit. UNESCO Ethics of AI Readiness Review Roundtables.",
+              "keywords": ["knowledge-sharing", "capacity transfer", "international", "collaboration", "open-access platforms", "technical assistance", "M&E collaborations", "capacity building"]
+            },
+            {
+              "id": "P85",
+              "title": "Participatory evaluation and feedback to enable institutional learning",
+              "description": "1) Create cross-sectoral review bodies 2) Institutionalize citizen auditing 3) Invest in capacity-building for regulators.",
+              "examples": "Open Government Partnership M&E methods. Participatory budgeting in Porto Alegre, Brazil.",
+              "keywords": ["participatory evaluation", "feedback", "institutional learning", "citizen engagement", "cross-sectoral review", "citizen auditing", "capacity-building", "participatory methods"]
+            }
+          ]
+        }
+      }
+    },
+    "Research & Education": {
+      "description": "Policies focused on research prioritization, educational frameworks, funding mechanisms, and ethical standards in AI research and development.",
+      "phases": {
+        "Analysis": {
+          "description": "Assessment phase for research priorities, funding allocation, and resource gaps in AI research and education.",
+          "policies": [
+            {
+              "id": "P86",
+              "title": "Identify public interest research priorities",
+              "description": "Conduct collaborative needs assessments with stakeholders to design strategies for public interest-driven innovation.",
+              "examples": "Canada's Institute for Advanced Research AI & Society Program. UK Research and Innovation AI Review.",
+              "keywords": ["research priorities", "public interest", "needs assessment", "stakeholders", "collaborative assessment", "public interest-driven", "innovation strategies", "research strategy"]
+            },
+            {
+              "id": "P87",
+              "title": "Establish metrics and mechanisms to measure R&D spending, scientific outputs and innovation outcomes",
+              "description": "Investments in R&D can promote responsible innovation. Measurement of AI R&D spending, outputs and outcomes to track progress.",
+              "examples": "United States' National AI Research and Development Strategic Plan. Canada incorporates public and private-sector metrics.",
+              "keywords": ["metrics", "R&D spending", "scientific outputs", "innovation", "responsible innovation", "measurement mechanisms", "progress tracking", "innovation outcomes"]
+            },
+            {
+              "id": "P88",
+              "title": "Identify allocation of financial resources and gaps for research and R&D development",
+              "description": "Conduct a national AI R&D expenditure review disaggregated by sector, domain, and geography. Identify funding bottlenecks.",
+              "examples": "South Korea's AI Framework Act Article 21 establishes systematic approaches to securing AI professionals.",
+              "keywords": ["financial resources", "R&D gaps", "funding bottlenecks", "allocation", "expenditure review", "sector analysis", "geographic distribution", "resource identification"]
+            }
+          ]
+        },
+        "Design": {
+          "description": "Strategic design phase for research partnerships, ethical frameworks, and funding structures in AI research and education.",
+          "policies": [
+            {
+              "id": "P89",
+              "title": "Encourage public-private partnerships and public AI research hubs",
+              "description": "Equitable funding models",
+              "examples": "EU's AI4EU Initiative. Japan's AI Act promotes shared use of large-scale information processing facilities.",
+              "keywords": ["public-private partnerships", "research hubs", "funding models", "equitable", "shared resources", "research collaboration", "public research", "partnership development"]
+            },
+            {
+              "id": "P90",
+              "title": "Develop guidance and certification programs for ethical AI research",
+              "description": "Public sector and academia must retain talent to remain competitive and avoid brain drain.",
+              "examples": "EU's AI4EU Initiative. Japan's AI Act promotes shared use of resources.",
+              "keywords": ["guidance", "certification", "ethical research", "talent retention", "brain drain", "academic competition", "research ethics", "certification programs"]
+            },
+            {
+              "id": "P91",
+              "title": "Define ethical design considerations",
+              "description": "Incorporate principles from UNESCO Recommendation on the Ethics of AI. Explicitly exclude funding for harmful AI applications.",
+              "examples": "",
+              "keywords": ["ethical design", "principles", "funding criteria", "exclusions", "UNESCO principles", "harmful applications", "ethical considerations", "research ethics"]
+            },
+            {
+              "id": "P92",
+              "title": "Design structural policy mechanisms",
+              "description": "Create thematic funding programs. Establish AI-specific eligibility criteria. Introduce tiered tax incentives. Set aside dedicated R&D budgets.",
+              "examples": "",
+              "keywords": ["policy mechanisms", "funding programs", "tax incentives", "R&D budgets", "thematic funding", "eligibility criteria", "structural policies", "dedicated budgets"]
+            }
+          ]
+        },
+        "Implementation": {
+          "description": "Practical implementation phase for research infrastructure, funding programs, and ethical oversight mechanisms.",
+          "policies": [
+            {
+              "id": "P93",
+              "title": "Establish publicly funded AI research hubs, ethical prerequisites for funding access, and mechanisms to monitor research outputs",
+              "description": "Developing comprehensive guidelines to steer the ethical and responsible development and use of AI systems.",
+              "examples": "Argentina's Recommendations for Reliable AI. China's Global AI Governance Initiative. Australia's Centre of AI & Digital Ethics.",
+              "keywords": ["research hubs", "ethical prerequisites", "monitoring", "guidelines", "publicly funded", "funding access", "research outputs", "comprehensive guidelines"]
+            },
+            {
+              "id": "P94",
+              "title": "Operationalize tax programs to channel resources effectively",
+              "description": "Roll out enhanced R&D tax credit pathways. Use pre-commercial procurement. Measure societal impact in evaluations.",
+              "examples": "",
+              "keywords": ["tax programs", "R&D credits", "procurement", "impact measurement", "resource channeling", "pre-commercial", "societal impact", "tax pathways"]
+            },
+            {
+              "id": "P95",
+              "title": "Implement ethically aligned R&D programmes",
+              "description": "Launch targeted grant calls. Fund pilot programmes. Provide technical assistance. Oversee ethical standards implementation.",
+              "examples": "",
+              "keywords": ["R&D programs", "ethical alignment", "grants", "technical assistance", "pilot programmes", "ethical standards", "targeted funding", "implementation oversight"]
+            }
+          ]
+        },
+        "Monitoring and Evaluation": {
+          "description": "Assessment and evaluation phase for research impact, compliance monitoring, and stakeholder feedback in AI research and education.",
+          "policies": [
+            {
+              "id": "P96",
+              "title": "Develop performance indicators to measure the impact of AI policies on societal outcomes",
+              "description": "Conduct impact assessments. Track equity metrics. Require post-grant transparency reports.",
+              "examples": "South Korea's AI Framework Act Article 38 establishes mandatory statistical compilation.",
+              "keywords": ["performance indicators", "impact assessment", "equity metrics", "transparency", "societal outcomes", "post-grant reports", "statistical compilation", "policy impact"]
+            },
+            {
+              "id": "P97",
+              "title": "Regularly track R&D spending, scientific outputs, and patents to refine funding allocations",
+              "description": "Adjust eligibility and evaluation criteria based on lessons from unintended consequences or ethical lapses",
+              "examples": "",
+              "keywords": ["R&D tracking", "scientific outputs", "patents", "funding", "eligibility criteria", "evaluation criteria", "unintended consequences", "ethical lapses"]
+            },
+            {
+              "id": "P98",
+              "title": "Establish feedback loops with stakeholders to address emerging challenges",
+              "description": "Include feedback from affected populations, especially marginalized groups",
+              "examples": "",
+              "keywords": ["feedback loops", "stakeholders", "emerging challenges", "marginalized", "affected populations", "stakeholder engagement", "challenge identification", "inclusive feedback"]
+            },
+            {
+              "id": "P99",
+              "title": "Conduct audits to evaluate compliance with ethical standards",
+              "description": "Integrate ethical audits post-deployment to assess whether AI systems were used in accordance with human rights and legal standards",
+              "examples": "",
+              "keywords": ["audits", "compliance", "ethical standards", "human rights", "post-deployment", "legal standards", "ethical audits", "compliance evaluation"]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

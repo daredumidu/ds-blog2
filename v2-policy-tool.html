@@ -11,2144 +11,10 @@
     // Ensure jsPDF is available globally
     window.jsPDF = window.jspdf?.jsPDF || window.jsPDF;
     </script>
-    <style>
-        :root {
-            /* Updated to colorful scheme */
-            --color-infrastructure: #4F8EDB;
-            --color-legislation: #FFA726;
-            --color-sustainability: #AB47BC;
-            --color-economy: #EF5350;
-            --color-research: #4CAF50;
-            --color-gray-50: #f9fafb;
-            --color-gray-100: #f3f4f6;
-            --color-gray-200: #e5e7eb;
-            --color-gray-300: #d1d5db;
-            --color-gray-600: #4b5563;
-            --color-gray-700: #374151;
-            --color-gray-800: #1f2937;
-            --color-blue-50: #eff6ff;
-            --color-blue-600: rgb(90, 174, 227);
-            --color-green-100: #dcfce7;
-            --color-green-600: #16a34a;
-            --color-green-700: #15803d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--color-gray-50);
-            padding: 0;
-            min-height: 100vh;
-            line-height: 1.5;
-        }
-
-        /* Navigation Bar Styles - positioned over banner */
-        .top-nav {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            background: transparent;
-            border-bottom: none;
-            z-index: 1000;
-            backdrop-filter: none;
-        }
-
-        .nav-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 2rem;
-            padding: 1.5rem 2rem 1rem 2rem;
-            height: 80px;
-        }
-
-        .top-nav::after {
-              content: '';
-              position: absolute;
-              bottom: -20px;
-              left: 0;
-              right: 0;
-              width: 100%;
-              height: 1px;
-              background: rgba(255, 255, 255, 0.3);
-              z-index: 1001;
-          }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .g20-logo-img {
-            height: 75px;
-            width: auto;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex: 1;
-            justify-content: flex-end;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 0.75rem;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        .dropdown-arrow {
-            font-size: 0.7rem;
-            opacity: 0.8;
-            color: white;
-        }
-
-        .nav-tools {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-left: 2rem;
-        }
-
-        .language-select {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 6px;
-            padding: 0.375rem 0.75rem;
-            font-size: 0.875rem;
-            color: white;
-            cursor: pointer;
-        }
-
-        .language-select option {
-            background: #374151;
-            color: white;
-        }
-
-        .search-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 6px;
-            padding: 0.4rem;
-            cursor: pointer;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .search-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Header Banner Styles */
-        .header-banner {
-            width: 100vw;
-            height: min(90px, 35vw);
-            min-height: 30px;
-            background-image: url('assets/icons/only-cover.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            position: relative;
-            margin-left: calc(-50vw + 50%);
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-
-        .header-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .banner-content {
-            position: relative;
-            height: 50%;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 0 2rem;
-            z-index: 2;
-        }
-
-        .banner-title {
-            position: relative;
-            text-align: left;
-            max-width: 700px;
-        }
-
-        .banner-title h1 {
-            color: white;
-            font-size: clamp(1.5rem, 3vw, 4rem);
-            font-weight: 600;
-            line-height: 1;
-            margin: 0;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.5);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 0.02rem;
-            padding: 0 0.5rem;
-        }
-
-        .left-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .section {
-            background: white;
-            padding: 0.4rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.08);
-        }
-
-        .section h2 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--color-gray-800);
-            margin-bottom: 0.1rem;
-            letter-spacing: -0.025em;
-        }
-
-        /* Update clear-filters-btn */
-        .clear-filters-btn {
-            padding: 0.5rem 0.75rem;
-            border: 2px solid var(--color-gray-200);
-            border-radius: 6px;
-            background: white;
-            color: var(--color-gray-600);
-            font-size: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .clear-filters-btn:hover {
-            background: var(--color-gray-50);
-            color: var(--color-gray-700);
-            border-color: var(--color-gray-300);
-        }
-
-        .clear-filters-btn:active {
-            transform: translateY(1px);
-        }
-
-         /* Compact PolicyArea Buttons - Horizontal Layout */
-        .dimensions-container {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 0.4rem;
-            margin-bottom: 0.75rem;
-            overflow-x: auto;
-        }
-
-        .dimension-btn {
-            position: relative;
-            padding: 0.6rem 0.8rem;
-            border: 2px solid transparent;
-            border-radius: 8px;
-            min-height: 70px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            outline: none;
-            text-align: center;
-            letter-spacing: -0.01em;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            white-space: normal;
-            line-height: 1.1;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            flex: 1;
-            min-width: 140px;
-            max-width: none;
-        }
-
-        .dimension-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-        }
-
-        /* .dimension-btn:active {
-            transform: translateY(0);
-            transition: transform 0.1s;
-        }
-
-        .dimension-btn.active {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-        } */
-
-        .dimension-text {
-            flex: 1;
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-align: center;
-            line-height: 1.1;
-        }
-
-        .dimension-icon {
-            width: 34px;
-            height: 34px;
-            flex-shrink: 0;
-            opacity: 0.8;
-            transition: opacity 0.2s ease;
-        }
-
-        /* PolicyArea-specific colors - Original scheme */
-        .dimension-btn[data-dimension="Enabling Infrastructure"] {
-            background: #ffffff;
-            color: rgb(114, 114, 114);
-            border-color: rgb(186, 186, 186);
-        }
-        .dimension-btn[data-dimension="Enabling Infrastructure"]:hover {
-            background: #ffffff;
-            color: rgb(71, 70, 70);
-            border-color: rgb(119, 119, 119);
-        }
-        .dimension-btn[data-dimension="Enabling Infrastructure"].active {
-            /* background: white; */
-            /* color: rgb(22, 102, 106); */
-            color: rgb(27, 26, 26);
-            border-color: rgb(0, 0, 0);
-        }
-        /* .dimension-btn[data-dimension="Enabling Infrastructure"].active .dimension-icon {
-            filter: brightness(0) invert(1);
-        } */
-
-        .dimension-btn[data-dimension="Legislation & Policy"] {
-            background: #ffffff;
-            color: rgb(114, 114, 114);
-            border-color: rgb(186, 186, 186);
-        }
-        .dimension-btn[data-dimension="Legislation & Policy"]:hover {
-            background: #ffffff;
-            color: rgb(71, 70, 70);
-            border-color: rgb(119, 119, 119);
-        }
-        .dimension-btn[data-dimension="Legislation & Policy"].active {
-            /* background: #cb9b3d; */
-            color: rgb(27, 26, 26);
-            border-color: rgb(0, 0, 0);
-        }
-        /* .dimension-btn[data-dimension="Legislation & Policy"].active .dimension-icon {
-            filter: brightness(0) invert(1);
-        } */
-
-        .dimension-btn[data-dimension="Sustainability & Society"] {
-            background: #ffffff;
-            color: rgb(114, 114, 114);
-            border-color: rgb(186, 186, 186);
-        }
-        .dimension-btn[data-dimension="Sustainability & Society"]:hover {
-            background: #ffffff;
-            color: rgb(71, 70, 70);
-            border-color: rgb(119, 119, 119);
-        }
-        .dimension-btn[data-dimension="Sustainability & Society"].active {
-            color: rgb(27, 26, 26);
-            border-color: rgb(0, 0, 0);
-        }
-        /* .dimension-btn[data-dimension="Sustainability & Society"].active .dimension-icon {
-            filter: brightness(0) invert(1);
-        } */
-
-        .dimension-btn[data-dimension="Economy & Innovation"] {
-            background: #ffffff;
-            color: rgb(114, 114, 114);
-            border-color: rgb(186, 186, 186);
-        }
-        .dimension-btn[data-dimension="Economy & Innovation"]:hover {
-            background: #ffffff;
-            color: rgb(71, 70, 70);
-            border-color: rgb(119, 119, 119);
-        }
-        .dimension-btn[data-dimension="Economy & Innovation"].active {
-            color: rgb(27, 26, 26);
-            border-color: rgb(0, 0, 0);
-        }
-        /* .dimension-btn[data-dimension="Economy & Innovation"].active .dimension-icon {
-            filter: brightness(0) invert(1);
-        } */
-
-        .dimension-btn[data-dimension="Research & Education"] {
-            background: #ffffff;
-            color: rgb(114, 114, 114);
-            border-color: rgb(186, 186, 186);
-        }
-        .dimension-btn[data-dimension="Research & Education"]:hover {
-            background: #ffffff;
-            color: rgb(71, 70, 70);
-            border-color: rgb(119, 119, 119);
-        }
-        .dimension-btn[data-dimension="Research & Education"].active {
-            color: rgb(27, 26, 26);
-            border-color: rgb(0, 0, 0);
-        }
-        /* .dimension-btn[data-dimension="Research & Education"].active .dimension-icon {
-            filter: brightness(0) invert(1);
-        } */
-
-        /* Progressive Disclosure - Phases attached to dimensions */
-        .phases-section {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity:100%;
-            max-height: 0;
-            overflow: hidden;
-            margin-bottom: 0;
-            margin-top: -0.2rem;
-        }
-
-        .phases-section.visible {
-            opacity: 1;
-            max-height: 200px;
-            margin-bottom: 0.75rem;
-        }
-
-        .phases-section h2 {
-            margin-bottom: 0.5rem;
-            color: var(--color-gray-600);
-            font-size: 0.95rem;
-        }
-
-        /* Horizontal Phase Buttons - Connected Steps Design - Full Width */
-        .phases-container {
-            display: flex;
-            gap: 0;
-            flex-wrap: nowrap;
-            transition: all 0.3s ease;
-            justify-content: stretch;
-            width: 100%;
-        }
-
-        .phase-btn {
-            flex: 1;
-            padding: 0.75rem 2rem 0.75rem 1.5rem;
-            border: none;
-            background: var(--color-gray-100);
-            color: var(--color-gray-600);
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-            position: relative;
-            letter-spacing: -0.01em;
-            text-align: center;
-            /* margin-right: -1px;
-            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%, 20px 50%); */
-        }
-
-        .phase-btn:first-child {
-            /* clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%); */
-            padding-left: 1.5rem;
-        }
-
-        .phase-btn:last-child {
-            /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 20px 50%); */
-            padding-right: 1.5rem;
-            margin-right: 0;
-        }
-
-        .phase-btn:hover {
-            background: var(--color-gray-200);
-            color: var(--color-gray-700);
-            transform: translateY(-1px);
-            z-index: 2;
-        }
-
-        .phase-btn.active {
-            transform: translateY(-1px);
-            z-index: 3;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Dynamic coloring based on selected dimension */
-        .phases-container[data-dimension="Enabling Infrastructure"] .phase-btn.active {
-            background: white;
-            color: rgb(22, 102, 106);
-        }
-
-        .phases-container[data-dimension="Legislation & Policy"] .phase-btn.active {
-            background: white;
-            color: #cb9b3d;
-
-        }
-
-        .phases-container[data-dimension="Sustainability & Society"] .phase-btn.active {
-            background: white;
-            color: #5f0085;
-        }
-
-        .phases-container[data-dimension="Economy & Innovation"] .phase-btn.active {
-            background: white;
-            color: #8b2f30;
-        }
-
-        .phases-container[data-dimension="Research & Education"] .phase-btn.active {
-            background: white;
-            color: #005b3a;
-        }
-
-        /* Search and Filter Styles - Always visible */
-        .search-filter-section {
-            margin-bottom: 01rem;
-            opacity: 1;
-            max-height: none;
-            overflow: visible;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .search-filter-row {
-            display: flex;
-            gap: 0.75rem;
-            align-items: center; /* Changed from flex-end */
-            flex-wrap: wrap;
-            margin-bottom: 0.75rem;
-        }
-
-
-        .search-container {
-            flex: 0 0 250px;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 0.5rem 1rem 0.5rem 2.5rem;
-            border: 2px solid var(--color-gray-200);
-            border-radius: 8px;
-            font-size: 0.75rem;
-            background: white;
-            transition: all 0.2s ease;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: var(--color-blue-600);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1rem;
-            height: 1rem;
-            color: var(--color-gray-400);
-            pointer-events: none;
-        }
-
-        .search-input,
-        .keyword-dropdown,
-        .clear-filters-btn {
-            height: 36px;
-            box-sizing: border-box;
-        }
-
-        .keyword-filters-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .keyword-filters-header {
-            display: none; /* Keep only this line */
-        }
-
-        .keyword-filters-label {
-            font-size: 0.75rem;
-            color: var(--color-gray-600);
-            font-weight: 500;
-        }
-
-        .keyword-filters {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex: 1;
-        }
-
-        .keyword-dropdown {
-            flex: 1;
-            padding: 0.5rem 0.75rem;
-            border: 2px solid var(--color-gray-200);
-            border-radius: 6px;
-            font-size: 0.75rem;
-            background: white;
-            color: var(--color-gray-700);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-            min-width: 150px;
-        }
-
-        .keyword-dropdown:focus {
-            border-color: var(--color-blue-600);
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-        }
-
-        .keyword-dropdown:hover {
-            border-color: var(--color-gray-300);
-        }
-
-        .keyword-dropdown option {
-            padding: 0.5rem;
-            font-size: 0.75rem;
-        }
-
-        .active-keywords-display {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.25rem;
-            margin-top: 0.5rem;
-        }
-
-        .keyword-chip {
-            padding: 0.25rem 0.5rem;
-            background: var(--color-blue-100);
-            color: var(--color-blue-700);
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            border: 1px solid var(--color-blue-300);
-        }
-        /* New inline keyword chips styles */
-        .active-keywords-inline {
-            display: flex;
-            align-items: center;
-            gap: 0.375rem;
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
-        }
-
-        .visible-keywords {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            overflow: hidden;
-            flex-shrink: 1;
-            min-width: 0;
-        }
-
-        .keyword-chip-text {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-
-        .keyword-chip-remove {
-            background: none;
-            border: none;
-            color: var(--color-blue-600);
-            font-size: 0.8rem;
-            cursor: pointer;
-            padding: 0;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .keyword-chip-remove:hover {
-            background: var(--color-blue-200);
-            color: var(--color-blue-800);
-        }
-
-        /* Overflow indicator */
-        .keywords-overflow {
-            background: var(--color-gray-100);
-            color: var(--color-gray-600);
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            border: 1px solid var(--color-gray-300);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .keywords-overflow:hover {
-            background: var(--color-gray-200);
-            border-color: var(--color-gray-400);
-        }
-
-
-        /* Tooltip for showing all keywords */
-        .keywords-tooltip {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid var(--color-gray-200);
-            border-radius: 6px;
-            padding: 0.5rem;
-            margin-top: 0.25rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            display: none;
-        }
-
-        .keywords-tooltip.visible {
-            display: block;
-        }
-
-        .tooltip-keywords {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.25rem;
-        }
-        /* Focus states for accessibility */
-        .dimension-btn:focus-visible,
-        .phase-btn:focus-visible {
-            outline: 2px solid rgb(67, 208, 216);
-            outline-offset: 2px;
-        }
-
-        /* Two-column policy layout */
-        .policy-container {
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            gap: 0.5rem;
-            min-height: 630px;
-        }
-
-        .policy-list-column {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .policy-list-header {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-gray-800);
-            margin-bottom: 0.5rem;
-            padding: 0.5rem;
-            background: var(--color-gray-50);
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        .policy-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            overflow-y: auto;
-            max-height: 550px;
-            padding-right: 0.25rem;
-        }
-
-        .policy-item {
-            width: 100%;
-            text-align: left;
-            padding: 0.5rem;
-            border: 1px solid var(--color-gray-200);
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .policy-item:hover {
-            border-color: var(--color-gray-300);
-            transform: translateY(-1px);
-        }
-
-        .policy-item:focus {
-            outline: 2px solid var(--color-blue-600);
-            outline-offset: 2px;
-        }
-
-        .policy-item.active {
-            border-color: var(--color-blue-600);
-            background: var(--color-blue-50);
-        }
-
-        .policy-item.selected {
-            border-color: #0f7884;
-            background: #cbe5ec;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .policy-item.cross-dimensional {
-            border-left: 4px solid var(--color-blue-600);
-        }
-
-        .policy-item.cross-dimensional:hover {
-            border-left-color: var(--color-blue-700);
-            background: var(--color-blue-50);
-        }
-
-        /* Policy item colors based on selected dimension - updated to colors */
-        .policy-list-column[data-dimension="Enabling Infrastructure"] .policy-item:hover {
-            border-color: rgb(22, 102, 106);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .policy-list-column[data-dimension="Enabling Infrastructure"] .policy-item.active {
-            border-color: rgb(22, 102, 106);
-            background: #e8f3f4;
-            color: rgb(16, 92, 96);
-        }
-        .policy-list-column[data-dimension="Enabling Infrastructure"] .policy-item.selected {
-            border-color: rgb(16, 92, 96);
-            background: #d0ebee;
-            box-shadow: 0 1px 4px rgba(22, 102, 106, 0.2);
-        }
-
-        .policy-list-column[data-dimension="Legislation & Policy"] .policy-item:hover {
-            border-color: #cb9b3d;
-            background: rgba(203, 155, 61, 0.05);
-        }
-        .policy-list-column[data-dimension="Legislation & Policy"] .policy-item.active {
-            border-color: #cb9b3d;
-            background: #fef6e8;
-            color: #b8872f;
-        }
-        .policy-list-column[data-dimension="Legislation & Policy"] .policy-item.selected {
-            border-color: #b8872f;
-            background: #fcedb2;
-            box-shadow: 0 1px 4px rgba(203, 155, 61, 0.2);
-        }
-
-        .policy-list-column[data-dimension="Sustainability & Society"] .policy-item:hover {
-            border-color: #5f0085;
-            background: rgba(95, 0, 133, 0.05);
-        }
-        .policy-list-column[data-dimension="Sustainability & Society"] .policy-item.active {
-            border-color: #5f0085;
-            background: #f5f0ff;
-            color: #4a0066;
-        }
-        .policy-list-column[data-dimension="Sustainability & Society"] .policy-item.selected {
-            border-color: #4a0066;
-            background: #e8d5f2;
-            box-shadow: 0 1px 4px rgba(95, 0, 133, 0.2);
-        }
-
-        .policy-list-column[data-dimension="Economy & Innovation"] .policy-item:hover {
-            border-color: #8b2f30;
-            background: rgba(139, 47, 48, 0.05);
-        }
-        .policy-list-column[data-dimension="Economy & Innovation"] .policy-item.active {
-            border-color: #8b2f30;
-            background: #fef0f0;
-            color: #7a2829;
-        }
-        .policy-list-column[data-dimension="Economy & Innovation"] .policy-item.selected {
-            border-color: #7a2829;
-            background: #f5d5d5;
-            box-shadow: 0 1px 4px rgba(139, 47, 48, 0.2);
-        }
-
-        .policy-list-column[data-dimension="Research & Education"] .policy-item:hover {
-            border-color: #005b3a;
-            background: rgba(0, 91, 58, 0.05);
-        }
-        .policy-list-column[data-dimension="Research & Education"] .policy-item.active {
-            border-color: #005b3a;
-            background: #ecfdf5;
-            color: #004d32;
-        }
-        .policy-list-column[data-dimension="Research & Education"] .policy-item.selected {
-            border-color: #004d32;
-            background: #d1f7e5;
-            box-shadow: 0 1px 4px rgba(0, 91, 58, 0.2);
-        }
-
-        .policy-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .policy-info {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .policy-id {
-            padding: 0.1rem 0.3rem;
-            border-radius: 4px;
-            font-size: 0.7rem; 
-            font-weight: 500;
-            background: var(--color-gray-100);
-            color: var(--color-gray-700);
-            flex-shrink: 0;
-        }
-
-        .policy-id.selected {
-            background: var(--color-green-100);
-            color: var(--color-green-700);
-        }
-
-        .policy-title {
-            font-weight: 500;
-            line-height: 1.3;
-            font-size: 0.8rem;
-            color: var(--color-gray-800);
-            word-wrap: break-word;
-            white-space: normal;
-        }
-
-        .selected-icon {
-            width: 1rem;
-            height: 1rem;
-            background: var(--color-blue-600);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.7rem;
-            flex-shrink: 0;
-        }
-
-        /* Policy details column */
-        .policy-details-column {
-            display: flex;
-            flex-direction: column;
-            background: white;
-            font-size: 0.75rem;
-            border: 1px solid var(--color-gray-200);
-            border-radius: 8px;
-            overflow-y: auto;
-            max-height: 800px;
-        }
-
-        .details-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--color-gray-200);
-            background: var(--color-gray-50);
-            position: sticky;
-            top: 0;
-            z-index: 1;
-        }
-
-        .details-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-gray-800);
-        }
-
-        .btn-select {
-            padding: 0.4rem 0.8rem;
-            border: none;
-            border-radius: 6px;
-            background: rgb(65, 22, 22);
-            color: rgb(255, 255, 255);
-            font-weight: 500;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-select:hover:not(:disabled) {
-            background: #5c5d5f;
-            transform: translateY(-1px);
-        }
-
-        .btn-select:focus {
-            outline: 2px solid var(--color-blue-600);
-            outline-offset: 2px;
-        }
-
-        .btn-select:disabled {
-            background: var(--color-blue-100);
-            color: var(--color-blue-700);
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .details-content {
-            padding: 0.75rem;
-            line-height: 1.6;
-            color: var(--color-gray-600);
-        }
-
-        .detail-section {
-            margin-bottom: 1rem;
-        }
-
-        .detail-section h3 {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--color-gray-800);
-            margin-bottom: 0.5rem;
-        }
-
-        .examples-box {
-            background: var(--color-gray-50);
-            padding: 0.75rem;
-            border-radius: 6px;
-            border-left: 3px solid var(--color-gray-300);
-            line-height: 1.5;
-            font-size: 0.75rem;
-        }
-
-        .related-policies-section {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--color-gray-200);
-        }
-
-        .related-policies-section h3 {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--color-gray-800);
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .related-policies-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .related-policy-item {
-            padding: 0.5rem;
-            border: 1px solid var(--color-gray-200);
-            border-radius: 6px;
-            background: var(--color-gray-50);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .related-policy-item:hover {
-            border-color: var(--color-blue-300);
-            background: var(--color-blue-50);
-            transform: translateY(-1px);
-        }
-
-        .related-policy-dimension {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .related-policy-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .related-policy-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .related-policy-id {
-            padding: 0.1rem 0.3rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            background: var(--color-gray-200);
-            color: var(--color-gray-700);
-        }
-
-        .related-policy-phase {
-            font-size: 0.7rem;
-            color: var(--color-gray-500);
-            font-weight: 500;
-        }
-
-        .related-policy-title {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--color-gray-800);
-            line-height: 1.3;
-        }
-
-        .related-policy-match {
-            font-size: 0.65rem;
-            color: var(--color-gray-500);
-            font-style: italic;
-            margin-top: 0.25rem;
-        }
-
-        /* Policy bar tooltip */
-        .policy-bar-tooltip {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 0.5rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            line-height: 1.3;
-            max-width: 200px;
-            z-index: 1000;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .policy-bar-tooltip.visible {
-            opacity: 1;
-        }
-
-        .policy-bar-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 4px solid transparent;
-            border-top-color: rgba(0, 0, 0, 0.9);
-        }
-
-        .keywords-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.25rem;
-        }
-
-        .keyword {
-            padding: 0.2rem 0.5rem;
-            background: var(--color-gray-100);
-            color: var(--color-gray-700);
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .selection-matrix-container {
-            background: white;
-            padding: 0.5rem;
-            border-radius: 8px;
-            text-align: center;
-            overflow: auto;
-            max-height: 600px;
-            border: 1px solid #e5e7eb;
-        }
-
-        .matrix-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--color-gray-700);
-            margin-bottom: 0.5rem;
-        }
-
-        .matrix-subtitle {
-            font-size: 0.75rem;
-            color: var(--color-gray-600);
-            margin-bottom: 0.5rem;
-        }
-
-        .selection-coordinate-system {
-            width: 100%;
-            margin: 0 auto;
-            padding: 10px;
-        }
-
-        .coordinate-grid {
-            display: grid;
-            grid-template-columns: 60px 1fr;
-            grid-template-rows: 1fr 40px;
-            gap: 8px;
-            width: 100%;
-            height: 320px;
-        }
-
-        .y-axis-labels {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: flex-end;
-            padding-right: 8px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-
-        .y-axis-label {
-            font-size: 0.47rem;
-            color: var(--color-gray-600);
-            font-weight: 500;
-            writing-mode: horizontal-tb;
-            text-align: right;
-            height: fit-content;
-        }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 3px;
-            border: 1px solid var(--color-gray-300);
-            border-radius: 6px;
-            padding: 8px;
-            background: white;
-        }
-
-        .grid-cell {
-            border: 1px solid var(--color-gray-200);
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 4px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            position: relative;
-            min-height: 60px;
-            max-height: 60px;
-            background: #fafafa;
-            overflow: hidden;
-        }
-
-        .grid-cell:hover {
-            border-color: var(--color-gray-400);
-            transform: scale(1.02);
-        }
-
-        .grid-cell.selected {
-            border-width: 2px;
-            border-color: #000;
-            transform: scale(1.05);
-        }
-
-        .policy-bars {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-            justify-content: flex-start;
-            align-items: stretch;
-            width: 100%;
-            flex: 1;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--color-gray-400) transparent;
-        }
-
-        .policy-bars::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .policy-bars::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .policy-bars::-webkit-scrollbar-thumb {
-            background: var(--color-gray-400);
-            border-radius: 2px;
-        }
-
-        .policy-bars::-webkit-scrollbar-thumb:hover {
-            background: var(--color-gray-500);
-        }
-
-        .policy-bar {
-            border-radius: 2px;
-            transition: all 0.2s ease;
-            height: 6px;
-            width: 100%;
-            flex-shrink: 0;
-            font-size: 0.6rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            opacity: 0.9;
-            cursor: pointer;
-            position: relative;
-            border: 1px solid transparent;
-        }
-
-        .policy-bar:hover {
-            opacity: 1;
-            transform: scaleY(1.4);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            z-index: 10;
-        }
-
-        .policy-bar.related {
-            opacity: 0.6;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            position: relative;
-        }
-
-        .policy-bar.related::after {
-            content: 'Related';
-            position: absolute;
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.5rem;
-            color: var(--color-gray-600);
-            background: white;
-            padding: 1px 3px;
-            border-radius: 2px;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        .policy-bar.related:hover::after {
-            opacity: 1;
-        }
-
-        .policy-bar.current-viewing {
-            border: 2px solid rgba(255, 255, 255, 0.9);
-            opacity: 1;
-            position: relative;
-        }
-
-        .policy-bar.current-viewing::after {
-            content: 'Viewing';
-            position: absolute;
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.5rem;
-            color: var(--color-blue-600);
-            background: white;
-            padding: 1px 3px;
-            border-radius: 2px;
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        /* Smart Suggestions Styles */
-        .smart-suggestions-container {
-            background: white;
-            padding: 0.75rem;
-            border-radius: 8px;
-            border: 1px solid var(--color-gray-200);
-            margin-bottom: 0.5rem;
-        }
-
-        .suggestions-section {
-            margin-bottom: 1rem;
-        }
-
-        .suggestions-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .suggestions-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--color-gray-800);
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.25rem;
-            border-bottom: 1px solid var(--color-gray-200);
-        }
-
-        .template-suggestion {
-            background: var(--color-blue-50);
-            border: 1px solid var(--color-blue-200);
-            border-radius: 6px;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .template-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .template-count {
-            font-size: 0.75rem;
-            color: var(--color-blue-600);
-            background: white;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-weight: 500;
-        }
-
-        .template-description {
-            font-size: 0.8rem;
-            color: var(--color-gray-700);
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .template-context {
-            font-size: 0.75rem;
-            color: var(--color-gray-600);
-            font-style: italic;
-            margin-bottom: 0.75rem;
-            line-height: 1.3;
-        }
-
-        .template-btn {
-            background: var(--color-blue-600);
-            color: white;
-            border: none;
-            padding: 0.5rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .template-btn:hover {
-            background: var(--color-blue-700);
-            transform: translateY(-1px);
-        }
-
-        .gap-analysis {
-            background: var(--color-green-50);
-            border: 1px solid var(--color-green-200);
-            border-radius: 6px;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .gap-observation {
-            font-size: 0.8rem;
-            color: var(--color-green-700);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .gap-recommendation {
-            font-size: 0.75rem;
-            color: var(--color-gray-700);
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
-        }
-
-        .gap-suggestions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .suggestion-policy-btn {
-            background: var(--color-green-600);
-            color: white;
-            border: none;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .suggestion-policy-btn:hover {
-            background: var(--color-green-700);
-            transform: translateY(-1px);
-        }
-
-        /* Matrix guidance */
-        .matrix-guidance {
-            font-size: 0.7rem;
-            color: var(--color-gray-600);
-            text-align: center;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-
-        .matrix-legend {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.65rem;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .legend-bar {
-            width: 12px;
-            height: 4px;
-            border-radius: 1px;
-        }
-
-        .legend-bar.selected {
-            background: var(--color-blue-600);
-        }
-
-        .legend-bar.related {
-            background: var(--color-blue-600);
-            opacity: 0.6;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-        }
-
-        .legend-bar.viewing {
-            background: var(--color-blue-600);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-        }
-
-        /* Related policies explanation */
-        .related-policies-explanation {
-            background: var(--color-gray-50);
-            border: 1px solid var(--color-gray-200);
-            border-radius: 6px;
-            padding: 0.75rem;
-            margin-top: 0.5rem;
-            font-size: 0.75rem;
-            color: var(--color-gray-600);
-            line-height: 1.4;
-        }
-
-        .policy-relationship-context {
-            background: var(--color-blue-50);
-            border-left: 3px solid var(--color-blue-400);
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            font-size: 0.75rem;
-            color: var(--color-blue-700);
-            line-height: 1.4;
-        }
-
-        /* Selected Policy Initiatives Section Styles */
-        .selected-policies-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .selected-policies-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem;
-            background: var(--color-gray-50);
-            border-radius: 6px;
-        }
-
-        .selected-count {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--color-gray-700);
-        }
-
-        .clear-all-btn {
-            padding: 0.25rem 0.5rem;
-            border: 1px solid #dc2626;
-            border-radius: 4px;
-            background: white;
-            color: #dc2626;
-            font-size: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .clear-all-btn:hover {
-            background: #dc2626;
-            color: white;
-        }
-
-        .clear-all-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: white;
-            color: #dc2626;
-        }
-
-        .selected-policies-list {
-            max-height: 400px;
-            overflow-y: auto;
-            border: 1px solid var(--color-gray-200);
-            border-radius: 8px;
-            background: white;
-        }
-
-        .selected-policy-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--color-gray-100);
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .selected-policy-item:last-child {
-            border-bottom: none;
-        }
-
-        .selected-policy-item:hover {
-            background: var(--color-gray-50);
-        }
-
-        .selected-policy-item.highlighted {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-        }
-
-        .selected-policy-dimension {
-            min-width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 600;
-            flex-shrink: 0;
-            margin-top: 0.1rem;
-        }
-
-        .selected-policy-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .selected-policy-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .selected-policy-id {
-            padding: 0.1rem 0.3rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            background: var(--color-gray-100);
-            color: var(--color-gray-700);
-        }
-
-        .selected-policy-phase {
-            font-size: 0.7rem;
-            color: var(--color-gray-500);
-            font-weight: 500;
-        }
-
-        .selected-policy-title {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--color-gray-800);
-            line-height: 1.3;
-        }
-
-        .selected-policy-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-shrink: 0;
-        }
-
-        .remove-policy-btn {
-            padding: 0.25rem;
-            border: none;
-            background: transparent;
-            color: #dc2626;
-            font-size: 0.8rem;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-
-        .remove-policy-btn:hover {
-            background: #fee2e2;
-        }
-
-        .x-axis-labels {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-left: 8px;
-            padding-right: 8px;
-        }
-
-        .x-axis-label {
-            font-size: 0.47rem;
-            color: var(--color-gray-600);
-            font-weight: 500;
-            text-align: center;
-            flex: 1;
-        }
-
-        .axis-title {
-            position: absolute;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--color-gray-700);
-        }
-
-        .y-axis-title {
-            left: -45px;
-            top: 50%;
-            transform: rotate(-90deg) translateX(-50%);
-            transform-origin: center;
-        }
-
-        .x-axis-title {
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .current-selection {
-            background: linear-gradient(135deg, var(--color-blue-50), #e0e7ff);
-            padding: 0.5rem;
-            border: 1px solid #bfdbfe;
-            border-radius: 8px;
-        }
-
-        .selection-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #1e3a8a;
-            margin-bottom: 0.5rem;
-        }
-
-        .selection-info {
-            font-size: 0.75rem;
-            color: #1e40af;
-            line-height: 1.4;
-        }
-
-        /* Export Buttons */
-        .export-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 0.5rem;
-            border: 0.4px solid var(--color-gray-300);
-            border-radius: 8px;
-            background: white;
-            color: var(--color-gray-700);
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-        }
-
-        .export-btn:hover {
-            background: var(--color-gray-50);
-            border-color: var(--color-gray-400);
-            transform: translateY(-1px);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-        }
-
-        .export-btn:active {
-            transform: translateY(0);
-        }
-
-        .export-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .export-pdf {
-            border-color: #302a2a;
-            color: #322626;
-        }
-
-        .export-pdf:hover:not(:disabled) {
-            background: #fef2f2;
-            border-color: #312424;
-        }
-
-        .export-icon {
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        /* Expert profiles */
-        .experts-section {
-            background: white;
-            padding: 0.75rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .experts-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--color-gray-800);
-            margin-bottom: 0.75rem;
-        }
-
-        .experts-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-
-        .expert-card {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            border: 1px solid var(--color-gray-200);
-            border-radius: 6px;
-            background: white;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .expert-card:hover {
-            border-color: var(--color-blue-300);
-            background: var(--color-blue-50);
-        }
-
-        .expert-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-        }
-
-        .expert-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .expert-name {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--color-gray-800);
-            margin-bottom: 0.1rem;
-        }
-
-        .expert-role {
-            font-size: 0.65rem;
-            color: var(--color-gray-600);
-            line-height: 1.2;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Loading state */
-        .loading {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        /* Animation for policy selection */
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .pulse {
-            animation: pulse 0.5s ease-in-out;
-        }
-
-        /* Empty state */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 300px;
-            color: var(--color-gray-500);
-            text-align: center;
-        }
-
-        .empty-state-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .empty-state-text {
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            .nav-content {
-                padding: 1.25rem 1rem 0.75rem 1rem;
-                height: 70px;
-            }
-
-            .g20-logo-img {
-                height: 55px;
-            }
-
-            .nav-menu {
-                gap: 1rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .nav-link {
-                font-size: 0.8rem;
-                padding: 0.375rem 0.5rem;
-            }
-
-            .nav-tools {
-                margin-left: 1rem;
-                gap: 0.02rem;
-            }
-
-            .language-select {
-                padding: 0.25rem 0.5rem;
-                font-size: 0.8rem;
-            }
-
-            .search-btn {
-                padding: 0.275rem;
-            }
-
-            /* Hide some nav items on mobile for space */
-            .nav-links .nav-item:nth-child(n+3) {
-                display: none;
-            }
-
-            .header-banner {
-                height: 300px;
-                min-height: 250px;
-            }
-
-            .banner-content {
-                padding: 0 1rem;
-            }
-
-            .banner-title {
-                margin-top: 70px;
-            }
-
-            .banner-title h1 {
-                font-size: 1rem;
-            }
-
-            .container {
-                grid-template-columns: 1fr;
-                padding: 0 1rem;
-            }
-
-            .dimensions-container {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .dimension-btn {
-                min-height: 50px;
-                padding: 0.6rem 0.75rem;
-                gap: 0.5rem;
-                min-width: auto;
-                max-width: none;
-                flex: none;
-            }
-            
-            .dimension-text {
-                font-size: 0.75rem;
-            }
-            
-            .dimension-icon {
-                width: 18px;
-                height: 18px;
-            }
-            
-            .phases-container {
-                flex-direction: column;
-                gap: 0.4rem;
-            }
-            
-            .phase-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.75rem;
-                clip-path: none;
-                border-radius: 6px;
-                border: 2px solid var(--color-gray-200);
-                margin-right: 0;
-            }
-            
-            .phase-btn:first-child,
-            .phase-btn:last-child {
-                clip-path: none;
-                padding: 0.6rem 1rem;
-            }
-            
-            .phase-btn:hover {
-                border-color: var(--color-gray-300);
-            }
-            
-            .phases-container[data-dimension="Enabling Infrastructure"] .phase-btn.active {
-                border-color: rgb(22, 102, 106);
-            }
-
-            .phases-container[data-dimension="Legislation & Policy"] .phase-btn.active {
-                border-color: #cb9b3d;
-            }
-
-            .phases-container[data-dimension="Sustainability & Society"] .phase-btn.active {
-                border-color: #5f0085;
-            }
-
-            .phases-container[data-dimension="Economy & Innovation"] .phase-btn.active {
-                border-color: #8b2f30;
-            }
-
-            .phases-container[data-dimension="Research & Education"] .phase-btn.active {
-                border-color: #005b3a;
-            }
-
-            .keyword-filters {
-                gap: 0.35rem;
-            }
-
-            .search-filter-row {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-
-            .search-container {
-                flex: none;
-            }
-
-            .keyword-dropdown {
-                font-size: 0.7rem;
-                padding: 0.4rem 0.6rem;
-            }
-
-            .keyword-chip {
-                font-size: 0.65rem;
-                padding: 0.2rem 0.4rem;
-            }
-        }
-
-        /* Additional responsive breakpoint for very small screens */
-        @media (max-width: 480px) {
-            .nav-content {
-                padding: 0.5rem 0.75rem;
-            }
-
-            .nav-tools {
-                margin-left: 0.5rem;
-            }
-
-            /* Show only Home and one other item on very small screens */
-            .nav-links .nav-item:nth-child(n+2) {
-                display: none;
-            }
-
-            .banner-title h1 {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="v2-design.css">
 </head>
 <body>
-    <!-- Header Banner -->
+
 <!-- Navigation Bar -->
     <nav class="top-nav">
         <div class="nav-content">
@@ -2259,19 +125,22 @@
                 </div>
             </div>
 
+
             <!-- Two-Column Policy Layout -->
             <div class="section hidden" id="policySection">
-                <div class="policy-container">
+                <div class="policy-container" id="policyContainer">
                     <!-- Left Column: Policy List -->
                     <div class="policy-list-column">
-                        <div class="policy-list-header" id="policyListTitle">
-                            Select a dimension and phase
-                        </div>
-                        <div class="policy-list" id="policyList">
-                            <div class="empty-state">
-                                <div class="empty-state-icon">📋</div>
-                                <div class="empty-state-text">
-                                    Choose a policy area and phase to view available initiatives
+                        <div class="policy-list-column-content">
+                            <div class="policy-list-header" id="policyListTitle">
+                                Select a dimension and phase
+                            </div>
+                            <div class="policy-list" id="policyList">
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">📋</div>
+                                    <div class="empty-state-text">
+                                        Choose a policy area and phase to view available initiatives
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2279,6 +148,14 @@
 
                     <!-- Right Column: Initiative Details -->
                     <div class="policy-details-column" id="policyDetailsColumn">
+                        <!-- Collapse/Expand Toggle Button -->
+                        <button class="policy-list-toggle" id="policyListToggle" aria-label="Back to policy list">
+                            <svg class="policy-list-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Back to List
+                        </button>
+                        
                         <div class="details-header">
                             <div class="details-title">Policy Initiative Details</div>
                             <button class="btn-select hidden" id="selectPolicyBtn" aria-describedby="select-help">
@@ -2326,34 +203,26 @@
 
             <!-- Instructions with integrated export -->
             <div class="section">
-                <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">How to Use</h3>
-                <div style="font-size: 0.775rem; color: var(--color-gray-600); line-height: 1.4; margin-bottom: 1rem;">
-                    <div>1. Search or filter by keywords to discover policy initiatives</div>
-                    <div>2. Narrow down by policy area and phase</div>
-                    <div>3. Select policy initiatives and export your policy plan </div>
+                <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem;">How to use</h3>
+                <div style="font-size: 0.8rem; color: var(--color-gray-600); line-height: 1.5; margin-bottom: 1rem;">
+                    Search for policy initiatives or browse by policy area and phase <br> Select policy initiatives to read more <br> Export your policy plan
                 </div>
                 
-                <!-- Export integrated here -->
-                <!-- <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-gray-200);"> -->
-                <!-- <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-gray-700); margin-bottom: 0.1rem;">Export Report</div> -->
                 <button class="export-btn export-pdf" onclick="exportToPDF()" style="width: 100%; justify-content: center;">
-                    <!-- <span class="export-icon"></span> -->
                     Export Your Policy Plan as a PDF
                 </button>
-                <!-- <div style="font-size: 0.65rem; color: var(--color-gray-500); text-align: center; font-style: italic; margin-top: 0.1rem;">
-                    <span id="exportInfo">Export Your Policy Plan as a PDF</span>
-                </div> -->
-                <!-- </div> -->
             </div>
             
             <!-- Matrix with Bars -->
             <div class="selection-matrix-container">
-                <div class="matrix-title">Implementation Plan Dashboard</div>
-                <div class="matrix-subtitle">Track your selected policy initiatives across areas and phases</div>
+                <div class="matrix-title">Policy Plan Dashboard</div>
+                <div class="matrix-subtitle">Track your selected policy initiatives across areas and phases <br>
+                    
+                <!-- </div> -->
                 
                 <!-- Matrix Guidance -->
-                <div class="matrix-guidance">
-                    Click any bar to explore that policy initiative. Bars show your selections and related recommendations.
+                <!-- <div class="matrix-guidance"> -->
+                    <!-- Click any bar to explore that policy initiative.  </br> Bars show your selections and related recommendations. -->
                 </div>
                 
                 <!-- Matrix Legend -->
@@ -2375,7 +244,7 @@
                 <div class="selection-coordinate-system">
                     <div class="coordinate-grid" style="position: relative;">
                         <div class="y-axis-labels">
-                            <div class="y-axis-label">Monitoring and Evaluation</div>
+                            <div class="y-axis-label">Monitoring & Evaluation</div>
                             <div class="y-axis-label">Implementation</div>
                             <div class="y-axis-label">Design</div>
                             <div class="y-axis-label">Analysis</div>
@@ -2398,54 +267,33 @@
                 </div>
             </div>
 
-            <!-- Current Selection -->
+            <!-- Current Selection
             <div class="current-selection" id="currentSelection">
                 <div class="selection-title">Current Selection</div>
                 <div class="selection-info" id="selectionInfo">
                     Select a dimension to begin
                 </div>
-            </div>
+            </div> -->
 
             <!-- Expert Profiles -->
-            <div class="experts-section">
+            <div class="experts-section" id="expertsSection">
                 <div class="experts-title">Relevant Experts</div>
-                <div class="experts-grid">
-                    <div class="expert-card" title="Click to view Dr. X Y's profile">
-                        <div class="expert-avatar" style="background-color: #4F8EDB;">SC</div>
-                        <div class="expert-info">
-                            <div class="expert-name">Dr.X Y</div>
-                            <div class="expert-role">AI Infrastructure Specialist</div>
-                        </div>
-                    </div>
-                    <div class="expert-card" title="Click to view Prof. Y Z's profile">
-                        <div class="expert-avatar" style="background-color: #FFA726;">MR</div>
-                        <div class="expert-info">
-                            <div class="expert-name">Prof. Y Z</div>
-                            <div class="expert-role">Policy & Legislation Expert</div>
-                        </div>
-                    </div>
-                    <div class="expert-card" title="Click to view Dr. A B's profile">
-                        <div class="expert-avatar" style="background-color: #AB47BC;">AO</div>
-                        <div class="expert-info">
-                            <div class="expert-name">Dr. A B</div>
-                            <div class="expert-role">Sustainability & Ethics Lead</div>
-                        </div>
-                    </div>
-                    <div class="expert-card" title="Click to view C D's profile">
-                        <div class="expert-avatar" style="background-color: #EF5350;">JL</div>
-                        <div class="expert-info">
-                            <div class="expert-name">C D</div>
-                            <div class="expert-role">Innovation Economist</div>
-                        </div>
-                    </div>
+                <div class="experts-grid" id="expertsGrid">
+                    <div class="loading-message">Loading experts...</div>
                 </div>
             </div>
+
+
         </div>
     </div>
     <script>
+        let policyData = {};
+        let expertsData = [];   
         'use strict';
         
         (function() {
+            // Global variables for data
+
             const CONFIG = {
                 DIMENSIONS: [
                     { 
@@ -2488,621 +336,253 @@
                     { id: 'Analysis', short: 'Analysis' },
                     { id: 'Design', short: 'Design' },
                     { id: 'Implementation', short: 'Implementation' },
-                    { id: 'Monitoring and Evaluation', short: 'Monitoring and Evaluation' }
+                    { id: 'Monitoring and Evaluation', short: 'Monitoring & Evaluation' }
                 ]
             };
+
+
+            // Data loading functions
+            async function loadPolicyData() {
+                try {
+                    const response = await fetch('policy-data.json');
+                    if (!response.ok) {
+                        throw new Error(`Failed to load policy data: ${response.status}`);
+                    }
+                    const data = await response.json();
+
+                    // Flatten the structure to match original code expectations
+                    const flattenedData = {};
+                    const sourceData = data.policyAreas || data;
+
+                    Object.entries(sourceData).forEach(([policyArea, areaData]) => {
+                        flattenedData[policyArea] = {};
+                        
+                        if (areaData.phases) {
+                            // New structure with phases wrapper
+                            Object.entries(areaData.phases).forEach(([phase, phaseData]) => {
+                                flattenedData[policyArea][phase] = {};
+                                
+                                if (phaseData.policies && Array.isArray(phaseData.policies)) {
+                                    // Convert policies array to object keyed by policy ID
+                                    phaseData.policies.forEach(policy => {
+                                        if (policy.id) {
+                                            flattenedData[policyArea][phase][policy.id] = {
+                                                policy: policy.title || policy.policy,
+                                                details: policy.description || policy.details,
+                                                examples: policy.examples || '',
+                                                keywords: policy.keywords || []
+                                            };
+                                        }
+                                    });
+                                } else {
+                                    // Direct object structure
+                                    flattenedData[policyArea][phase] = phaseData;
+                                }
+                            });
+                        } else {
+                            // Old structure without phases wrapper
+                            flattenedData[policyArea] = areaData;
+                        }
+                    });
+
+                    policyData = flattenedData;
+                    console.log('Flattened policyData structure:', Object.keys(policyData));
+                    if (policyData['Enabling Infrastructure']) {
+                        console.log('Phases in Enabling Infrastructure:', Object.keys(policyData['Enabling Infrastructure']));
+                        if (policyData['Enabling Infrastructure']['Analysis']) {
+                            console.log('Policies in Analysis:', Object.keys(policyData['Enabling Infrastructure']['Analysis']));
+                            const firstPolicyId = Object.keys(policyData['Enabling Infrastructure']['Analysis'])[0];
+                            if (firstPolicyId) {
+                                console.log('First policy:', firstPolicyId, policyData['Enabling Infrastructure']['Analysis'][firstPolicyId]);
+                            }
+                        }
+                    }
+                    console.log('Policy data loaded successfully');
+                    return true;
+                } catch (error) {
+                    console.error('Error loading policy data:', error);
+                    // Fallback error message
+                    document.body.innerHTML = `
+                        <div style="padding: 2rem; text-align: center;">
+                            <div class="error-message">
+                                Failed to load policy data. Please ensure 'policy-data.json' is available and try refreshing the page.
+                            </div>
+                        </div>
+                    `;
+                    return false;
+                }
+            }
+
+            async function loadExpertsData() {
+                try {
+                    const response = await fetch('expert-data.json');
+                    if (!response.ok) {
+                        throw new Error(`Failed to load experts data: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    expertsData = data.experts || data;
+                    console.log('Experts data loaded successfully');
+                    return true;
+                } catch (error) {
+                    console.error('Error loading experts data:', error);
+                    // Show error in experts section
+                    const expertsGrid = document.getElementById('expertsGrid');
+                    if (expertsGrid) {
+                        expertsGrid.innerHTML = `
+                            <div class="error-message">
+                                Unable to load expert profiles. Please check that 'experts-data.json' is available.
+                            </div>
+                        `;
+                    }
+                    return false;
+                }
+            }
+
+            // Expert matching and rendering functions
+            function getAvatarColor(name) {
+                const colors = [
+                    '#4F8EDB', '#FFA726', '#AB47BC', '#EF5350', 
+                    '#66BB6A', '#FF7043', '#42A5F5', '#9CCC65'
+                ];
+                const hash = name.split('').reduce((a, b) => {
+                    a = ((a << 5) - a) + b.charCodeAt(0);
+                    return a & a;
+                }, 0);
+                return colors[Math.abs(hash) % colors.length];
+            }
+
+            function getInitials(name) {
+                return name.split(' ')
+                          .map(word => word[0])
+                          .join('')
+                          .toUpperCase()
+                          .slice(0, 2);
+            }
+
+
+            function findRelevantExperts(policyKeywords, limit = 4) {
+                if (!policyKeywords || policyKeywords.length === 0) {
+                    // Return a sample of experts if no specific keywords
+                    return expertsData.slice(0, limit);
+                }
+
+                const scoredExperts = expertsData.map(expert => {
+                    const expertKeywords = expert.keywords || [];
+                    let score = 0;
+                    
+                    // Calculate keyword overlap
+                    policyKeywords.forEach(policyKeyword => {
+                        expertKeywords.forEach(expertKeyword => {
+                            if (expertKeyword.toLowerCase().includes(policyKeyword.toLowerCase()) ||
+                                policyKeyword.toLowerCase().includes(expertKeyword.toLowerCase())) {
+                                score += 1;
+                            }
+                        });
+                    });
+
+                    return { ...expert, relevanceScore: score };
+                });
+                // Sort by relevance score and return top results
+                return scoredExperts
+                    .filter(expert => expert.relevanceScore > 0)
+                    .sort((a, b) => b.relevanceScore - a.relevanceScore)
+                    .slice(0, limit);
+            }
+
+            function renderExpertCard(expert) {
+                const initials = getInitials(expert.name);
+                const avatarColor = getAvatarColor(expert.name);
+                
+                const avatarElement = expert.imageUrl 
+                    ? `<img src="${expert.imageUrl}" alt="${expert.name}" class="expert-avatar">`
+                    : `<div class="expert-avatar-fallback" style="background-color: ${avatarColor};">${initials}</div>`;
+                
+                const linkedinElement = expert.linkedin 
+                    ? `<a href="${expert.linkedin}" target="_blank" rel="noopener noreferrer" class="expert-linkedin" onclick="event.stopPropagation();">
+                         See profile →
+                       </a>`
+                    : '';
+                const expertiseDisplay = expert.expertise ? expert.expertise.slice(0, 3) : [];
+                const keywordsDisplay = expert.keywords ? expert.keywords.slice(0, 3) : [];
+                
+                return `
+                    <div class="expert-card" onclick="openExpertProfile('${expert.profileUrl || expert.linkedin || '#'}')" title="Click to view ${expert.name}'s profile">
+                        ${avatarElement}
+                        <div class="expert-info">
+                            <div class="expert-header">
+                                <div>
+                                    <div class="expert-name">${expert.name}</div>
+                                    <div class="expert-title">${expert.title}</div>
+                                </div>
+                                ${linkedinElement}
+                            </div>
+                            
+                            <div class="expert-details">
+                                <div class="expert-detail-row">
+                                    <svg class="expert-detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                                    </svg>
+                                    <span>${expert.languages.join(', ')}</span>
+                                </div>
+                                <div class="expert-detail-row">
+                                    <svg class="expert-detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span>${expert.regions.join(', ')}</span>
+                                </div>
+                            </div>
+                            
+                            ${keywordsDisplay.length > 0 ? `
+                            <div class="expert-expertise">
+                                ${keywordsDisplay.map(area => `<span class="expert-expertise-tag">${area}</span>`).join('')}
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            function updateRelevantExperts(selectedPolicy = null) {
+                const expertsGrid = document.getElementById('expertsGrid');
+                if (!expertsGrid || expertsData.length === 0) return;
+
+                let policyKeywords = [];
+                
+                // Get keywords from currently selected policy
+                if (selectedPolicy && state.selectedPolicyArea && state.selectedPhase) {
+                    // Use the current state to get the policy info, not the selectedPolicy parameter
+                    const policyInfo = policyData[state.selectedPolicyArea]?.[state.selectedPhase]?.[state.selectedPolicy];
+                    if (policyInfo && policyInfo.keywords) {
+                        policyKeywords = policyInfo.keywords;
+                    }
+                }
+
+                // Find relevant experts
+                const relevantExperts = findRelevantExperts(policyKeywords, 4);
+                
+                if (relevantExperts.length > 0) {
+                    expertsGrid.innerHTML = relevantExperts.map(expert => renderExpertCard(expert)).join('');
+                } else {
+                    // Fallback to showing first 4 experts if no matches
+                    const fallbackExperts = expertsData.slice(0, 4);
+                    expertsGrid.innerHTML = fallbackExperts.map(expert => renderExpertCard(expert)).join('');
+                }
+            }
+
+            function openExpertProfile(profileUrl) {
+                if (profileUrl && profileUrl !== '#') {
+                    window.open(profileUrl, '_blank');
+                }
+            }
+
+            // Make functions available globally
+            window.openExpertProfile = openExpertProfile;
+
+
             const maxVisibleChips = 3;
-            // data structure
-            const policyData = Object.freeze({
-                'Enabling Infrastructure': Object.freeze({
-                    'Analysis': Object.freeze({
-                        'P1': Object.freeze({
-                            policy: 'Identify infrastructure needs, gaps, and areas for improvement.',
-                            details: 'Conduct comprehensive needs-based audits to systematically assess Infrastructure. For effective auditing, it is important to begin with an evidence-based assessment of current infrastructure needs, structured stakeholder consultations, and careful documentation of decisions, laying a solid foundation for transparent and measurable analysis.',
-                            examples: 'Quantitative indicators and statistical sources such as the ITU\'s flagship Facts and Figures, tracks global connectivity through key indicators. Singapore\'s Smart Nation Initiative involves regular extensive needs assessments. UK\'s National Infrastructure Commission advises government on digital technologies rollout. South Korea\'s AI Framework Act Article 25 mandates comprehensive government support for AI data center development.',
-                            keywords: Object.freeze(['needs assessment', 'audits', 'stakeholder consultation', 'evidence-based'])
-                        }),
-                        'P2': Object.freeze({
-                            policy: 'Consult key stakeholders',
-                            details: 'Consult key stakeholders to ensure audits reflect national and regional economic and social priorities, leveraging shared expertise.',
-                            examples: '',
-                            keywords: Object.freeze(['stakeholder engagement', 'consultation', 'priorities', 'shared expertise'])
-                        }),
-                        'P3': Object.freeze({
-                            policy: 'Assess national, regional, and international partnerships on Infrastructure and strengthen cooperation',
-                            details: 'International and regional cooperation offers opportunities to leverage collaborative strategies, share knowledge, and ensure that infrastructure systems are interoperable across borders.',
-                            examples: '',
-                            keywords: Object.freeze(['partnerships', 'cooperation', 'interoperability', 'collaboration'])
-                        }),
-                        'P4': Object.freeze({
-                            policy: 'Invest in HPCs, data centers, and networks',
-                            details: 'Joint investments in HPC, data centers, and networks reduce costs for individual countries while fostering a competitive and inclusive global AI landscape.',
-                            examples: '',
-                            keywords: Object.freeze(['HPC', 'data centers', 'networks', 'joint investments'])
-                        }),
-                        'P5': Object.freeze({
-                            policy: 'Measure AI computing resource needs',
-                            details: 'AI infrastructure readiness also depends on cloud services and data center capabilities. Key indicators include data center density and distribution, and cloud service adoption rates.',
-                            examples: 'Datacenter Map provides information on data centers from all over the world.',
-                            keywords: Object.freeze(['computing resources', 'cloud services', 'data centers', 'indicators'])
-                        }),
-                        'P6': Object.freeze({
-                            policy: 'Develop a national AI compute strategy',
-                            details: 'A national AI compute strategy should align with broader national AI policies and address: 1. Current AI compute capacity 2. National AI compute needs 3. International comparison.',
-                            examples: 'N/A',
-                            keywords: Object.freeze(['compute strategy', 'capacity', 'needs assessment', 'benchmarking'])
-                        }),
-                        'P7': Object.freeze({
-                            policy: 'Select indicators to evaluate the effectiveness of AI compute investments',
-                            details: 'Indicators to evaluate effectiveness and social impact: Economies of scale, scope, social relevance, and long-term sustainability/resilience indicators.',
-                            examples: '',
-                            keywords: Object.freeze(['indicators', 'evaluation', 'social impact', 'Sustainability & Society'])
-                        })
-                    }),
-                    'Design': Object.freeze({
-                        'P8': Object.freeze({
-                            policy: 'Develop publicly owned infrastructure as a foundational layer',
-                            details: 'By positioning the state as an active investor of AI infrastructure, governments can counteract current monopolistic tendencies in AI compute and create a more inclusive and responsible AI ecosystem.',
-                            examples: 'Direct public investment in infrastructure, such as in national supercomputing centers or regional data hubs.',
-                            keywords: Object.freeze(['public infrastructure', 'state investment', 'inclusive ecosystem', 'foundational layer'])
-                        }),
-                        'P9': Object.freeze({
-                            policy: 'Encourage private-and not-for profit sector participation',
-                            details: 'By combining direct public investments with financial incentives and policies that encourage private and non-profit sector participation and innovation.',
-                            examples: 'Indonesia secured IDR120.2 trillion in AI investments in 2022-2023, including Microsoft\'s $1.7 billion investment in 2024.',
-                            keywords: Object.freeze(['private sector', 'non-profit', 'participation', 'innovation'])
-                        }),
-                        'P10': Object.freeze({
-                            policy: 'Establish open-access data-sharing frameworks',
-                            details: 'Investing in publicly funded computing infrastructure. Governments and international organizations can create open-access systems that provide academia with computational power and datasets.',
-                            examples: 'Canada\'s Digital Research Alliance and the European Open Science Cloud.',
-                            keywords: Object.freeze(['open-access', 'data-sharing', 'public infrastructure', 'academia'])
-                        }),
-                        'P11': Object.freeze({
-                            policy: 'Open source AI approaches',
-                            details: 'By offering freely accessible tools, models, and frameworks, open-source initiatives allow academic institutions and independent researchers to participate in AI development without proprietary constraints.',
-                            examples: 'India\'s Bhashini platform supports open-source AI models for natural language processing in regional languages.',
-                            keywords: Object.freeze(['open-source', 'accessible tools', 'models', 'frameworks'])
-                        }),
-                        'P12': Object.freeze({
-                            policy: 'Open Data Initiatives',
-                            details: 'Many national AI strategies emphasize open government data, alongside investments in data centers to ensure secure, contextualized and high-quality data for AI applications.',
-                            examples: 'Kenya leads the Africa Open Data Initiative. Open Data Inventory (ODIN) measures offer insights into open data practices.',
-                            keywords: Object.freeze(['open data', 'government data', 'data quality', 'transparency'])
-                        }),
-                        'P13': Object.freeze({
-                            policy: 'Offer incentives and lower financial hurdles to drive innovation',
-                            details: 'By offering incentives and tailored support programs, governments help SMEs navigate the costs and complexities of AI adoption.',
-                            examples: '',
-                            keywords: Object.freeze(['incentives', 'financial support', 'SMEs', 'innovation'])
-                        }),
-                        'P14': Object.freeze({
-                            policy: 'Offer incentives and lower financial hurdles to drive innovation',
-                            details: 'By lowering financial hurdles, governments aim to drive innovation, expand cloud and data service utilization, and make advanced AI infrastructure more widely available.',
-                            examples: '',
-                            keywords: Object.freeze(['financial support', 'innovation', 'cloud services', 'accessibility'])
-                        }),
-                        'P15': Object.freeze({
-                            policy: 'Offer incentives and lower financial hurdles to drive innovation',
-                            details: 'Establish tax incentives, grants, and subsidies to drive private sector investments in accordance with the public interest and common benefit.',
-                            examples: 'South Africa\'s National AI Policy Framework provides tax incentives and grants. Rwanda supports AI startups through Kigali Innovation City.',
-                            keywords: Object.freeze(['tax incentives', 'grants', 'subsidies', 'public interest'])
-                        }),
-                        'P16': Object.freeze({
-                            policy: 'Strengthen capital markets to support an inclusive, public-interest-oriented, responsible AI innovation ecosystem',
-                            details: 'Focus on high-impact sectors, SMEs, and startups. Robust infrastructure is crucial for startups and SMEs to innovate without prohibitive costs.',
-                            examples: 'Chile: Publicly funded AI testbeds in mining and agriculture. Rwanda provides subsidized cloud services for startups.',
-                            keywords: Object.freeze(['capital markets', 'SMEs', 'startups', 'innovation ecosystem'])
-                        })
-                    }),
-                    'Implementation': Object.freeze({
-                        'P17': Object.freeze({
-                            policy: 'Cloud Procurement Policy and Governance',
-                            details: 'Procurement Policies and Requirements for the use of Cloud in the Public Sector. Centralized online platforms can provide procuring agencies with a curated list of preapproved cloud service providers.',
-                            examples: 'UK\'s "Government Cloud First" policy. Sovereign cloud initiatives like Gaia-X in Europe, India\'s MeghRaj, and Africa\'s AfriCloud. Australia\'s Hosting Certification Framework.',
-                            keywords: Object.freeze(['cloud procurement', 'governance', 'public sector', 'security standards'])
-                        }),
-                        'P18': Object.freeze({
-                            policy: 'Dedicated frameworks and guidelines on procuring AI technologies for the public sector',
-                            details: 'Effective AI adoption in the public sector demands procurement policies capable of keeping pace with AI\'s fast-moving landscape.',
-                            examples: 'UK\'s AI Dynamic Purchasing System. US Request for Information to align AI acquisitions. EU Commission\'s AI Public Procurement Community. Canada\'s list of qualified suppliers.',
-                            keywords: Object.freeze(['AI procurement', 'public sector', 'frameworks', 'guidelines'])
-                        }),
-                        'P19': Object.freeze({
-                            policy: 'Technical deployment of models and infrastructure',
-                            details: 'Decentralized cloud computing models that leverage distributed networks to offer peer-to-peer cloud services that minimize centralization.',
-                            examples: 'N/A',
-                            keywords: Object.freeze(['decentralized', 'cloud computing', 'peer-to-peer', 'distributed'])
-                        }),
-                        'P20': Object.freeze({
-                            policy: 'Technical deployment of models and infrastructure',
-                            details: 'Open-source cloud platforms that enable organizations to develop and control their own cloud environments. Hybrid and multi-cloud strategies.',
-                            examples: '',
-                            keywords: Object.freeze(['open-source', 'cloud platforms', 'hybrid cloud', 'multi-cloud'])
-                        }),
-                        'P21': Object.freeze({
-                            policy: 'Technical deployment of models and infrastructure',
-                            details: 'Cooperative and community-owned services which can provide an alternative to corporate-owned infrastructure.',
-                            examples: '',
-                            keywords: Object.freeze(['cooperative', 'community-owned', 'Enabling Infrastructure', 'alternatives'])
-                        })
-                    }),
-                    'Monitoring and Evaluation': Object.freeze({
-                        'P22': Object.freeze({
-                            policy: 'Develop a set of performance indicators to monitor and evaluate progress at each phase of the policy cycle',
-                            details: 'Establishing performance indicators and feedback mechanisms helps assess progress, identify gaps, and refine strategies.',
-                            examples: 'N/A',
-                            keywords: Object.freeze(['performance indicators', 'monitoring', 'evaluation', 'feedback'])
-                        }),
-                        'P23': Object.freeze({
-                            policy: 'Conduct regular audits and impact assessments',
-                            details: 'International benchmarking is particularly valuable, allowing countries to compare their approaches with global trends.',
-                            examples: '',
-                            keywords: Object.freeze(['audits', 'impact assessments', 'benchmarking', 'international'])
-                        }),
-                        'P24': Object.freeze({
-                            policy: 'Engage stakeholders in feedback loops for continual improvement',
-                            details: 'Embedding Monitoring into each phase, countries can ensure their infrastructure development efforts remain dynamic, responsive, and inclusive.',
-                            examples: '',
-                            keywords: Object.freeze(['stakeholder engagement', 'feedback loops', 'continual improvement', 'inclusive'])
-                        })
-                    })
-                }),
-                'Legislation & Policy': Object.freeze({
-                    'Analysis': Object.freeze({
-                        'P25': Object.freeze({
-                            policy: 'Review and assess existing AI laws, definitions, and regulations.',
-                            details: 'Conduct comprehensive reviews of current AI-related laws and definitions. Flexible definitions that focus on the risk profiles of AI systems, ensures the systems posing minimal risks are subject to lighter oversight.',
-                            examples: 'The OECD definition articulates what an AI system is. The European Union\'s AI Act defines an AI system. UNESCO\'s approach has been to not provide a single definition.',
-                            keywords: Object.freeze(['legal review', 'AI definitions', 'risk-based', 'regulations'])
-                        }),
-                        'P26': Object.freeze({
-                            policy: 'Review and assess existing AI laws, definitions, and regulations.',
-                            details: 'Identify regulatory gaps and assess risks associated with AI systems.',
-                            examples: 'The OECD definition articulates what an AI system is. The European Union\'s AI Act defines an AI system. UNESCO\'s approach has been to not provide a single definition.',
-                            keywords: Object.freeze(['regulatory gaps', 'risk assessment', 'AI systems', 'legal framework'])
-                        }),
-                        'P27': Object.freeze({
-                            policy: 'Review and assess existing AI laws, definitions, and regulations.',
-                            details: 'Apply flexible, risk-based definitions that allow lighter oversight for low-risk AI but enable reassessment as risk profiles evolve.',
-                            examples: 'The OECD definition articulates what an AI system is. The European Union\'s AI Act defines an AI system. UNESCO\'s approach has been to not provide a single definition.',
-                            keywords: Object.freeze(['flexible definitions', 'risk-based', 'oversight', 'evolution'])
-                        }),
-                        'P28': Object.freeze({
-                            policy: 'Review and assess existing AI laws, definitions, and regulations.',
-                            details: 'Ensure regulation covers all AI lifecycle phases: design, data, model building, testing, deployment, monitoring, and decommissioning.',
-                            examples: 'The EU AI Act Article 5 provides a comprehensive framework of 8 prohibited AI practices.',
-                            keywords: Object.freeze(['lifecycle phases', 'regulation', 'prohibited practices', 'compliance'])
-                        }),
-                        'P29': Object.freeze({
-                            policy: 'Update or develop privacy legislation reflecting AI\'s data reliance.',
-                            details: 'Modernise privacy laws to address AI-specific challenges, emphasising strong data protection principles throughout AI system lifecycles.',
-                            examples: 'Italy\'s data protection authority imposed a temporary ban on ChatGPT. Colombia has made progress in formulating a national strategic vision for AI.',
-                            keywords: Object.freeze(['privacy legislation', 'data protection', 'AI lifecycle', 'modernization'])
-                        }),
-                        'P30': Object.freeze({
-                            policy: 'Establish inclusive stakeholder consultation processes.',
-                            details: 'Engage a broad range of stakeholders early in the policy cycle to gather input, build consensus, and develop ethical principles.',
-                            examples: 'Latin American parliamentarians issued a joint statement on the need for a solid legislative framework. Indonesia is focused on advancing AI governance through international collaboration.',
-                            keywords: Object.freeze(['stakeholder consultation', 'consensus-building', 'ethical principles', 'inclusive'])
-                        })
-                    }),
-                    'Design': Object.freeze({
-                        'P31': Object.freeze({
-                            policy: 'Issue guidelines for ethical AI development and consult on hard vs soft legislative options.',
-                            details: 'Develop ethical AI guidelines that promote responsible innovation and public trust.',
-                            examples: 'UK promotes global AI standards through its AI Standards Hub. Germany champions AI standards via DIN. China uses a hybrid approach. Japan sets AI Governance Guidelines.',
-                            keywords: Object.freeze(['ethical guidelines', 'hard law', 'soft law', 'public trust'])
-                        }),
-                        'P32': Object.freeze({
-                            policy: 'Issue guidelines for ethical AI development and consult on hard vs soft legislative options.',
-                            details: 'Clarify when enforceable laws (hard law) are necessary versus when voluntary or advisory approaches (soft law) are appropriate.',
-                            examples: '',
-                            keywords: Object.freeze(['hard law', 'soft law', 'enforceable', 'voluntary'])
-                        }),
-                        'P33': Object.freeze({
-                            policy: 'Issue guidelines for ethical AI development and consult on hard vs soft legislative options.',
-                            details: 'Use standards-based regulation to complement legal rules, guiding practical implementation through technical norms and best practices.',
-                            examples: '',
-                            keywords: Object.freeze(['standards-based', 'regulation', 'technical norms', 'best practices'])
-                        }),
-                        'P34': Object.freeze({
-                            policy: 'Develop and adopt technical standards for responsible AI innovation.',
-                            details: 'Link legal requirements with practical standards that ensure fairness, safety, and inclusiveness.',
-                            examples: 'Article 40 of the EU AI Act explicitly connects compliance with harmonized technical standards.',
-                            keywords: Object.freeze(['technical standards', 'legal requirements', 'fairness', 'safety'])
-                        }),
-                        'P35': Object.freeze({
-                            policy: 'Develop and adopt technical standards for responsible AI innovation.',
-                            details: 'Encourage the use of internationally recognised standards to provide clear tools for compliance and to operationalise ethical principles.',
-                            examples: 'In the United States, the NIST AI Risk Management Framework offers methodologies for AI risk management.',
-                            keywords: Object.freeze(['international standards', 'compliance', 'ethical principles', 'operationalization'])
-                        })
-                    }),
-                    'Implementation': Object.freeze({
-                        'P36': Object.freeze({
-                            policy: 'Strengthen resources and training for regulatory bodies.',
-                            details: 'Invest in regulator training on AI ethics, accountability, bias detection, and privacy.',
-                            examples: 'Germany and South Korea have invested in AI-specific monitoring systems.',
-                            keywords: Object.freeze(['regulator training', 'AI ethics', 'accountability', 'bias detection'])
-                        }),
-                        'P37': Object.freeze({
-                            policy: 'Strengthen resources and training for regulatory bodies.',
-                            details: 'Equip regulatory bodies with modern tools and sufficient budgets to effectively oversee AI technologies.',
-                            examples: 'Germany and South Korea have invested in AI-specific monitoring systems.',
-                            keywords: Object.freeze(['regulatory capacity', 'oversight', 'AI technologies', 'resources'])
-                        }),
-                        'P38': Object.freeze({
-                            policy: 'Establish cross-functional teams to manage and address AI-specific regulatory compliance and enforcement challenges.',
-                            details: 'Create cross-functional teams combining legal, technical, ethical, and policy expertise.',
-                            examples: 'UK\'s Responsible Technology Adoption Unit provides a model for integrating diverse perspectives.',
-                            keywords: Object.freeze(['cross-functional teams', 'compliance', 'enforcement', 'expertise'])
-                        }),
-                        'P39': Object.freeze({
-                            policy: 'Establish cross-functional teams to manage and address AI-specific regulatory compliance and enforcement challenges.',
-                            details: 'Set up dedicated AI regulatory bodies or assign responsibilities to existing agencies with clear coordination mechanisms.',
-                            examples: 'European Union adopts a multi-tiered structure under its AI Act with national supervisory authorities and European Artificial Intelligence Board.',
-                            keywords: Object.freeze(['regulatory bodies', 'coordination', 'mandates', 'oversight'])
-                        }),
-                        'P40': Object.freeze({
-                            policy: 'Promote regulatory sandboxes to support compliance',
-                            details: 'Use sandboxes as controlled environments to test AI systems. Key areas: Regulatory Alignment, Risk Assessment, Technical Validation, Cross-Sector Applications, Transparency, Facilitating Innovation.',
-                            examples: 'Saudi Central Bank launched its Regulatory Sandbox in 2018, interlinked with National Strategy for Data and AI.',
-                            keywords: Object.freeze(['regulatory sandboxes', 'testing', 'compliance', 'innovation'])
-                        })
-                    }),
-                    'Monitoring and Evaluation': Object.freeze({
-                        'P41': Object.freeze({
-                            policy: 'Establish key performance indicators to monitor regulatory impact and compliance.',
-                            details: 'Use international benchmarking to compare and refine policies based on global best practices.',
-                            examples: 'NA',
-                            keywords: Object.freeze(['KPIs', 'monitoring', 'benchmarking', 'compliance'])
-                        }),
-                        'P42': Object.freeze({
-                            policy: 'Assess sandbox effectiveness for balancing innovation and safety',
-                            details: 'Regularly evaluate sandbox outcomes to inform policy adjustments and improvements.',
-                            examples: 'NA',
-                            keywords: Object.freeze(['sandbox evaluation', 'innovation', 'safety', 'policy adjustments'])
-                        }),
-                        'P43': Object.freeze({
-                            policy: 'Conduct regular audits and involve civil society to ensure community concerns are addressed.',
-                            details: 'Institutionalise periodic audits and public consultations to reflect societal concerns and adapt policies accordingly',
-                            examples: 'NA',
-                            keywords: Object.freeze(['audits', 'civil society', 'community concerns', 'policy adaptation'])
-                        }),
-                        'P44': Object.freeze({
-                            policy: 'Implement continuous feedback loops for policy refinement',
-                            details: 'Create dynamic regulatory processes that integrate lessons learned, enabling iterative updates and improvement.',
-                            examples: 'NA',
-                            keywords: Object.freeze(['feedback loops', 'policy refinement', 'iterative', 'continuous improvement'])
-                        })
-                    })
-                }),
-                'Sustainability & Society': Object.freeze({
-                    'Analysis': Object.freeze({
-                        'P45': Object.freeze({
-                            policy: 'Assess the availability, accessibility, and gaps in digital literacy and AI skills',
-                            details: '1. Skills gap analyses 2. Development of competency frameworks 3. Occupational standards 4. Certification programs 5. Labor market assessments 6. Training program benchmarks 7. National and regional AI skills indexes',
-                            examples: 'Singapore\'s SkillsFuture initiative. Saudi Data and AI Authority National Occupational Standards Framework.',
-                            keywords: Object.freeze(['skills assessment', 'digital literacy', 'competency frameworks', 'labor market'])
-                        }),
-                        'P46': Object.freeze({
-                            policy: 'Develop equitable education and training policies',
-                            details: 'Form multi-stakeholder task forces to co-develop policies based on needs. Disaggregated Data Collection by gender, ethnicity, socioeconomic background.',
-                            examples: '',
-                            keywords: Object.freeze(['education policy', 'training', 'equity', 'data collection'])
-                        }),
-                        'P47': Object.freeze({
-                            policy: 'Engage with marginalized communities through feedback surveys',
-                            details: 'Essential for developing inclusive and equitable digital and AI systems that serve all segments of society effectively.',
-                            examples: 'National Telecommunications and Information Administration (NTIA) Surveys in the US.',
-                            keywords: Object.freeze(['marginalized communities', 'feedback', 'inclusion', 'equity'])
-                        }),
-                        'P48': Object.freeze({
-                            policy: 'Gender-equitable opportunities',
-                            details: '',
-                            examples: 'UNESCO "Women for Ethical AI" report highlights lack of gender-disaggregated data. Singapore\'s SkillsFuture provides data on effectiveness for women and low-income communities.',
-                            keywords: Object.freeze(['gender equity', 'opportunities', 'data disaggregation', 'inclusion'])
-                        }),
-                        'P51': Object.freeze({
-                            policy: 'Conduct comprehensive environmental and social impact assessments of AI systems',
-                            details: 'Assess environmental impacts across AI lifecycle. Measure power consumption, carbon footprint, and resource intensity. Consider environmental implications of AI use cases.',
-                            examples: 'UNESCO\'s Ethical Impact Assessment Tool requires environmental impact evaluation across AI lifecycle phases.',
-                            keywords: Object.freeze(['environmental impact', 'social impact', 'lifecycle assessment', 'Sustainability & Society'])
-                        }),
-                        'P52': Object.freeze({
-                            policy: 'Assess AI\'s impact on vulnerable populations and fundamental rights',
-                            details: 'Identify communities disproportionately affected. Evaluate differential impacts on protected groups. Conduct human rights impact assessments for high-impact AI systems.',
-                            examples: 'Japan\'s AI Act requires analysis of rights infringements. Brazil\'s LGPD establishes comprehensive protections for children\'s data.',
-                            keywords: Object.freeze(['vulnerable populations', 'human rights', 'impact assessment', 'protection'])
-                        }),
-                        'P53': Object.freeze({
-                            policy: 'Develop strategies to prepare individuals with AI competencies',
-                            details: 'Many countries have developed National Digital Skills Strategies that prioritize digital skilling and literacy as essential precursors to advanced AI training.',
-                            examples: 'Uruguay\'s Digital Agenda 2021-2025. Japan\'s AI Act mandates comprehensive human resource development.',
-                            keywords: Object.freeze(['AI competencies', 'digital skills', 'training strategies', 'workforce development'])
-                        })
-                    }),
-                    'Design': Object.freeze({
-                        'P54': Object.freeze({
-                            policy: 'Provide guidance on sustainable and resource-efficient AI practices.',
-                            details: '',
-                            examples: 'UNESCO\'s Energy-Efficient AI Solutions & Policy Guidance initiative supports policymakers in addressing sustainability and equity challenges of generative AI.',
-                            keywords: Object.freeze(['Sustainability & Society', 'resource efficiency', 'guidance', 'policy'])
-                        }),
-                        'P55': Object.freeze({
-                            policy: 'Develop comprehensive national AI strategies in cultural sectors.',
-                            details: 'Governments to create inclusive, ethical, multilateral policies integrating AI into culture, guided by expert groups and aligned with UNESCO frameworks.',
-                            examples: 'UNESCO is supporting Member States in designing policies that integrate AI into culture and arts education.',
-                            keywords: Object.freeze(['cultural sectors', 'national strategies', 'inclusive', 'ethical'])
-                        }),
-                        'P57': Object.freeze({
-                            policy: 'Design programs to promote inclusivity addressing diverse community needs.',
-                            details: 'Assess which financial incentives could bridge accessibility gaps: scholarships, grants, tax incentives',
-                            examples: 'Canada\'s Digital Charter prioritizes lifelong learning for marginalized communities. Rwanda provides dedicated scholarships for women in STEM. Botswana\'s eBotho Digital Literacy Program.',
-                            keywords: Object.freeze(['inclusivity', 'financial incentives', 'accessibility', 'diversity'])
-                        })
-                    }),
-                    'Implementation': Object.freeze({
-                        'P59': Object.freeze({
-                            policy: 'Choose targeted measures such as scholarships, grants, and tax incentives',
-                            details: 'Flexibility and inclusivity in program design play a crucial role in attracting diverse learners. Address unique challenges faced by underrepresented groups.',
-                            examples: 'South Korea\'s Digital New Deal offers flexible online learning. Kenya\'s AkiraChix offers AI training for young women from underserved communities. Australia\'s Women in STEM Ambassador Program.',
-                            keywords: Object.freeze(['targeted measures', 'scholarships', 'grants', 'inclusivity'])
-                        }),
-                        'P60': Object.freeze({
-                            policy: 'Choose targeted measures such as scholarships, grants, and tax incentives',
-                            details: 'Leveraging partnerships to create structural incentives that promote diversity in AI upskilling.',
-                            examples: 'Japan incentivizes companies to train and hire women and minorities. UK\'s Skills Bootcamps guarantee job interviews. Canada\'s Digital Charter emphasizes inclusivity.',
-                            keywords: Object.freeze(['partnerships', 'diversity', 'incentives', 'upskilling'])
-                        }),
-                        'P61': Object.freeze({
-                            policy: 'Choose targeted measures such as scholarships, grants, and tax incentives',
-                            details: 'Public-Private partnerships can create inclusive, scalable solutions to address the digital skills gap.',
-                            examples: 'Brazil\'s Caminho Digital Programme provides free, online courses certified by the Ministry of Labour.',
-                            keywords: Object.freeze(['public-private partnerships', 'scalable solutions', 'skills gap', 'inclusive'])
-                        }),
-                        'P62': Object.freeze({
-                            policy: 'Choose targeted measures such as scholarships, grants, and tax incentives',
-                            details: 'Implement mandatory AI literacy requirements for AI system providers, deployers, and affected persons to ensure informed deployment and risk awareness.',
-                            examples: 'The EU AI Act mandates AI literacy.',
-                            keywords: Object.freeze(['AI literacy', 'mandatory requirements', 'risk awareness', 'compliance'])
-                        }),
-                        'P63': Object.freeze({
-                            policy: 'Choose targeted measures such as scholarships, grants, and tax incentives',
-                            details: 'Establish legal frameworks requiring demonstration of AI competency before system deployment',
-                            examples: 'The EU AI Act mandates AI literacy.',
-                            keywords: Object.freeze(['legal frameworks', 'competency', 'deployment', 'requirements'])
-                        }),
-                        'P64': Object.freeze({
-                            policy: 'Choose targeted measures such as scholarships, grants, and tax incentives',
-                            details: 'Create certification systems that validate understanding of AI opportunities, risks, and ethical implications',
-                            examples: 'The EU AI Act mandates AI literacy.',
-                            keywords: Object.freeze(['certification', 'validation', 'ethical implications', 'risk awareness'])
-                        })
-                    }),
-                    'Monitoring and Evaluation': Object.freeze({
-                        'P65': Object.freeze({
-                            policy: 'Establish systematic monitoring of AI environmental and social impacts',
-                            details: 'Roll out public and private sector partnerships for AI apprenticeships, internships; and tailored skills-building programs',
-                            examples: '',
-                            keywords: Object.freeze(['monitoring', 'environmental impact', 'social impact', 'partnerships'])
-                        })
-                    })
-                }),
-                'Economy & Innovation': Object.freeze({
-                    'Analysis': Object.freeze({
-                        'P66': Object.freeze({
-                            policy: 'Conduct scoping studies and foresight assessments',
-                            details: '1) Conduct cross-sector assessments of AI R&D capacity and digital infrastructure 2) Map the evolving opportunity-risk landscape 3) Analyze public finance capacity for AI innovation and redistribution.',
-                            examples: 'India\'s National Strategy for AI approaches sector prioritization with careful consideration. African Union High Level Panel on Emerging Technologies scoping study.',
-                            keywords: Object.freeze(['scoping studies', 'foresight', 'R&D capacity', 'opportunity-risk'])
-                        }),
-                        'P67': Object.freeze({
-                            policy: 'Define public interest innovation priorities',
-                            details: '1) Identify strategic sectors where AI can deliver public value 2) Analyse innovation gaps in underinvested markets or demographics.',
-                            examples: 'UNDP Accelerator Labs. Brazil\'s participatory innovation diagnostics.',
-                            keywords: Object.freeze(['public interest', 'innovation priorities', 'strategic sectors', 'gaps'])
-                        }),
-                        'P68': Object.freeze({
-                            policy: 'Assess economic instruments for responsible AI development',
-                            details: '1) Review tax incentives, grants and subsidies 2) Assess public procurement leverage 3) Review digital taxation gaps and fiscal incentives landscape.',
-                            examples: 'Germany incorporated responsible AI into "Industry 4.0". OECD Base Erosion and Profit Shifting monitoring.',
-                            keywords: Object.freeze(['economic instruments', 'tax incentives', 'procurement', 'fiscal policy'])
-                        })
-                    }),
-                    'Design': Object.freeze({
-                        'P69': Object.freeze({
-                            policy: 'Embed public interest objectives into AI economic strategy',
-                            details: '1) Translate sectoral priorities into funding strategies 2) Align public values with funding criteria 3) Establish intervention models for high-potential sectors.',
-                            examples: 'Startup Chile Program and CORFO Innovation Grants. Rwanda Innovation Fund. South Korea\'s AI Framework Act Article 17. Japan\'s AI Act Articles 3-4.',
-                            keywords: Object.freeze(['public interest', 'economic strategy', 'funding', 'intervention models'])
-                        }),
-                        'P70': Object.freeze({
-                            policy: 'Align and reform economic instruments for responsible AI development',
-                            details: '1) Adapt grants, subsidies, and tax incentives 2) Develop new tools to de-risk private capital and advance socially valuable innovation.',
-                            examples: 'Chile has prioritized AI in mining and agriculture. Rwanda focuses on agriculture and healthcare.',
-                            keywords: Object.freeze(['economic instruments', 'reform', 'responsible AI', 'innovation'])
-                        }),
-                        'P71': Object.freeze({
-                            policy: 'Ensure coherence across innovation, industrial, and regional policy domains, reducing fragmentation',
-                            details: '1) Promote multi-stakeholder R&D partnerships 2) Support innovation clusters, regulatory sandboxes 3) Align funding mechanisms through a National Strategy.',
-                            examples: 'Chile: CORFO\'s grants encourage partnerships. Rwanda: AI One Team Initiative. EU Platform Work Directive. African Continental Free Trade Area.',
-                            keywords: Object.freeze(['policy coherence', 'innovation', 'industrial policy', 'regional'])
-                        }),
-                        'P72': Object.freeze({
-                            policy: 'Design pro-competition and fairness measures to address market concentration risks',
-                            details: '1) Establish frameworks for data portability, interoperability 2) Design trade and tax policy reforms 3) Structure public investment to diversify AI infrastructure 4) Develop oversight mechanisms.',
-                            examples: 'OECD\'s Base Erosion and Profit Shifting project. European Commission\'s Digital Services Tax.',
-                            keywords: Object.freeze(['competition', 'fairness', 'market concentration', 'oversight'])
-                        })
-                    }),
-                    'Implementation': Object.freeze({
-                        'P73': Object.freeze({
-                            policy: 'Establish governance mechanisms to support AI policy delivery',
-                            details: 'Apply dynamic budgeting to realign spending based on performance and need',
-                            examples: 'Singapore\'s Smart Nation & Digital Government Group',
-                            keywords: Object.freeze(['governance', 'policy delivery', 'dynamic budgeting', 'performance'])
-                        }),
-                        'P74': Object.freeze({
-                            policy: 'Develop clear implementation plans with designated responsibilities and resourcing strategies',
-                            details: 'Integrate procurement, tax, and innovation levers into one delivery framework',
-                            examples: 'Singapore\'s Smart Nation & Digital Government Group',
-                            keywords: Object.freeze(['implementation', 'responsibilities', 'resources', 'delivery'])
-                        }),
-                        'P75': Object.freeze({
-                            policy: 'Set up centralised governance bodies/ oversight bodies to coordinate economic and innovation policy across sectors',
-                            details: 'Use dynamic budgeting to adjust support based on evolving needs.',
-                            examples: 'UK\'s regular assessments of AI adoption and impact provide a model for iterative evaluation.',
-                            keywords: Object.freeze(['governance bodies', 'coordination', 'economic policy', 'innovation'])
-                        }),
-                        'P76': Object.freeze({
-                            policy: 'Mandate ethical and economic standards in public AI procurement and deployment',
-                            details: 'Require risk management and ethical impact assessments in public sector AI deployment.',
-                            examples: 'UNESCO\'s Ethical Impact Assessment Tool proposed to procurers of AI systems.',
-                            keywords: Object.freeze(['ethical standards', 'procurement', 'public sector', 'impact assessments'])
-                        }),
-                        'P77': Object.freeze({
-                            policy: 'Include economic impact assessments and minimum transparency obligations in procurement criteria',
-                            details: 'Ensure public AI investments/ deployment contribute to equitable innovation.',
-                            examples: 'Canada\'s Directive on Automated Decision-Making. US NIST AI Risk Management Framework.',
-                            keywords: Object.freeze(['economic impact', 'transparency', 'procurement', 'equitable'])
-                        }),
-                        'P79': Object.freeze({
-                            policy: 'Implement international frameworks for transparency and equitable outcomes',
-                            details: 'Adopt global standards for transparency in AI investment and taxation to prevent regulatory arbitrage.',
-                            examples: 'EU\'s Green Public Procurement framework. ASEAN\'s Digital Integration Framework.',
-                            keywords: Object.freeze(['international frameworks', 'transparency', 'equitable outcomes', 'standards'])
-                        }),
-                        'P80': Object.freeze({
-                            policy: 'Work toward coordinated reporting standards and benefit-sharing mechanisms',
-                            details: 'Ensure cross-border fairness and reduce market distortions.',
-                            examples: '',
-                            keywords: Object.freeze(['reporting standards', 'benefit-sharing', 'cross-border', 'fairness'])
-                        })
-                    }),
-                    'Monitoring and Evaluation': Object.freeze({
-                        'P82': Object.freeze({
-                            policy: 'Establish robust evaluation frameworks to track effectiveness',
-                            details: '1) Develop multi-dimensional evaluation metrics 2) Build systems for real-time policy monitoring 3) Embed iterative policy reviews into national strategies.',
-                            examples: '',
-                            keywords: Object.freeze(['evaluation frameworks', 'metrics', 'monitoring', 'policy reviews'])
-                        }),
-                        'P83': Object.freeze({
-                            policy: 'Iterative Assessment Cycles to guide adaptive policymaking',
-                            details: '1) Conduct periodic reviews of economic impact 2) Public reporting of outcomes 3) Adjust policies based on lived experience.',
-                            examples: '',
-                            keywords: Object.freeze(['assessment cycles', 'adaptive', 'policymaking', 'periodic reviews'])
-                        }),
-                        'P84': Object.freeze({
-                            policy: 'Support international knowledge-sharing and capacity transfer',
-                            details: '1) Join international M&E collaborations 2) Promote open-access platforms 3) Provide technical assistance to lower-capacity governments.',
-                            examples: 'OECD Going Digital Toolkit. UNESCO Ethics of AI Readiness Review Roundtables.',
-                            keywords: Object.freeze(['knowledge-sharing', 'capacity transfer', 'international', 'collaboration'])
-                        }),
-                        'P85': Object.freeze({
-                            policy: 'Participatory evaluation and feedback to enable institutional learning',
-                            details: '1) Create cross-sectoral review bodies 2) Institutionalize citizen auditing 3) Invest in capacity-building for regulators.',
-                            examples: 'Open Government Partnership M&E methods. Participatory budgeting in Porto Alegre, Brazil.',
-                            keywords: Object.freeze(['participatory evaluation', 'feedback', 'institutional learning', 'citizen engagement'])
-                        })
-                    })
-                }),
-                'Research & Education': Object.freeze({
-                    'Analysis': Object.freeze({
-                        'P86': Object.freeze({
-                            policy: 'Identify public interest research priorities',
-                            details: 'Conduct collaborative needs assessments with stakeholders to design strategies for public interest-driven innovation.',
-                            examples: 'Canada\'s Institute for Advanced Research AI & Society Program. UK Research and Innovation AI Review.',
-                            keywords: Object.freeze(['research priorities', 'public interest', 'needs assessment', 'stakeholders'])
-                        }),
-                        'P87': Object.freeze({
-                            policy: 'Establish metrics and mechanisms to measure R&D spending, scientific outputs and innovation outcomes',
-                            details: 'Investments in R&D can promote responsible innovation. Measurement of AI R&D spending, outputs and outcomes to track progress.',
-                            examples: 'United States\' National AI Research and Development Strategic Plan. Canada incorporates public and private-sector metrics.',
-                            keywords: Object.freeze(['metrics', 'R&D spending', 'scientific outputs', 'innovation'])
-                        }),
-                        'P88': Object.freeze({
-                            policy: 'Identify allocation of financial resources and gaps for research and R&D development',
-                            details: 'Conduct a national AI R&D expenditure review disaggregated by sector, domain, and geography. Identify funding bottlenecks.',
-                            examples: 'South Korea\'s AI Framework Act Article 21 establishes systematic approaches to securing AI professionals.',
-                            keywords: Object.freeze(['financial resources', 'R&D gaps', 'funding bottlenecks', 'allocation'])
-                        })
-                    }),
-                    'Design': Object.freeze({
-                        'P89': Object.freeze({
-                            policy: 'Encourage public-private partnerships and public AI research hubs',
-                            details: 'Equitable funding models',
-                            examples: 'EU\'s AI4EU Initiative. Japan\'s AI Act promotes shared use of large-scale information processing facilities.',
-                            keywords: Object.freeze(['public-private partnerships', 'research hubs', 'funding models', 'equitable'])
-                        }),
-                        'P90': Object.freeze({
-                            policy: 'Develop guidance and certification programs for ethical AI research.',
-                            details: 'Public sector and academia must retain talent to remain competitive and avoid brain drain.',
-                            examples: 'EU\'s AI4EU Initiative. Japan\'s AI Act promotes shared use of resources.',
-                            keywords: Object.freeze(['guidance', 'certification', 'ethical research', 'talent retention'])
-                        }),
-                        'P91': Object.freeze({
-                            policy: 'Define ethical design considerations',
-                            details: 'Incorporate principles from UNESCO Recommendation on the Ethics of AI. Explicitly exclude funding for harmful AI applications.',
-                            examples: '',
-                            keywords: Object.freeze(['ethical design', 'principles', 'funding criteria', 'exclusions'])
-                        }),
-                        'P92': Object.freeze({
-                            policy: 'Design structural policy mechanisms',
-                            details: 'Create thematic funding programs. Establish AI-specific eligibility criteria. Introduce tiered tax incentives. Set aside dedicated R&D budgets.',
-                            examples: '',
-                            keywords: Object.freeze(['policy mechanisms', 'funding programs', 'tax incentives', 'R&D budgets'])
-                        })
-                    }),
-                    'Implementation': Object.freeze({
-                        'P93': Object.freeze({
-                            policy: 'Establish publicly funded AI research hubs, ethical prerequisites for funding access, and mechanisms to monitor research outputs',
-                            details: 'Developing comprehensive guidelines to steer the ethical and responsible development and use of AI systems.',
-                            examples: 'Argentina\'s Recommendations for Reliable AI. China\'s Global AI Governance Initiative. Australia\'s Centre of AI & Digital Ethics.',
-                            keywords: Object.freeze(['research hubs', 'ethical prerequisites', 'monitoring', 'guidelines'])
-                        }),
-                        'P94': Object.freeze({
-                            policy: 'Operationalize tax programs to channel resources effectively.',
-                            details: 'Roll out enhanced R&D tax credit pathways. Use pre-commercial procurement. Measure societal impact in evaluations.',
-                            examples: '',
-                            keywords: Object.freeze(['tax programs', 'R&D credits', 'procurement', 'impact measurement'])
-                        }),
-                        'P95': Object.freeze({
-                            policy: 'Implement ethically aligned R&D programmes',
-                            details: 'Launch targeted grant calls. Fund pilot programmes. Provide technical assistance. Oversee ethical standards implementation.',
-                            examples: '',
-                            keywords: Object.freeze(['R&D programs', 'ethical alignment', 'grants', 'technical assistance'])
-                        })
-                    }),
-                    'Monitoring and Evaluation': Object.freeze({
-                        'P96': Object.freeze({
-                            policy: 'Develop performance indicators to measure the impact of AI policies on societal outcomes.',
-                            details: 'Conduct impact assessments. Track equity metrics. Require post-grant transparency reports.',
-                            examples: 'South Korea\'s AI Framework Act Article 38 establishes mandatory statistical compilation.',
-                            keywords: Object.freeze(['performance indicators', 'impact assessment', 'equity metrics', 'transparency'])
-                        }),
-                        'P97': Object.freeze({
-                            policy: 'Regularly track R&D spending, scientific outputs, and patents to refine funding allocations.',
-                            details: 'Adjust eligibility and evaluation criteria based on lessons from unintended consequences or ethical lapses',
-                            examples: '',
-                            keywords: Object.freeze(['R&D tracking', 'scientific outputs', 'patents', 'funding'])
-                        }),
-                        'P98': Object.freeze({
-                            policy: 'Establish feedback loops with stakeholders to address emerging challenges.',
-                            details: 'Include feedback from affected populations, especially marginalized groups',
-                            examples: '',
-                            keywords: Object.freeze(['feedback loops', 'stakeholders', 'emerging challenges', 'marginalized'])
-                        }),
-                        'P99': Object.freeze({
-                            policy: 'Conduct audits to evaluate compliance with ethical standards.',
-                            details: 'Integrate ethical audits post-deployment to assess whether AI systems were used in accordance with human rights and legal standards',
-                            examples: '',
-                            keywords: Object.freeze(['audits', 'compliance', 'ethical standards', 'human rights'])
-                        })
-                    })
-                })
-            });
+            // here was the policy data before
+
+            
 
             // Application state
             let state = {
@@ -3110,12 +590,12 @@
                 selectedPhase: null,
                 selectedPolicy: null,
                 selectedPolicies: new Set(),
-                relatedPolicies: new Set(), // New: track related policies for current viewing policy
+                relatedPolicies: new Set(),
                 isLoading: false,
                 searchTerm: '',
                 activeKeywords: new Set(),
                 filteredPolicies: null,
-                suggestions: { templates: [], gaps: [], clusters: [] } // New: smart suggestions
+                suggestions: { templates: [], gaps: [], clusters: [] }
             };
 
             // Utility functions
@@ -3325,7 +805,7 @@
                         'Analysis': 'Analysis',
                         'Design': 'Design',
                         'Implementation': 'Implementation',
-                        'Monitoring and Evaluation': 'Monitoring and Evaluation'
+                        'Monitoring & Evaluation': 'Monitoring & Evaluation'
                     };
                 }
 
@@ -3537,6 +1017,7 @@
                             </div>
                             ${selectedIcon}
                         </div>
+                        <div class="policy-read-more">Read more →</div>
                     `;
                     
                     button.addEventListener('click', function(e) {
@@ -3615,6 +1096,15 @@
 
                         keywordsOverflow.addEventListener('mouseleave', function() {
                             keywordsTooltip.classList.remove('visible');
+                        });
+                    }
+
+                    // Toggle button functionality
+                    const policyListToggle = document.getElementById('policyListToggle');
+                    if (policyListToggle) {
+                        policyListToggle.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            this.togglePolicyListVisibility();
                         });
                     }
                     const selectPolicyBtn = document.getElementById('selectPolicyBtn');
@@ -3696,17 +1186,23 @@
                     utils.setLoading(true);
                     
                     state.selectedPolicyArea = dimension;
-                    state.selectedPhase = null;
-                    state.selectedPolicy = null;
-
-                    // Hide sections that depend on phase selection
-                    this.clearPolicyView();
+                    state.selectedPhase = null; // Clear phase selection
+                    state.selectedPolicy = null; // Clear policy selection
+                    
+                    // Show policy section immediately when dimension is selected
+                    this.showPolicySection();
                     
                     // Set dimension attribute for phase container styling
                     const phasesContainer = document.getElementById('phaseGrid');
                     if (phasesContainer) {
                         phasesContainer.setAttribute('data-dimension', dimension);
                     }
+                    
+                    // Show policies for all phases in the selected dimension
+                    this.showPolicyList();
+                    
+                    // Clear policy details since no specific policy is selected
+                    this.clearPolicyDetails();
                     
                     // Populate keywords for all dimensions (not dependent on selection)
                     this.populateKeywordFilters();
@@ -3715,9 +1211,7 @@
                     this.updateCurrentSelection();
                     this.updateSelectionGrid();
 
-
                     utils.setLoading(false);
-
                 },
 
                 deselectPolicyArea: function() {
@@ -3755,7 +1249,7 @@
                     utils.setLoading(true);
                     
                     state.selectedPhase = phase;
-                    state.selectedPolicy = null;
+                    state.selectedPolicy = null; // Clear policy selection
                     
                     // Clear search when phase changes but keep keyword filters
                     state.searchTerm = '';
@@ -3767,8 +1261,8 @@
                     }
 
                     this.showPolicySection();
-                    this.showPolicyList();
-                    this.clearPolicyDetails();
+                    this.showPolicyList(); // This will now filter the dimension's policies by phase
+                    this.clearPolicyDetails(); // Clear details panel since no specific policy selected
                     
                     // Keywords don't need refreshing since they show all keywords now
                     this.updateClearFiltersButton();
@@ -3919,6 +1413,48 @@
                         listColumn.setAttribute('data-dimension', state.selectedPolicyArea);
                     }
 
+                    // Handle case where dimension is selected but no phase
+                    if (state.selectedPolicyArea && !state.selectedPhase) {
+                        utils.setText(title, `${state.selectedPolicyArea} - All Phases`);
+                        
+                        // Show all policies from all phases in the selected dimension
+                        const allPoliciesInDimension = {};
+                        const dimensionData = policyData[state.selectedPolicyArea] || {};
+                        
+                        Object.entries(dimensionData).forEach(([phase, policies]) => {
+                            Object.entries(policies).forEach(([policyId, policyInfo]) => {
+                                const key = `${state.selectedPolicyArea}|${phase}|${policyId}`;
+                                allPoliciesInDimension[key] = {
+                                    ...policyInfo,
+                                    _dimension: state.selectedPolicyArea,
+                                    _phase: phase,
+                                    _policyId: policyId
+                                };
+                            });
+                        });
+                        
+                        const policyEntries = Object.entries(allPoliciesInDimension);
+                        list.innerHTML = '';
+                        
+                        if (policyEntries.length > 0) {
+                            policyEntries.forEach(([key, policyInfo]) => {
+                                const policyItem = this.createCrossPolicyAreaPolicyItem(key, policyInfo);
+                                list.appendChild(policyItem);
+                            });
+                        } else {
+                            list.innerHTML = `
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">📋</div>
+                                    <div class="empty-state-text">
+                                        No policy initiatives available for this policy area
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        return;
+                    }
+
+                    // Original logic for when both dimension and phase are selected
                     utils.setText(title, `${state.selectedPolicyArea} - ${state.selectedPhase}`);
                     
                     const allPolicies = policyData[state.selectedPolicyArea]?.[state.selectedPhase] || {};
@@ -3942,7 +1478,6 @@
                         `;
                     }
                 },
-
                 getGlobalFilteredPolicies: function() {
                     const filteredPolicies = {};
                     
@@ -4373,6 +1908,15 @@
                         selectedItem.classList.add('active');
                     }
 
+                    // Show the details panel when a policy is selected
+                    const policyContainer = document.getElementById('policyContainer');
+                    const policyDetailsColumn = document.getElementById('policyDetailsColumn');
+
+                    if (policyContainer && policyDetailsColumn) {
+                        policyContainer.classList.add('details-focused');
+                        policyDetailsColumn.classList.add('has-policy');
+                    }
+
                     this.showPolicyDetails(); // This will update related policies and matrix
                     this.updateCurrentSelection();
                     
@@ -4380,6 +1924,13 @@
                 },
 
                 showPolicyDetails: function() {
+                    const policyContainer = document.getElementById('policyContainer');
+                    const policyDetailsColumn = document.getElementById('policyDetailsColumn');
+
+                    if (policyContainer && policyDetailsColumn) {
+                        policyContainer.classList.add('details-focused');
+                        policyDetailsColumn.classList.add('has-policy');
+                    }
                     const policyInfo = policyData[state.selectedPolicyArea]?.[state.selectedPhase]?.[state.selectedPolicy];
                     if (!policyInfo) return;
                     
@@ -4393,6 +1944,9 @@
                     
                     // Update related policies
                     utils.updateRelatedPolicies(state.selectedPolicyArea, state.selectedPhase, state.selectedPolicy);
+                    
+                    //Update relevant experts based on current policy
+                    updateRelevantExperts(state.selectedPolicy);
                     
                     // Find related policies for display
                     const relatedPolicies = utils.findRelatedPolicies(state.selectedPolicyArea, state.selectedPhase, state.selectedPolicy);
@@ -4435,7 +1989,7 @@
                         ${relatedPolicies.length > 0 ? `
                         <div class="related-policies-section">
                             <h3>
-                                Related Policies
+                                Related Policy Initiatives
                                 <span style="font-size: 0.7rem; font-weight: normal; color: var(--color-gray-500);">
                                     (${relatedPolicies.length} found)
                                 </span>
@@ -4468,7 +2022,7 @@
                             </div>
                             
                             <!-- <div class="related-policies-explanation">
-                                Related policies are shown based on shared keywords and strategic complementarity. Click any related policy to navigate to it, or view them in the Implementation Plan Dashboard above as highlighted bars.
+                                Related policies are shown based on shared keywords and strategic complementarity. <br> Click any related policy to navigate to it, or view them in the Implementation Plan Dashboard above as highlighted bars.
                             </div> -->
                         </div>
                         ` : ''}
@@ -4486,7 +2040,7 @@
                     });
 
                     if (selectPolicyBtn) {
-                        utils.setText(selectPolicyBtn, isSelected ? 'Selected' : 'Add policy initiative to your plan');
+                        utils.setText(selectPolicyBtn, isSelected ? 'Selected' : 'Add policy initiative to your plan ➕');
                         selectPolicyBtn.disabled = isSelected;
                         selectPolicyBtn.classList.remove('hidden');
                     }
@@ -4496,11 +2050,23 @@
                 },
 
                 clearPolicyDetails: function() {
+                    // Remove details-focused class to hide details panel
+                    const policyContainer = document.getElementById('policyContainer');
+                    const policyDetailsColumn = document.getElementById('policyDetailsColumn');
+
+                    if (policyContainer && policyDetailsColumn) {
+                        policyContainer.classList.remove('details-focused');
+                        policyDetailsColumn.classList.remove('has-policy');
+                    }
+                    
                     const detailsContent = document.getElementById('policyDetailsContent');
                     const selectPolicyBtn = document.getElementById('selectPolicyBtn');
                     
                     // Clear related policies when clearing details
                     state.relatedPolicies.clear();
+                    
+                    // Reset experts to default view (no specific policy selected)
+                    updateRelevantExperts();
                     
                     if (detailsContent) {
                         detailsContent.innerHTML = `
@@ -4520,6 +2086,8 @@
                     // Update matrix to remove related policy visualization
                     this.updateSelectionGrid();
                 },
+
+
 
                 navigateToPolicy: function(dimension, phase, policyId) {
                     // Update navigation state
@@ -4970,8 +2538,11 @@
 
                 addBarTooltip: function(bar, policyInfo, dimension, phase, policyId, type) {
                     let tooltip = null;
+                    let documentClickHandler = null;
+                    let documentKeyHandler = null;
+                    let scrollHandler = null;
                     
-                    bar.addEventListener('mouseenter', (e) => {
+                    const showTooltip = (e) => {
                         if (tooltip) return; // Prevent multiple tooltips
                         
                         tooltip = document.createElement('div');
@@ -5011,16 +2582,56 @@
                         tooltip.style.left = `${left}px`;
                         tooltip.style.top = `${top}px`;
                         tooltip.classList.add('visible');
-                    });
+                        
+                        // Create event handlers
+                        documentClickHandler = (e) => {
+                            if (!bar.contains(e.target) && !tooltip.contains(e.target)) {
+                                hideTooltip();
+                            }
+                        };
+                        
+                        documentKeyHandler = (e) => {
+                            if (e.key === 'Escape') {
+                                hideTooltip();
+                            }
+                        };
+                        
+                        scrollHandler = () => {
+                            hideTooltip();
+                        };
+                        
+                        // Add event listeners
+                        document.addEventListener('click', documentClickHandler);
+                        document.addEventListener('keydown', documentKeyHandler);
+                        window.addEventListener('scroll', scrollHandler);
+                    };
                     
-                    bar.addEventListener('mouseleave', () => {
+                    const hideTooltip = () => {
                         if (tooltip) {
                             tooltip.remove();
                             tooltip = null;
                         }
-                    });
+                        
+                        // Remove all event listeners
+                        if (documentClickHandler) {
+                            document.removeEventListener('click', documentClickHandler);
+                            documentClickHandler = null;
+                        }
+                        if (documentKeyHandler) {
+                            document.removeEventListener('keydown', documentKeyHandler);
+                            documentKeyHandler = null;
+                        }
+                        if (scrollHandler) {
+                            window.removeEventListener('scroll', scrollHandler);
+                            scrollHandler = null;
+                        }
+                    };
+                    
+                    // Bar event listeners
+                    bar.addEventListener('mouseenter', showTooltip);
+                    bar.addEventListener('mouseleave', hideTooltip);
+                    bar.addEventListener('click', hideTooltip);
                 },
-
                 getPolicyAreaColor: function(dimension) {
                     const colorMapping = {
                         'Enabling Infrastructure': 'rgb(22, 102, 106)',
@@ -5090,8 +2701,49 @@
 
                     // Update selected policies section
                     this.updateSelectedPoliciesSection();
+                },
+                // ADD THE NEW METHOD HERE:
+                togglePolicyListVisibility: function() {
+                    const policyContainer = document.getElementById('policyContainer');
+                    const policyDetailsColumn = document.getElementById('policyDetailsColumn');
+                    
+                    if (policyContainer && policyDetailsColumn) {
+                        const isFocused = policyContainer.classList.contains('details-focused');
+                        
+                        if (isFocused) {
+                            // Show the list
+                            policyContainer.classList.remove('details-focused');
+                            policyDetailsColumn.classList.remove('has-policy');
+                        } else {
+                            // Hide the list (focus on details)
+                            policyContainer.classList.add('details-focused');
+                            if (state.selectedPolicy) {
+                                policyDetailsColumn.classList.add('has-policy');
+                            }
+                        }
+                    }
                 }
             };
+            
+
+            function getRelevantExpertsForPolicies(selectedPolicies) {
+                // Collect all keywords from selected policies
+                const allKeywords = new Set();
+                
+                Array.from(selectedPolicies).forEach(policyKey => {
+                    const [dimension, phase, policyId] = policyKey.split('|');
+                    const policyInfo = policyData[dimension]?.[phase]?.[policyId];
+                    if (policyInfo && Array.isArray(policyInfo.keywords)) {
+                        policyInfo.keywords.forEach(keyword => allKeywords.add(keyword));
+                    }
+                });
+                
+                // Find experts matching these keywords
+                const policyKeywords = Array.from(allKeywords);
+                const relevantExperts = findRelevantExperts(policyKeywords, 3); // Get top 3
+                
+                return relevantExperts;
+            }
             window.exportToPDF = async function() {
                 if (state.selectedPolicies.size === 0) {
                     alert('Please select at least one policy initiative before exporting.');
@@ -5324,7 +2976,7 @@
                     pdf.text(`Selected Policy Initiatives: ${savedCount}`, pageWidth/2, 135, { align: 'center' });
 
                     const dimensionCount = Object.keys(policiesByPolicyArea).length;
-                    pdf.text(`Covering ${dimensionCount} policy dimensions`, pageWidth/2, 150, { align: 'center' });
+                    pdf.text(`Covering ${dimensionCount} policy areas`, pageWidth/2, 150, { align: 'center' });
 
                     // Summary information at bottom
                     const summaryBoxY = pageHeight - 80;
@@ -5347,7 +2999,7 @@
                     pdf.setFont('helvetica', 'normal');
                     pdf.setFontSize(DESIGN.typography.body);
                     
-                    const overviewText = `This implementation plan outlines ${savedCount} carefully selected AI governance policy options across ${dimensionCount} key dimensions of the G20 Technology Policy Assistance Facility (TPAF) framework. These policies represent a comprehensive approach to establishing robust AI governance infrastructure, regulatory frameworks, and implementation strategies aligned with international best practices.`;
+                    const overviewText = `This implementation plan outlines ${savedCount} selected AI policy inititatives across ${dimensionCount} key policy areas.`;
                     
                     currentY += renderParagraph(pdf, overviewText, margin, currentY, contentWidth, pageWidth, DESIGN.typography.body);
                     currentY += DESIGN.spacing.paragraph;
@@ -5383,6 +3035,33 @@
                         currentY += 8;
                     });
 
+                    if (expertsData.length > 0) {
+                        const relevantExperts = getRelevantExpertsForPolicies(state.selectedPolicies);
+                        
+                        if (relevantExperts.length > 0) {
+                            // Check if we need a new page
+                            if (currentY > pageHeight - 30) {
+                                pdf.addPage();
+                                currentY = margin;
+                            }
+                            
+                            // Add some spacing from previous section
+                            currentY += 8;
+                            
+                            pdf.setTextColor(...hexToRgb(DESIGN.colors.text));
+                            pdf.setFont('helvetica', 'normal');
+                            pdf.setFontSize(DESIGN.typography.body);
+                            
+                            const expertNames = relevantExperts.map(expert => expert.name).join(', ');
+                            const expertsText = `Relevant experts working in similar policy areas: ${expertNames}`;
+                            
+                            currentY += renderParagraph(pdf, expertsText, margin, currentY, contentWidth, pageWidth, DESIGN.typography.body);
+                            currentY += DESIGN.spacing.paragraph;
+                        }
+                    }
+
+
+
                     // ==================== MATRIX VISUALIZATION ====================
                     const matrixImageData = await captureMatrixVisualization();
                     if (matrixImageData) {
@@ -5404,7 +3083,7 @@
                         pdf.setFont('helvetica', 'normal');
                         pdf.setFontSize(DESIGN.typography.small);
                         pdf.setTextColor(...hexToRgb(DESIGN.colors.textMuted));
-                        const captionText = 'This matrix shows your selected policies (represented by colored bars) across the five dimensions and four implementation phases of the TPAF framework.';
+                        const captionText = 'This matrix shows your selected policy initiatives (represented by colored bars) across the five policy areas and four implementation phases.';
                         renderParagraph(pdf, captionText, margin, currentY, contentWidth, pageWidth, DESIGN.typography.small);
                     }
 
@@ -5438,6 +3117,28 @@
                             if (currentY > pageHeight - estimatedPolicyHeight && policyIndex > 0) {
                                 pdf.addPage();
                                 currentY = margin;
+                            }
+
+                                // ADD RELEVANT EXPERTS PER POLICY:
+                            if (expertsData.length > 0 && policy.keywords && policy.keywords.length > 0) {
+                                const relevantExperts = findRelevantExperts(policy.keywords, 3);
+                                
+                                if (relevantExperts.length > 0) {
+                                    if (currentY > pageHeight - 15) {
+                                        pdf.addPage();
+                                        currentY = margin;
+                                    }
+                                    
+                                    pdf.setFont('helvetica', 'bold');
+                                    pdf.setFontSize(DESIGN.typography.small);
+                                    pdf.setTextColor(...hexToRgb(DESIGN.colors.textMuted));
+                                    pdf.text('Relevant experts: ', margin, currentY);
+                                    
+                                    pdf.setFont('helvetica', 'normal');
+                                    const expertNames = relevantExperts.map(expert => expert.name).join(', ');
+                                    const expertsHeight = renderParagraph(pdf, expertNames, margin + 28, currentY, contentWidth - 28, pageWidth, DESIGN.typography.small);
+                                    currentY += Math.max(8, expertsHeight);
+                                }
                             }
 
                             // Policy header
@@ -5562,22 +3263,56 @@
                 }
             };
             // Initialize the application
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function() {
+            async function initializeApp() {
+                try {
+                    // Show loading state
+                    document.body.classList.add('loading');
+                    
+                    // Load both data sources
+                    const [policyLoaded, expertsLoaded] = await Promise.all([
+                        loadPolicyData(),
+                        loadExpertsData()
+                    ]);
+
+                    if (!policyLoaded) {
+                        return; // Error already handled in loadPolicyData
+                    }
+
+                    // Initialize the main application
                     app.init();
+                    
+                    // Initialize experts display
+                    if (expertsLoaded) {
+                        updateRelevantExperts();
+                    }
+
+                    // Remove loading state
+                    document.body.classList.remove('loading');
                     
                     // Event listener for button system integration
                     document.addEventListener('tpafSelectionChange', (e) => {
                         console.log('Selection changed:', e.detail);
                     });
-                });
+                    
+                    console.log('Application initialized successfully');
+                    
+                } catch (error) {
+                    console.error('Failed to initialize application:', error);
+                    document.body.innerHTML = `
+                        <div style="padding: 2rem; text-align: center;">
+                            <div class="error-message">
+                                Failed to initialize application. Please refresh the page and try again.
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeApp);
             } else {
-                app.init();
-                
-                // Event listener for button system integration
-                document.addEventListener('tpafSelectionChange', (e) => {
-                    console.log('Selection changed:', e.detail);
-                });
+                initializeApp();
             }
 
             // Development debugging (only in localhost)
@@ -5588,7 +3323,6 @@
                     buttonSystem: buttonSystem
                 };
             }
-
         })();
     </script>
 </body>

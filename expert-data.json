@@ -1,0 +1,321 @@
+{
+  "experts": [
+    {
+      "id": "aini-suzana-ariffin",
+      "name": "Aini Suzana Ariffin",
+      "title": "ASSOC PROF DR",
+      "imageUrl": null,
+      "linkedin": "https://www.linkedin.com/in/aini-suzana-ariffin-a9426727/",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/aini-suzana-ariffin?hub=47",
+      "languages": ["Malay", "Indonesian", "English"],
+      "regions": ["Global", "Latin America and the Caribbean", "Asia and the Pacific"],
+      "background": "I am a Fellow Expert at the Centre for Artificial Intelligence and Robotics (CAIRO) and the Institute Sultan Iskandar, UTM. I lead and contribute to national policies and strategic initiatives, including the National AI Roadmap, STI and Innovation Policies, Environmental Master Plans, Commercialization Policy, Technopreneurship Policy, National Higher Education Action Plans, and the International Science and Technology Master Plan (ISTIC). I head the Working Group on AI Governance under Malaysia's National Blockchain and AI Roadmap (2021–2025). Internationally, I serve as Chair, STEPAN network and Technical Committee Member for ISO/IEC AI standards. I hold a PhD from the University of Manchester.",
+      "expertise": [
+        "UNESCO's Readiness Assessment Methodology",
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 2: Ethical Governance and Stewardship",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 4: Development and International Cooperation",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 5: Environment and Ecosystems",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 6: Gender",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 8: Education and Research",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 11: Health and Social Well-being",
+        "AI standards"
+      ],
+      "keywords": [
+        "AI governance",
+        "policy development",
+        "ethical assessment",
+        "international cooperation",
+        "AI standards",
+        "environmental sustainability",
+        "gender equality",
+        "education research",
+        "health wellbeing",
+        "stewardship",
+        "readiness assessment"
+      ]
+    },
+    {
+      "id": "adekemi-omotubora",
+      "name": "Adekemi Omotubora",
+      "title": "Dr",
+      "imageUrl": null,
+      "linkedin": "https://www.linkedin.com/in/adekemi-omotubora-phd-7a937310a/",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/adekemi-omotubora?hub=47",
+      "languages": ["Yoruba", "English"],
+      "regions": ["Global"],
+      "background": "I am a socio-legal scholar at the University of Lagos, where I teach and research the intersection of law, technology, and development. My work focuses on AI ethics, gender justice, and inclusive governance using decolonial and context-driven approaches. I lead the implementation of UNESCO's AI Readiness Assessment Methodology in Nigeria and currently advise civil society organisations, public institutions, and private actors on the responsible adoption of AI and emerging technologies. As a strong advocate for digital inclusion and human rights in business, I am committed to bridging the gap between academic research and real-world impact.",
+      "expertise": [
+        "UNESCO's Readiness Assessment Methodology",
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 4: Development and International Cooperation"
+      ],
+      "keywords": [
+        "socio-legal",
+        "AI ethics",
+        "gender justice",
+        "inclusive governance",
+        "decolonial approaches",
+        "readiness assessment",
+        "digital inclusion",
+        "human rights",
+        "development cooperation",
+        "responsible AI",
+        "civil society"
+      ]
+    },
+    {
+      "id": "alessandra-sala",
+      "name": "Alessandra Sala",
+      "title": "Sr. Director of AI and Data Science at Shutterstock, President of Women in AI and co-chair of Women for Ethical AI",
+      "imageUrl": null,
+      "linkedin": "https://www.linkedin.com/in/salaalessandra/",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/alessandra-sala?hub=47",
+      "languages": ["Italian", "English"],
+      "regions": ["Europe and North America"],
+      "background": "Dr. Alessandra Sala is a leading AI researcher and Sr. Director of AI and Data Science at Shutterstock, with over 18 years of experience in academic and commercial innovation. She champions ethical, inclusive AI as Global President of Women in AI and Co-chair of UNESCO's Women for Ethical AI. Alessandra leads international efforts on multimedia authenticity and deepfake standards and advises as Governance Chair at SFI's ML-Labs. Previously Head of Analytics Research at Nokia Bell Labs, she is known for bridging research and real-world impact. Her achievements include the 2024 Grace Hopper Award and the 2021 'Le Tecno-visionarie' Prize.",
+      "expertise": [
+        "UNESCO's Readiness Assessment Methodology",
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 6: Gender",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 8: Education and Research",
+        "AI audit",
+        "AI regulatory sandbox",
+        "Red teaming in relation to AI systems"
+      ],
+      "keywords": [
+        "AI research",
+        "data science",
+        "gender equality",
+        "inclusive AI",
+        "multimedia authenticity",
+        "deepfake standards",
+        "AI audit",
+        "regulatory sandbox",
+        "red teaming",
+        "commercial innovation",
+        "ethics assessment",
+        "women in AI"
+      ]
+    },
+    {
+      "id": "ana-prica-cruceanu",
+      "name": "Ana Prica-Cruceanu",
+      "title": "Chief SDG Strategy Officer",
+      "imageUrl": null,
+      "linkedin": "https://www.linkedin.com/in/anaprica/",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/ana-prica-cruceanu?hub=47",
+      "languages": ["French", "English"],
+      "regions": ["Latin America and the Caribbean", "Europe and North America", "Arab States", "Asia and the Pacific", "Africa"],
+      "background": "W4EAI, Chief SDG Strategy Officer, AFIST- Association of Women in Engineering, Science, and Technology; Responsible for educational programs, project 'AVIONIC', UNESCO Chair 'Engineering for Society'- 'Politehnica' University; A big enabler of my professional disruptive journey was Oracle, from business analyst to digital learning global director role, from paper, online education to subscription, moving education, operations, customers, partners to the cloud, a journey around continents that lasted 15 years, 7 days a week alongside brilliant teams, different perspectives, cultures, backgrounds, perceptions, opinions contoured with each new story, feedback, multidisciplinary approach, multi-diverse background; digital diplomacy sharpened in addressing perception and bridging mentalities.",
+      "expertise": [
+        "UNESCO Recommendation on the Ethics of AI Policy Area 6: Gender",
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO's Readiness Assessment Methodology",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 8: Education and Research",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 9: Communication and Information"
+      ],
+      "keywords": [
+        "SDG strategy",
+        "gender equality",
+        "educational programs",
+        "digital learning",
+        "communication",
+        "information systems",
+        "engineering society",
+        "multidisciplinary",
+        "digital diplomacy",
+        "cloud education",
+        "women in STEM"
+      ]
+    },
+    {
+      "id": "anahiby-becerril",
+      "name": "Anahiby Becerril",
+      "title": "PhD at Law",
+      "imageUrl": null,
+      "linkedin": "https://www.linkedin.com/in/cybersecuritylawandhumanrights/",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/anahiby-becerril?hub=47",
+      "languages": ["Spanish", "English"],
+      "regions": ["Global"],
+      "background": "I am a legal scholar and independent consultant specializing in cybersecurity, AI governance, and digital rights. With over 15 years of experience, I have contributed to national and international initiatives with the UN, OAS, and EU. My work focuses on the legal and ethical implications of emerging technologies, including neurorights and cyber governance. As Vice President of the Mexican Academy of Cybersecurity and Digital Law, I lead research and capacity-building efforts across Latin America. I regularly publish and speak on topics at the intersection of law, technology, and human rights in global forums.",
+      "expertise": [
+        "UNESCO's Readiness Assessment Methodology",
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 3: Data Policy",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 4: Development and International Cooperation",
+        "AI regulatory sandbox",
+        "EU AI Act",
+        "Cybersecurity"
+      ],
+      "keywords": [
+        "legal scholar",
+        "cybersecurity",
+        "AI governance",
+        "digital rights",
+        "data policy",
+        "regulatory sandbox",
+        "EU AI Act",
+        "neurorights",
+        "cyber governance",
+        "human rights",
+        "legal frameworks",
+        "emerging technologies"
+      ]
+    },
+    {
+      "id": "arisa-ema",
+      "name": "Arisa Ema",
+      "title": "Associate Professor",
+      "imageUrl": null,
+      "linkedin": null,
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/arisa-ema?hub=47",
+      "languages": ["Japanese", "English"],
+      "regions": ["Europe and North America", "Asia and the Pacific"],
+      "background": "Arisa Ema is an Associate Professor at the University of Tokyo and Visiting Researcher at RIKEN Center for Advanced Intelligence Project in Japan. She is a researcher in Science and Technology Studies, and her primary interest is to investigate the benefits and risks of artificial intelligence by organizing an interdisciplinary research group. She is also a member of the Japanese government's AI Strategy Council launched in May 2023. Internationally, she is an expert member of the working group on the Future of Work, GPAI. She is an elected member of the UN Secretary General's Advisory Body on Artificial Intelligence.",
+      "expertise": [
+        "UNESCO Recommendation on the Ethics of AI Policy Area 6: Gender",
+        "AI audit",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 2: Ethical Governance and Stewardship",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 7: Culture",
+        "AI standards",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 10: Economy and Labour"
+      ],
+      "keywords": [
+        "science technology studies",
+        "AI research",
+        "gender equality",
+        "AI audit",
+        "ethical governance",
+        "stewardship",
+        "culture",
+        "AI standards",
+        "economy labour",
+        "future of work",
+        "interdisciplinary",
+        "AI strategy"
+      ]
+    },
+    {
+      "id": "arthur-gwagwa",
+      "name": "Arthur Gwagwa",
+      "title": "Dr",
+      "imageUrl": null,
+      "linkedin": "https://www.linkedin.com/in/arthurgwagwa/",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/arthur-gwagwa?hub=47",
+      "languages": ["English"],
+      "regions": ["Africa"],
+      "background": "With a recently earned PhD in the philosophy of technology from Utrecht University and teaching experience in the Ethics of Socially Disruptive Technologies, I bring a wealth of experience in digital ethics and the philosophy of technology. I sit on the Stanford University Journal of Trust Safety Editorial Board and the UK Chatham House High-Level Task Force on AI and Society",
+      "expertise": [
+        "UNESCO's Readiness Assessment Methodology",
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 2: Ethical Governance and Stewardship",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 3: Data Policy",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 4: Development and International Cooperation"
+      ],
+      "keywords": [
+        "philosophy of technology",
+        "digital ethics",
+        "socially disruptive technologies",
+        "trust safety",
+        "ethical governance",
+        "stewardship",
+        "data policy",
+        "development cooperation",
+        "readiness assessment",
+        "AI society"
+      ]
+    },
+    {
+      "id": "benoit-deshaies",
+      "name": "Benoit Deshaies",
+      "title": "Director responsible data and AI, Treasury Board of Canada Secretariat",
+      "imageUrl": null,
+      "linkedin": "https://twitter.com/MrDeshaies",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/benoit-deshaies?hub=47",
+      "languages": ["French", "English"],
+      "regions": ["Latin America and the Caribbean", "Europe and North America", "Arab States", "Asia and the Pacific", "Africa"],
+      "background": "University degree in computer science. Over a decade of experience as a software developer. For the past 5 years, Benoit has been leading the Canadian government's approach to ethical use of AI and automation. This includes developing world-leading policy instruments in this space: the Directive on Automated Decision-Making, the Algorithmic Impact Assessment and the Guide on the use of generative AI. Numerous engagements with partners in other jurisdictions and sectors to develop common strategies, approaches, and processes to support the ethical use of AI. Member of the initial UNESCO High-Level Expert Group for implementation of the Recommendation.",
+      "expertise": [
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 2: Ethical Governance and Stewardship",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 3: Data Policy"
+      ],
+      "keywords": [
+        "government AI",
+        "automated decision-making",
+        "algorithmic impact assessment",
+        "generative AI",
+        "ethical governance",
+        "stewardship",
+        "data policy",
+        "public sector AI",
+        "policy instruments",
+        "AI automation"
+      ]
+    },
+    {
+      "id": "caitlin-c-corrigan",
+      "name": "Caitlin C. Corrigan",
+      "title": "Dr",
+      "imageUrl": null,
+      "linkedin": "https://www.linkedin.com/in/caitlin-c-corrigan/",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/caitlin-c-corrigan?hub=47",
+      "languages": ["German", "English"],
+      "regions": ["Global", "Europe and North America"],
+      "background": "Dr. Corrigan holds a PhD in Public and International Affairs from the University of Pittsburgh. She has spent over a decade in academic and applied research settings with a focus on sustainable development, good governance, and the societal impacts of technology. As the Executive Director for the IEAI, she leads research development and networking activities related to the responsible use of AI and been the principle investigator on multiple projects. Dr. Corrigan has published numerous journal articles and books and worked for local and international NGOs, including UNESCO's Women for Ethical AI platform, to produce policy relevant research and reports.",
+      "expertise": [
+        "UNESCO's Readiness Assessment Methodology",
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 2: Ethical Governance and Stewardship",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 6: Gender"
+      ],
+      "keywords": [
+        "sustainable development",
+        "good governance",
+        "societal impacts",
+        "responsible AI",
+        "gender equality",
+        "ethical governance",
+        "stewardship",
+        "policy research",
+        "women for ethical AI",
+        "readiness assessment"
+      ]
+    },
+    {
+      "id": "caitlin-kraft-buchman",
+      "name": "Caitlin Kraft-Buchman",
+      "title": "CEO / Founder",
+      "imageUrl": null,
+      "linkedin": "https://www.linkedin.com/in/caitlinkraftbuchman/",
+      "profileUrl": "https://www.unesco.org/ethics-ai/en/ai-ethics-experts-without-borders/caitlin-kraft-buchman?hub=47",
+      "languages": ["English"],
+      "regions": ["Global"],
+      "background": "CEO/Founder Women At The Table – systems change Geneva-based Think Tank. Co-Founder/Leader <A+> Alliance for Inclusive Algorithms Leader <AI & Equality> Human Rights Initiative w/global community 600+ researchers, 57 countries. Co-Founder International Gender Champions (IGC) bringing together female & male heads of organizations, including UN Secretary-General, to break down gender barriers. On IGC Global Board co-leads IGC Digital & New Emerging Technologies Impact Group Network of Experts UN Secretary General AI Advisory Body; Gender & AI Advisory Group 2025 AI Action Summit. UNESCO's WomenForEthicalAI ; Co-Chair Gender Advisory Board UN Commission on Science & Technology for Development (CSTD).",
+      "expertise": [
+        "UNESCO's Readiness Assessment Methodology",
+        "UNESCO's Ethical Impact Assessment",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 2: Ethical Governance and Stewardship",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 6: Gender",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 8: Education and Research",
+        "UNESCO Recommendation on the Ethics of AI Policy Area 11: Health and Social Well-being",
+        "AI standards"
+      ],
+      "keywords": [
+        "systems change",
+        "inclusive algorithms",
+        "AI equality",
+        "human rights",
+        "gender champions",
+        "gender barriers",
+        "digital technologies",
+        "emerging technologies",
+        "women for ethical AI",
+        "health social wellbeing",
+        "AI standards",
+        "education research"
+      ]
+    }
+  ]
+}
