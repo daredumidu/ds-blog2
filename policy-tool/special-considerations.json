@@ -1,0 +1,384 @@
+{
+  "specialConsiderations": {
+    "universal": {
+      "resourceConstraints": {
+        "id": "resource_constraints",
+        "title": "Resource & Capacity Constraints",
+        "items": [
+          {
+            "id": "limited_funding",
+            "name": "Limited funding capacity",
+            "description": "Budget limitations affecting policy implementation scope and requiring phased approaches"
+          },
+          {
+            "id": "technical_expertise",
+            "name": "Technical expertise gaps",
+            "description": "Shortage of skilled personnel for implementation, oversight, and maintenance"
+          },
+          {
+            "id": "infrastructure_readiness",
+            "name": "Infrastructure readiness",
+            "description": "Basic digital infrastructure limitations affecting deployment capability"
+          }
+        ]
+      },
+      "participationGaps": {
+        "id": "participation_gaps",
+        "title": "Participation & Inclusion",
+        "items": [
+          {
+            "id": "stakeholder_engagement",
+            "name": "Stakeholder engagement barriers",
+            "description": "Difficulty reaching and meaningfully involving affected communities in decision-making"
+          },
+          {
+            "id": "power_imbalances",
+            "name": "Power imbalances",
+            "description": "Dominant voices overshadowing marginalized groups in policy processes"
+          },
+          {
+            "id": "digital_literacy",
+            "name": "Digital literacy requirements",
+            "description": "Basic technology skills needed for meaningful participation in digital initiatives"
+          }
+        ]
+      },
+      "technicalLimitations": {
+        "id": "technical_limitations",
+        "title": "Technical & Regulatory",
+        "items": [
+          {
+            "id": "interoperability",
+            "name": "Interoperability standards",
+            "description": "Compatibility challenges across different systems and platforms"
+          },
+          {
+            "id": "data_quality",
+            "name": "Data quality issues",
+            "description": "Incomplete, biased, or unreliable datasets affecting AI system performance"
+          },
+          {
+            "id": "cybersecurity",
+            "name": "Cybersecurity vulnerabilities",
+            "description": "Security gaps in systems and processes requiring robust protection measures"
+          },
+          {
+            "id": "enforcement_capacity",
+            "name": "Enforcement capacity gaps",
+            "description": "Limited ability to monitor compliance and ensure effective implementation"
+          }
+        ]
+      }
+    },
+    "contextDependent": {
+      "sids": {
+        "id": "sids",
+        "title": "Small Island Developing States",
+        "icon": " ",
+        "items": [
+          {
+            "id": "geographic_isolation",
+            "name": "Geographic isolation",
+            "description": "Limited connectivity options and higher infrastructure costs due to remote location"
+          },
+          {
+            "id": "climate_vulnerability",
+            "name": "Climate vulnerability",
+            "description": "Sea-level rise and extreme weather threats to infrastructure and systems"
+          },
+          {
+            "id": "small_market_size",
+            "name": "Small market size",
+            "description": "Limited economies of scale for technology deployment and maintenance"
+          }
+        ]
+      },
+      "lowResource": {
+        "id": "low_resource",
+        "title": "Low-Resource Countries",
+        "icon": " ",
+        "items": [
+          {
+            "id": "currency_instability",
+            "name": "Currency instability",
+            "description": "Pricing volatility for international technology services and equipment"
+          },
+          {
+            "id": "informal_economy",
+            "name": "Informal economy dominance",
+            "description": "Policies affecting unregistered businesses and workers outside formal systems"
+          },
+          {
+            "id": "debt_sustainability",
+            "name": "Debt sustainability concerns",
+            "description": "Limited fiscal space for new technology investments due to existing obligations"
+          }
+        ]
+      },
+      "conflictZones": {
+        "id": "conflict_zones",
+        "title": "Conflict & Post-Conflict Areas",
+        "icon": " ",
+        "items": [
+          {
+            "id": "security_threats",
+            "name": "Security threats",
+            "description": "Infrastructure vulnerability to attacks, sabotage, or destruction"
+          },
+          {
+            "id": "institutional_instability",
+            "name": "Institutional instability",
+            "description": "Weak or contested governance structures affecting policy continuity"
+          },
+          {
+            "id": "displaced_populations",
+            "name": "Displaced populations",
+            "description": "Managing technology access and services for refugees and internally displaced persons"
+          }
+        ]
+      },
+      "cultural": {
+        "id": "cultural",
+        "title": "Cultural & Contextual",
+        "icon": " ",
+        "items": [
+          {
+            "id": "linguistic_diversity",
+            "name": "Linguistic diversity",
+            "description": "Multi-language support requirements and script compatibility needs"
+          },
+          {
+            "id": "religious_sensitivity",
+            "name": "Religious/cultural sensitivity",
+            "description": "AI applications that may conflict with local beliefs, values, or practices"
+          },
+          {
+            "id": "historical_trauma",
+            "name": "Historical trauma",
+            "description": "Communities with past negative experiences requiring trust-building approaches"
+          }
+        ]
+      },
+      "governance": {
+        "id": "governance",
+        "title": "Governance Context",
+        "icon": "",
+        "items": [
+          {
+            "id": "federal_systems",
+            "name": "Federal vs. local authority",
+            "description": "Multi-level governance coordination and jurisdiction management challenges"
+          },
+          {
+            "id": "authoritarian_context",
+            "name": "Authoritarian contexts",
+            "description": "Civil society restrictions and limited space for independent oversight"
+          },
+          {
+            "id": "democratic_transitions",
+            "name": "Democratic transitions",
+            "description": "Policy continuity risks during government changes and institution building"
+          }
+        ]
+      }
+    },
+    "sectorSpecific": {
+      "healthcare": {
+        "id": "healthcare",
+        "title": "Healthcare",
+        "items": [
+          {
+            "id": "medical_infrastructure",
+            "name": "Medical infrastructure gaps",
+            "description": "Limited healthcare facilities and equipment affecting AI deployment"
+          },
+          {
+            "id": "healthcare_workers",
+            "name": "Healthcare worker capacity",
+            "description": "Shortage of trained medical professionals to implement and oversee AI systems"
+          },
+          {
+            "id": "patient_data",
+            "name": "Patient data sensitivity",
+            "description": "Heightened privacy and consent requirements for medical information"
+          }
+        ]
+      },
+      "education": {
+        "id": "education",
+        "title": "Education",
+        "items": [
+          {
+            "id": "teacher_training",
+            "name": "Teacher training needs",
+            "description": "Educator preparation for technology integration and AI literacy"
+          },
+          {
+            "id": "educational_access",
+            "name": "Educational access disparities",
+            "description": "Unequal schooling opportunities across different populations and regions"
+          },
+          {
+            "id": "digital_devices",
+            "name": "Digital device availability",
+            "description": "Student and school access to necessary technology and equipment"
+          }
+        ]
+      },
+      "agriculture": {
+        "id": "agriculture",
+        "title": "Agriculture",
+        "items": [
+          {
+            "id": "seasonal_cycles",
+            "name": "Seasonal implementation cycles",
+            "description": "Technology deployment aligned with planting, growing, and harvest seasons"
+          },
+          {
+            "id": "smallholder_farmers",
+            "name": "Smallholder farmer reach",
+            "description": "Serving dispersed, small-scale agricultural operations with limited resources"
+          },
+          {
+            "id": "traditional_practices",
+            "name": "Traditional farming practices",
+            "description": "Integrating new technology with established agricultural methods and knowledge"
+          }
+        ]
+      },
+      "financial": {
+        "id": "financial",
+        "title": "Financial Services",
+        "items": [
+          {
+            "id": "financial_inclusion",
+            "name": "Financial inclusion gaps",
+            "description": "Large unbanked populations with limited access to formal financial services"
+          },
+          {
+            "id": "regulatory_compliance",
+            "name": "Regulatory compliance complexity",
+            "description": "Banking and finance sector oversight requirements and standards"
+          },
+          {
+            "id": "trust_formal_systems",
+            "name": "Trust in formal systems",
+            "description": "Overcoming preference for informal financial mechanisms and building confidence"
+          }
+        ]
+      }
+    },
+    "dimensionPhaseMapping": {
+      "Enabling Infrastructure": {
+        "Analysis": {
+          "universal": ["resource_constraints", "technical_limitations"],
+          "contextDependent": ["sids", "lowResource"],
+          "sectorSpecific": ["agriculture", "healthcare"]
+        },
+        "Design": {
+          "universal": ["resource_constraints", "technical_limitations"],
+          "contextDependent": ["sids", "lowResource", "governance"],
+          "sectorSpecific": ["healthcare", "financial"]
+        },
+        "Implementation": {
+          "universal": ["technical_limitations", "participation_gaps"],
+          "contextDependent": ["conflictZones", "governance"],
+          "sectorSpecific": ["financial", "education"]
+        },
+        "Monitoring and Evaluation": {
+          "universal": ["technical_limitations", "resource_constraints"],
+          "contextDependent": ["sids", "conflictZones"],
+          "sectorSpecific": ["agriculture", "healthcare"]
+        }
+      },
+      "Legislation & Policy": {
+        "Analysis": {
+          "universal": ["technical_limitations", "participation_gaps"],
+          "contextDependent": ["governance", "cultural"],
+          "sectorSpecific": ["healthcare", "financial"]
+        },
+        "Design": {
+          "universal": ["participation_gaps", "technical_limitations"],
+          "contextDependent": ["cultural", "governance"],
+          "sectorSpecific": ["healthcare", "financial"]
+        },
+        "Implementation": {
+          "universal": ["technical_limitations", "participation_gaps"],
+          "contextDependent": ["governance", "conflictZones"],
+          "sectorSpecific": ["financial", "education"]
+        },
+        "Monitoring and Evaluation": {
+          "universal": ["technical_limitations", "resource_constraints"],
+          "contextDependent": ["governance", "cultural"],
+          "sectorSpecific": ["healthcare", "financial"]
+        }
+      },
+      "Sustainability & Society": {
+        "Analysis": {
+          "universal": ["participation_gaps", "resource_constraints"],
+          "contextDependent": ["cultural", "lowResource"],
+          "sectorSpecific": ["education", "agriculture"]
+        },
+        "Design": {
+          "universal": ["participation_gaps", "resource_constraints"],
+          "contextDependent": ["cultural", "conflictZones"],
+          "sectorSpecific": ["education", "agriculture"]
+        },
+        "Implementation": {
+          "universal": ["participation_gaps", "resource_constraints"],
+          "contextDependent": ["cultural", "lowResource"],
+          "sectorSpecific": ["education", "healthcare"]
+        },
+        "Monitoring and Evaluation": {
+          "universal": ["participation_gaps", "technical_limitations"],
+          "contextDependent": ["cultural", "sids"],
+          "sectorSpecific": ["education", "agriculture"]
+        }
+      },
+      "Economy & Innovation": {
+        "Analysis": {
+          "universal": ["resource_constraints", "technical_limitations"],
+          "contextDependent": ["lowResource", "sids"],
+          "sectorSpecific": ["financial", "agriculture"]
+        },
+        "Design": {
+          "universal": ["resource_constraints", "technical_limitations"],
+          "contextDependent": ["lowResource", "governance"],
+          "sectorSpecific": ["financial", "agriculture"]
+        },
+        "Implementation": {
+          "universal": ["technical_limitations", "resource_constraints"],
+          "contextDependent": ["conflictZones", "governance"],
+          "sectorSpecific": ["financial", "agriculture"]
+        },
+        "Monitoring and Evaluation": {
+          "universal": ["technical_limitations", "resource_constraints"],
+          "contextDependent": ["lowResource", "governance"],
+          "sectorSpecific": ["financial", "agriculture"]
+        }
+      },
+      "Research & Education": {
+        "Analysis": {
+          "universal": ["resource_constraints", "participation_gaps"],
+          "contextDependent": ["cultural", "lowResource"],
+          "sectorSpecific": ["education", "healthcare"]
+        },
+        "Design": {
+          "universal": ["participation_gaps", "resource_constraints"],
+          "contextDependent": ["cultural", "lowResource"],
+          "sectorSpecific": ["education", "healthcare"]
+        },
+        "Implementation": {
+          "universal": ["participation_gaps", "resource_constraints"],
+          "contextDependent": ["cultural", "governance"],
+          "sectorSpecific": ["education", "healthcare"]
+        },
+        "Monitoring and Evaluation": {
+          "universal": ["participation_gaps", "technical_limitations"],
+          "contextDependent": ["cultural", "governance"],
+          "sectorSpecific": ["education", "healthcare"]
+        }
+      }
+    }
+  }
+}
