@@ -422,6 +422,7 @@ body {
   opacity: 0;
   max-height: 0;
   overflow: hidden;
+  background-color: #091337;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 0;
 }
@@ -429,11 +430,13 @@ body {
 .phases-section.visible {
   opacity: 1;
   max-height: 50px;
+  background-color: #091128;
   margin-bottom: 1rem;
 }
 
 .phases-section h2 {
   margin-bottom: 1rem;
+  background-color: #1e40af;
   color: var(--color-gray-600);
   font-size: 0.85rem;
 }
@@ -442,6 +445,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
+  background-color: #1e40af;
   position: relative;
   z-index: 1;
 }
@@ -450,7 +454,7 @@ body {
   position: relative;
   padding: 0.25rem 0.5rem;
   border: 2px solid var(--color-gray-200);
-  border-radius: 8px;
+  border-radius: 0px;
   background: white;
   color: var(--color-gray-700);
   font-size: 0.875rem;
@@ -2576,7 +2580,7 @@ body {
       padding: 0.6rem 1rem;
       font-size: 0.75rem;
       clip-path: none;
-      border-radius: 6px;
+      border-radius: 0px;
       border: 2px solid var(--color-gray-200);
       margin-right: 0;
   }
