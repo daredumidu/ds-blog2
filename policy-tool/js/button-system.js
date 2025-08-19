@@ -11,7 +11,7 @@ export class TPAFButtonSystem {
             'Enabling Infrastructure': 'Enabling Infrastructure',
             'Legislation & Policy': 'Legislation & Policy',
             'Sustainability & Society': 'Sustainability & Society',
-            'Economy & Innovation': 'Economic Measures and Innovation',
+            'Economy & Innovation': 'Economic Measures & Innovation',
             'Research & Education': 'Research, Education & Capacity'
         };
         

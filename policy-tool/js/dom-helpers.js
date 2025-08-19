@@ -1,5 +1,5 @@
 /**
- * DOM manipulation helpers and element creation utilities
+ * DOM manipulation helpers and element creation utilities - Enhanced version
  */
 
 import { CONFIG } from './config.js';
@@ -8,7 +8,7 @@ import { state } from './state.js';
 import { buttonSystem } from './button-system.js';
 
 export const domHelpers = {
-    // Policy Area Button Creation
+    // Enhanced Policy Area Button Creation
     createPolicyAreaButton: function(dimension, index) {
         const button = document.createElement('button');
         button.className = 'dimension-btn';
@@ -16,9 +16,28 @@ export const domHelpers = {
         button.setAttribute('aria-label', `Select ${dimension.id} dimension`);
         button.setAttribute('tabindex', '0');
         
+        // Create icon mapping for each dimension
+        const iconMap = {
+            'Enabling Infrastructure': '🏗️',
+            'Legislation & Policy': '⚖️', 
+            'Sustainability & Society': '🌱',
+            'Economy & Innovation': '💼',
+            'Research & Education': '🔬'
+        };
+        
+        // Create description mapping
+        const descriptionMap = {
+            'Enabling Infrastructure': 'Foundational technological infrastructure for AI development and deployment',
+            'Legislation & Policy': 'Legal frameworks, regulations, and governance structures for AI systems',
+            'Sustainability & Society': 'Sustainable AI development and addressing societal impacts',
+            'Economy & Innovation': 'Economic development and innovation ecosystems for AI advancement',
+            'Research & Education': 'Research prioritization and educational frameworks for AI'
+        };
+        
         button.innerHTML = `
-            <img src="${dimension.coloredIcon}" alt="" class="dimension-icon" />
-            <div class="dimension-text">${utils.escapeHtml(dimension.short)}</div>
+            <div class="dimension-header">
+                <div class="dimension-text">${utils.escapeHtml(dimension.short)}</div>
+            </div>
         `;
         
         button.addEventListener('click', function(e) {
@@ -31,7 +50,7 @@ export const domHelpers = {
         return button;
     },
 
-    // Phase Button Creation
+    // Enhanced Phase Button Creation
     createPhaseButton: function(phase, index) {
         const button = document.createElement('button');
         button.className = 'phase-btn';
@@ -39,7 +58,17 @@ export const domHelpers = {
         button.setAttribute('aria-label', `Select ${phase.id} phase`);
         button.setAttribute('tabindex', '0');
         
-        button.innerHTML = `${utils.escapeHtml(phase.short)}`;
+        // Create icon mapping for phases
+        const phaseIconMap = {
+            'Analysis': '',
+            'Design': '', 
+            'Implementation': '',
+            'Monitoring and Evaluation': ''
+        };
+        
+        button.innerHTML = `
+            <span>${phaseIconMap[phase.id] || ''} ${utils.escapeHtml(phase.short)}</span>
+        `;
         
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -51,7 +80,36 @@ export const domHelpers = {
         return button;
     },
 
-    // Policy Item Creation
+    // Progress Indicator Creation
+    createProgressIndicator: function(step, stepName) {
+        const indicator = document.createElement('div');
+        indicator.className = 'progress-indicator';
+        
+        const dots = Array.from({length: 2}, (_, i) => {
+            return `<div class="progress-dot ${i < step ? 'active' : ''}"></div>`;
+        }).join('');
+        
+        indicator.innerHTML = `
+            <span>Step ${step}: ${stepName}</span>
+            ${dots}
+        `;
+        
+        return indicator;
+    },
+
+    // Update existing progress indicator
+    updateProgressIndicator: function(container, step) {
+        const dots = container.querySelectorAll('.progress-dot');
+        dots.forEach((dot, index) => {
+            if (index < step) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    },
+
+    // Enhanced Policy Item Creation (keep existing but add modern styling support)
     createPolicyItem: function(policyId, policyInfo, dimension, phase) {
         const policyKey = utils.getPolicyKey(dimension, phase, policyId);
         const isSelected = state.selectedPolicies.has(policyKey);
@@ -88,7 +146,7 @@ export const domHelpers = {
         return button;
     },
 
-    // Cross-dimensional Policy Item Creation
+    // Cross-dimensional Policy Item Creation (keep existing)
     createCrossPolicyAreaPolicyItem: function(key, policyInfo) {
         const [dimension, phase, policyId] = key.split('|');
         const policyKey = utils.getPolicyKey(dimension, phase, policyId);
@@ -132,7 +190,84 @@ export const domHelpers = {
         return button;
     },
 
-    // Keyword Chip Creation
+    // Enhanced Section Creation with Progress Support
+    createSectionWithProgress: function(title, stepNumber, stepName) {
+        const section = document.createElement('div');
+        section.className = 'section';
+        
+        if (stepNumber && stepName) {
+            const progressIndicator = this.createProgressIndicator(stepNumber, stepName);
+            section.appendChild(progressIndicator);
+        }
+        
+        if (title) {
+            const heading = document.createElement('h2');
+            heading.textContent = title;
+            section.appendChild(heading);
+        }
+        
+        return section;
+    },
+
+    // Phase Container Setup with Dynamic Color Support
+    setupPhaseContainer: function(container, selectedDimension) {
+        if (!container || !selectedDimension) return;
+        
+        // Find the dimension config to get colors
+        const dimensionConfig = CONFIG.DIMENSIONS.find(d => d.id === selectedDimension);
+        if (dimensionConfig) {
+            container.style.setProperty('--accent-color', dimensionConfig.color);
+            // Create a darker variant for the accent-dark color
+            const darkColor = this.darkenColor(dimensionConfig.color, 20);
+            container.style.setProperty('--accent-dark', darkColor);
+        }
+        
+        container.setAttribute('data-dimension', selectedDimension);
+    },
+
+    // Utility function to darken colors
+    darkenColor: function(color, percent) {
+        const num = parseInt(color.replace("#",""), 16);
+        const amt = Math.round(2.55 * percent);
+        const R = (num >> 16) - amt;
+        const G = (num >> 8 & 0x00FF) - amt;
+        const B = (num & 0x0000FF) - amt;
+        return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+            (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+            (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+    },
+
+    // Animation helper for smooth section transitions
+    animateSection: function(element, show = true) {
+        if (!element) return Promise.resolve();
+        
+        return new Promise(resolve => {
+            if (show) {
+                element.style.display = 'block';
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(10px)';
+                
+                requestAnimationFrame(() => {
+                    element.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                    
+                    setTimeout(resolve, 300);
+                });
+            } else {
+                element.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(-10px)';
+                
+                setTimeout(() => {
+                    element.style.display = 'none';
+                    resolve();
+                }, 300);
+            }
+        });
+    },
+
+    // Keyword Chip Creation (keep existing)
     createKeywordChip: function(keyword, onRemove) {
         const chip = document.createElement('div');
         chip.className = 'keyword-chip';
@@ -152,7 +287,7 @@ export const domHelpers = {
         return chip;
     },
 
-    // Empty State Creation
+    // Empty State Creation (keep existing)
     createEmptyState: function(icon, message) {
         const emptyState = document.createElement('div');
         emptyState.className = 'empty-state';
@@ -163,7 +298,7 @@ export const domHelpers = {
         return emptyState;
     },
 
-    // Loading State Creation
+    // Loading State Creation (keep existing)
     createLoadingState: function(message = 'Loading...') {
         const loadingState = document.createElement('div');
         loadingState.className = 'loading-state';
@@ -174,7 +309,7 @@ export const domHelpers = {
         return loadingState;
     },
 
-    // Selected Policy Item Creation
+    // Selected Policy Item Creation (keep existing)
     createSelectedPolicyItem: function(policyKey, policyInfo, onRemove, onHighlight) {
         const { dimension, phase, policyId } = utils.parsePolicyKey(policyKey);
         
@@ -222,7 +357,7 @@ export const domHelpers = {
         return item;
     },
 
-    // Visibility Management
+    // Visibility Management (keep existing methods)
     showElement: function(element) {
         if (element) {
             element.classList.remove('hidden');
@@ -241,7 +376,7 @@ export const domHelpers = {
         }
     },
 
-    // Animation helpers
+    // Animation helpers (keep existing)
     fadeInElement: function(element, duration = 300) {
         return utils.fadeIn(element, duration);
     },
@@ -250,7 +385,7 @@ export const domHelpers = {
         return utils.fadeOut(element, duration);
     },
 
-    // Content management
+    // Content management (keep existing)
     setElementContent: function(element, content) {
         if (element) {
             if (typeof content === 'string') {
@@ -277,7 +412,7 @@ export const domHelpers = {
         }
     },
 
-    // Event delegation helpers
+    // Event delegation helpers (keep existing)
     addDelegatedEventListener: function(container, selector, eventType, handler) {
         if (!container) return;
         
@@ -289,7 +424,7 @@ export const domHelpers = {
         });
     },
 
-    // Form helpers
+    // Form helpers (keep existing)
     getFormData: function(form) {
         if (!form) return {};
         
@@ -303,7 +438,7 @@ export const domHelpers = {
         return data;
     },
 
-    // Scroll helpers
+    // Scroll helpers (keep existing)
     scrollToElement: function(element, options = {}) {
         if (element) {
             const defaultOptions = {
@@ -328,7 +463,7 @@ export const domHelpers = {
         }
     },
 
-    // Accessibility helpers
+    // Accessibility helpers (keep existing)
     setAriaLabel: function(element, label) {
         if (element) {
             element.setAttribute('aria-label', label);
@@ -358,7 +493,7 @@ export const domHelpers = {
         }, 1000);
     },
 
-    // Element selection helpers
+    // Element selection helpers (keep existing)
     findElement: function(selector, container = document) {
         return container.querySelector(selector);
     },
@@ -367,7 +502,7 @@ export const domHelpers = {
         return Array.from(container.querySelectorAll(selector));
     },
 
-    // CSS class management
+    // CSS class management (keep existing)
     hasClass: function(element, className) {
         return element ? element.classList.contains(className) : false;
     },
