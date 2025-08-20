@@ -6,35 +6,35 @@ export const CONFIG = {
     DIMENSIONS: [
         { 
             id: 'Enabling Infrastructure', 
-            color: 'rgb(22, 102, 106)',
+            color: '#4F8EDB',
             short: 'Enabling Infrastructure',
             coloredIcon: 'assets/icons/new-icons/blue-infra-01.svg',
             whiteIcon: 'assets/icons/new-icons/blue-infra-01.svg'
         },
         { 
             id: 'Legislation & Policy', 
-            color: '#cb9b3d',  
+            color: '#FFA726',  
             short: 'Legislation & Policy',
             coloredIcon: 'assets/icons/new-icons/yellow-legislation-01.svg',
             whiteIcon: 'assets/icons/new-icons/yellow-legislation-01.svg'
         },
         { 
             id: 'Sustainability & Society', 
-            color: '#5f0085',  
+            color: '#AB47BC',  
             short: 'Sustainability & Society',
             coloredIcon: 'assets/icons/new-icons/purple-sustainability-01.svg',
             whiteIcon: 'assets/icons/new-icons/purple-sustainability-01.svg'
         },
         { 
             id: 'Economy & Innovation', 
-            color: '#8b2f30',
-            short: 'Economic Measures and Innovation',
+            color: '#EF5350',
+            short: 'Economy & Innovation',
             coloredIcon: 'assets/icons/new-icons/red-economic-01.svg',
             whiteIcon: 'assets/icons/new-icons/red-economic-01.svg'
         },
         { 
             id: 'Research & Education', 
-            color: '#005b3a', 
+            color: '#4CAF50', 
             short: 'Research, Education & Capacity Building',
             coloredIcon: 'assets/icons/new-icons/green-research-01.svg',
             whiteIcon: 'assets/icons/new-icons/green-research-01.svg'

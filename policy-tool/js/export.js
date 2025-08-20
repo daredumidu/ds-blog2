@@ -67,13 +67,13 @@ export class ExportManager {
     // Get dimension color
     getPolicyAreaColor(dimension) {
         const colorMap = {
-            'Enabling Infrastructure': this.DESIGN.colors.infrastructure,
-            'Legislation and Policy': this.DESIGN.colors.legislation,
-            'Sustainability and Society': this.DESIGN.colors.sustainability,
-            'Economy & Innovation': this.DESIGN.colors.economic,
-            'Research & Education': this.DESIGN.colors.education
+            'Enabling Infrastructure': 'var(--color-infrastructure)',
+            'Legislation & Policy': 'var(--color-legislation)',
+            'Sustainability & Society': 'var(--color-sustainability)',
+            'Economy & Innovation': 'var(--color-economy)',
+            'Research & Education': 'var(--color-research)'
         };
-        return colorMap[dimension] || this.DESIGN.colors.primary;
+        relatedPolicyDimensionEl.style.background = colorMap[policy.dimension] || 'var(--color-gray-200)';
     }
 
     // Render paragraph with proper spacing

@@ -11,7 +11,7 @@ export class TPAFButtonSystem {
             'Enabling Infrastructure': 'Enabling Infrastructure',
             'Legislation & Policy': 'Legislation & Policy',
             'Sustainability & Society': 'Sustainability & Society',
-            'Economy & Innovation': 'Economic Measures & Innovation',
+            'Economy & Innovation': 'Economy & Innovation',
             'Research & Education': 'Research, Education & Capacity'
         };
         
@@ -49,10 +49,10 @@ export class TPAFButtonSystem {
         // Update active dimension button
         this.updateActiveDimensionButton(dimension);
 
-        // Show phases section with animation
-        this.showPhasesSection();
+        // Show phase dropdown for this dimension
+        this.showPhaseDropdown(dimension);
         
-        // Clear active phases
+        // Clear active phases in ALL dropdowns
         this.clearActivePhases();
 
         // Update state
@@ -73,8 +73,8 @@ export class TPAFButtonSystem {
         // Deselect dimension
         this.clearActiveDimensions();
         
-        // Hide phases section
-        this.hidePhasesSection();
+        // Hide all phase dropdowns
+        this.hideAllPhaseDropdowns();
         
         // Clear active phases
         this.clearActivePhases();
@@ -99,7 +99,7 @@ export class TPAFButtonSystem {
             return;
         }
 
-        // Update active phase button
+        // Update active phase button in the current dimension's dropdown
         this.updateActivePhaseButton(phase);
 
         // Update state
@@ -130,30 +130,37 @@ export class TPAFButtonSystem {
 
     // UI Update Methods
     updateActiveDimensionButton(dimension) {
-        document.querySelectorAll('.dimension-btn').forEach(btn => {
-            btn.classList.remove('active');
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.classList.remove('active');
         });
         
-        const activeBtn = document.querySelector(`[data-dimension="${dimension}"]`);
-        if (activeBtn) {
-            activeBtn.classList.add('active');
+        const activeItem = document.querySelector(`.sidebar-item[data-dimension="${dimension}"]`);
+        if (activeItem) {
+            activeItem.classList.add('active');
         }
     }
 
     clearActiveDimensions() {
-        document.querySelectorAll('.dimension-btn').forEach(btn => {
-            btn.classList.remove('active');
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.classList.remove('active');
         });
     }
 
     updateActivePhaseButton(phase) {
+        // Clear all phase buttons first
         document.querySelectorAll('.phase-btn').forEach(btn => {
             btn.classList.remove('active');
         });
         
-        const activeBtn = document.querySelector(`[data-phase="${phase}"]`);
-        if (activeBtn) {
-            activeBtn.classList.add('active');
+        // Only activate phase button in the currently selected dimension's dropdown
+        if (state.selectedPolicyArea) {
+            const activeDropdown = document.querySelector(`.phase-dropdown[data-dimension="${state.selectedPolicyArea}"]`);
+            if (activeDropdown) {
+                const phaseBtn = activeDropdown.querySelector(`[data-phase="${phase}"]`);
+                if (phaseBtn) {
+                    phaseBtn.classList.add('active');
+                }
+            }
         }
     }
 
@@ -162,6 +169,24 @@ export class TPAFButtonSystem {
             btn.classList.remove('active');
         });
     }
+
+    showPhaseDropdown(dimension) {
+      // Hide all other dropdowns first
+      this.hideAllPhaseDropdowns();
+      
+      // Show the dropdown for the selected dimension
+      const dropdown = document.querySelector(`.phase-dropdown[data-dimension="${dimension}"]`);
+      if (dropdown) {
+          dropdown.classList.add('visible');
+      }
+    }
+
+    hideAllPhaseDropdowns() {
+        document.querySelectorAll('.phase-dropdown').forEach(dropdown => {
+            dropdown.classList.remove('visible');
+        });
+    }
+
 
     showPhasesSection() {
         const phasesSection = document.getElementById('phasesSection');
@@ -256,10 +281,10 @@ export class TPAFButtonSystem {
         // Sync dimension buttons
         if (state.selectedPolicyArea) {
             this.updateActiveDimensionButton(state.selectedPolicyArea);
-            this.showPhasesSection();
+            this.showPhaseDropdown(state.selectedPolicyArea);
         } else {
             this.clearActiveDimensions();
-            this.hidePhasesSection();
+            this.hideAllPhaseDropdowns();
         }
 
         // Sync phase buttons
@@ -267,16 +292,6 @@ export class TPAFButtonSystem {
             this.updateActivePhaseButton(state.selectedPhase);
         } else {
             this.clearActivePhases();
-        }
-
-        // Set dimension attribute for phase container styling
-        const phasesContainer = document.getElementById('phaseGrid');
-        if (phasesContainer) {
-            if (state.selectedPolicyArea) {
-                phasesContainer.setAttribute('data-dimension', state.selectedPolicyArea);
-            } else {
-                phasesContainer.removeAttribute('data-dimension');
-            }
         }
     }
 
@@ -297,13 +312,7 @@ export class TPAFButtonSystem {
     resetSelections() {
         this.clearActiveDimensions();
         this.clearActivePhases();
-        this.hidePhasesSection();
-        
-        // Clear dimension attribute
-        const phasesContainer = document.getElementById('phaseGrid');
-        if (phasesContainer) {
-            phasesContainer.removeAttribute('data-dimension');
-        }
+        this.hideAllPhaseDropdowns();
     }
 
     // Cleanup method

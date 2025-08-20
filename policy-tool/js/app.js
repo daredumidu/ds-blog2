@@ -123,11 +123,11 @@ export class PolicyToolApp {
             });
         }
 
-        // Select policy button
+        // Select/Unselect policy button
         if (this.elements.selectPolicyBtn) {
             this.elements.selectPolicyBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                this.addPolicyToSelection();
+                this.addPolicyToSelection(); // This method now handles both add and remove
             });
         }
 
@@ -302,12 +302,13 @@ export class PolicyToolApp {
 
     // UI Rendering Methods
     renderPolicyAreas() {
-        if (!this.elements.dimensionGrid) return;
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        if (!sidebarMenu) return;
         
-        domHelpers.clearElement(this.elements.dimensionGrid);
+        domHelpers.clearElement(sidebarMenu);
         CONFIG.DIMENSIONS.forEach((dimension, index) => {
-            const button = domHelpers.createPolicyAreaButton(dimension, index);
-            this.elements.dimensionGrid.appendChild(button);
+            const item = domHelpers.createSidebarItem(dimension, index);
+            sidebarMenu.appendChild(item);
         });
     }
 
@@ -418,7 +419,7 @@ export class PolicyToolApp {
             listColumn.setAttribute('data-dimension', state.selectedPolicyArea);
         }
 
-        utils.setText(this.elements.policyListTitle, `${state.selectedPolicyArea} - ${state.selectedPhase}`);
+        utils.setText(this.elements.policyListTitle, `Policy Area: ${state.selectedPolicyArea} - Phase: ${state.selectedPhase}`);
         
         const policyData = dataLoader.getPolicyData();
         const allPolicies = policyData[state.selectedPolicyArea]?.[state.selectedPhase] || {};
@@ -445,7 +446,7 @@ export class PolicyToolApp {
             listColumn.setAttribute('data-dimension', state.selectedPolicyArea);
         }
 
-        utils.setText(this.elements.policyListTitle, `${state.selectedPolicyArea} - All Phases`);
+        utils.setText(this.elements.policyListTitle, `Policy Area: ${state.selectedPolicyArea} - All Phases`);
         
         const policyData = dataLoader.getPolicyData();
         const allPoliciesInDimension = {};
@@ -590,14 +591,22 @@ export class PolicyToolApp {
         if (!state.selectedPolicy) return;
         
         const policyKey = state.currentPolicyKey;
-        if (policyKey) {
+        if (!policyKey) return;
+        
+        const isCurrentlySelected = state.selectedPolicies.has(policyKey);
+        
+        if (isCurrentlySelected) {
+            // Remove policy from selection
+            state.removeSelectedPolicy(policyKey);
+        } else {
+            // Add policy to selection
             state.addSelectedPolicy(policyKey);
-            
-            const selectedPolicy = document.querySelector('.policy-item.active');
-            if (selectedPolicy) {
-                selectedPolicy.classList.add('pulse');
-                setTimeout(() => selectedPolicy.classList.remove('pulse'), 500);
-            }
+        }
+        
+        const selectedPolicy = document.querySelector('.policy-item.active');
+        if (selectedPolicy) {
+            selectedPolicy.classList.add('pulse');
+            setTimeout(() => selectedPolicy.classList.remove('pulse'), 500);
         }
     }
 
@@ -625,8 +634,10 @@ export class PolicyToolApp {
         if (policyContainer && policyDetailsColumn) {
             policyContainer.classList.add('details-focused');
             policyDetailsColumn.classList.add('has-policy');
+            // Add this line:
+            policyDetailsColumn.setAttribute('data-dimension', state.selectedPolicyArea);
         }
-        
+    
         const isSelected = state.isCurrentPolicySelected;
         
         // Update related policies
@@ -681,11 +692,8 @@ export class PolicyToolApp {
         
         this.elements.policyDetailsContent.innerHTML = `
             <div class="detail-section">
-                <h3>Initiative Overview</h3>
-                <p>${utils.escapeHtml(policyInfo.policy)}</p>
-            </div>
-            
-            <div class="detail-section">
+                <h2>${utils.escapeHtml(policyInfo.policy)}</h2>
+                <br>
                 <h3>Possible Implementation Guidance and Actions</h3>
                 <p>${utils.escapeHtml(policyInfo.details)}</p>
             </div>
@@ -699,14 +707,7 @@ export class PolicyToolApp {
             </div>
             ` : ''}
             
-            <div class="detail-section">
-                <h3>Keywords</h3>
-                <div class="keywords-container">
-                    ${policyInfo.keywords.map(keyword => 
-                        `<span class="keyword">${utils.escapeHtml(keyword)}</span>`
-                    ).join('')}
-                </div>
-            </div>
+
             
             ${considerationsHtml}
             
@@ -714,9 +715,6 @@ export class PolicyToolApp {
             <div class="related-policies-section">
                 <h3>
                     Related Policy Initiatives
-                    <span style="font-size: 0.7rem; font-weight: normal; color: var(--color-gray-500);">
-                        (${relatedPolicies.length} found)
-                    </span>
                 </h3>
                 
                 <div class="related-policies-list">
@@ -726,10 +724,6 @@ export class PolicyToolApp {
                                 ${utils.getPolicyAreaInitial(related.dimension)}
                             </div>
                             <div class="related-policy-content">
-                                <div class="related-policy-header">
-                                    <span class="related-policy-id">${utils.escapeHtml(related.policyId)}</span>
-                                    <span class="related-policy-phase">${utils.escapeHtml(related.phase)}</span>
-                                </div>
                                 <div class="related-policy-title">${utils.escapeHtml(related.policy)}</div>
                                 <div class="related-policy-match">
                                     ${related.dimension !== state.selectedPolicyArea ? 'Cross Policy Areas • ' : ''}Shared: ${related.sharedKeywords.join(', ')}
@@ -755,17 +749,20 @@ export class PolicyToolApp {
 
         // Update select button
         if (this.elements.selectPolicyBtn) {
-            utils.setText(this.elements.selectPolicyBtn, isSelected ? 'Selected' : 'Add policy initiative to your plan ➕');
-            this.elements.selectPolicyBtn.disabled = isSelected;
+            this.elements.selectPolicyBtn.innerHTML = isSelected ? 
+                'Remove from plan <span style="color: white; font-size: 1.2em; font-weight: bold;">×</span>' : 
+                'Add policy initiative to your plan <span style="color: white; font-size: 1.2em; font-weight: bold;">+</span>';
+            this.elements.selectPolicyBtn.disabled = false; // Always enabled now
             domHelpers.removeClass(this.elements.selectPolicyBtn, 'hidden');
         }
+
     }
 
     renderConsiderationsContent(considerations) {
         // Create a high-level summary
         const totalConsiderations = considerations.universal.length + 
-                                   considerations.contextDependent.reduce((sum, ctx) => sum + ctx.items.length, 0) + 
-                                   considerations.sectorSpecific.reduce((sum, sector) => sum + sector.items.length, 0);
+                                considerations.contextDependent.reduce((sum, ctx) => sum + ctx.items.length, 0) + 
+                                considerations.sectorSpecific.reduce((sum, sector) => sum + sector.items.length, 0);
         
         if (totalConsiderations === 0) return '';
         
@@ -813,13 +810,10 @@ export class PolicyToolApp {
             ? `Key considerations include: ${summaryParts.join('; ')}.`
             : `${totalConsiderations} implementation considerations identified for this policy area and phase.`;
         
-        // Build detailed content for expansion
-        let detailedHtml = '';
-        
-        // Universal considerations
+        // Build Universal Considerations content
+        let universalHtml = '';
         if (considerations.universal.length > 0) {
-            detailedHtml += `
-                <p><strong>Universal Considerations:</strong></p>
+            universalHtml = `
                 <ul>
                     ${considerations.universal.map(item => `
                         <li><strong>${utils.escapeHtml(item.name)}</strong> - ${utils.escapeHtml(item.description)}</li>
@@ -828,45 +822,62 @@ export class PolicyToolApp {
             `;
         }
         
-        // Context-dependent considerations
-        if (considerations.contextDependent.length > 0) {
-            detailedHtml += `<p><strong>Context-Specific Considerations:</strong></p>`;
-            considerations.contextDependent.forEach(context => {
-                detailedHtml += `
-                    <p><em>${context.icon} ${utils.escapeHtml(context.title)}:</em></p>
-                    <ul>
-                        ${context.items.map(item => `
-                            <li><strong>${utils.escapeHtml(item.name)}</strong> - ${utils.escapeHtml(item.description)}</li>
-                        `).join('')}
-                    </ul>
-                `;
-            });
-        }
-        
-        // Sector-specific considerations
-        if (considerations.sectorSpecific.length > 0) {
-            detailedHtml += `<p><strong>Sector-Specific Considerations:</strong></p>`;
-            considerations.sectorSpecific.forEach(sector => {
-                detailedHtml += `
-                    <p><em>${utils.escapeHtml(sector.title)}:</em></p>
-                    <ul>
-                        ${sector.items.map(item => `
-                            <li><strong>${utils.escapeHtml(item.name)}</strong> - ${utils.escapeHtml(item.description)}</li>
-                        `).join('')}
-                    </ul>
-                `;
-            });
+        // Build Context-Specific Considerations content
+        let contextSpecificHtml = '';
+        if (considerations.contextDependent.length > 0 || considerations.sectorSpecific.length > 0) {
+            if (considerations.contextDependent.length > 0) {
+                considerations.contextDependent.forEach(context => {
+                    contextSpecificHtml += `
+                        <p><em>${context.icon} ${utils.escapeHtml(context.title)}:</em></p>
+                        <ul>
+                            ${context.items.map(item => `
+                                <li><strong>${utils.escapeHtml(item.name)}</strong> - ${utils.escapeHtml(item.description)}</li>
+                            `).join('')}
+                        </ul>
+                    `;
+                });
+            }
+            
+            if (considerations.sectorSpecific.length > 0) {
+                considerations.sectorSpecific.forEach(sector => {
+                    contextSpecificHtml += `
+                        <p><em>${utils.escapeHtml(sector.title)}:</em></p>
+                        <ul>
+                            ${sector.items.map(item => `
+                                <li><strong>${utils.escapeHtml(item.name)}</strong> - ${utils.escapeHtml(item.description)}</li>
+                            `).join('')}
+                        </ul>
+                    `;
+                });
+            }
         }
         
         return `
             <div class="considerations-summary">
                 <p>${summaryText}</p>
-                <button class="considerations-toggle" onclick="this.parentElement.classList.toggle('expanded'); this.textContent = this.parentElement.classList.contains('expanded') ? 'Show less' : 'Read more details';">Read more details</button>
-                <div class="considerations-details">${detailedHtml}</div>
+                
+                <div class="considerations-sections">
+                    ${universalHtml ? `
+                    <div class="consideration-section">
+                        <button class="consideration-toggle" onclick="this.parentElement.classList.toggle('expanded'); this.closest('.considerations-sections').querySelectorAll('.consideration-section').forEach(s => { if (s !== this.parentElement) s.classList.remove('expanded'); });">
+                            <span class="toggle-icon">▶</span> Universal Considerations
+                        </button>
+                        <div class="consideration-content">${universalHtml}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${contextSpecificHtml ? `
+                    <div class="consideration-section">
+                        <button class="consideration-toggle" onclick="this.parentElement.classList.toggle('expanded'); this.closest('.considerations-sections').querySelectorAll('.consideration-section').forEach(s => { if (s !== this.parentElement) s.classList.remove('expanded'); });">
+                            <span class="toggle-icon">▶</span> Context-Specific Considerations
+                        </button>
+                        <div class="consideration-content">${contextSpecificHtml}</div>
+                    </div>
+                    ` : ''}
+                </div>
             </div>
         `;
     }
-
     clearPolicyDetails() {
         // Remove details-focused class to hide details panel
         const policyContainer = this.elements.policyContainer;

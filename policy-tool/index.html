@@ -64,11 +64,25 @@
         </div>
     </div>
 
-    <div class="container">
-        <!-- Left Panel -->
+<!-- Update the container section in your HTML -->
+<div class="container">
+    <!-- Left Panel Container (includes sidebar + main content) -->
+    <div class="left-panel-container">
         <div class="left-panel">
-            <!-- Search & Filter Section -->
-            <div class="section">
+            <!-- Vertical Sidebar for policy areas -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-subtitle">Select a Policy Area</div>
+                </div>
+                
+                <div class="sidebar-menu" id="sidebarMenu">
+                    <!-- Policy area items with phase dropdowns will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Main content area -->
+            <div class="main-content">
+                <!-- Search & Filter Section -->
                 <div class="search-filter-section" id="searchFilterSection">
                     <div class="search-filter-row">
                         <div class="search-container">
@@ -94,150 +108,148 @@
                     </div>
                 </div>
 
-                <h2>Select Policy Area</h2>
-                <div class="dimensions-container" id="dimensionGrid"></div>
-                
-                <div class="phases-section" id="phasesSection">
-                    <div class="phases-container" id="phaseGrid"></div>
-                </div>
-            </div>
-
-            <!-- Two-Column Policy Layout -->
-            <div class="section hidden" id="policySection">
-                <div class="policy-container" id="policyContainer">
-                    <!-- Left Column: Policy List -->
-                    <div class="policy-list-column">
-                        <div class="policy-list-column-content">
-                            <div class="policy-list-header" id="policyListTitle">
-                                Select a dimension and phase
-                            </div>
-                            <div class="policy-list" id="policyList">
-                                <div class="empty-state">
-                                    <div class="empty-state-icon">📋</div>
-                                    <div class="empty-state-text">
-                                        Choose a policy area and phase to view available initiatives
+                <!-- Two-Column Policy Layout -->
+                <div class="section hidden" id="policySection">
+                    <div class="policy-container" id="policyContainer">
+                        <!-- Left Column: Policy List -->
+                        <div class="policy-list-column">
+                            <div class="policy-list-column-content">
+                                <div class="policy-list-header" id="policyListTitle">
+                                    Select a dimension and phase
+                                </div>
+                                <div class="policy-list" id="policyList">
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon">📋</div>
+                                        <div class="empty-state-text">
+                                            Choose a policy area and phase to view available initiatives
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Right Column: Initiative Details -->
-                    <div class="policy-details-column" id="policyDetailsColumn">
-                        <button class="policy-list-toggle" id="policyListToggle" aria-label="Back to policy list">
-                            <svg class="policy-list-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                            Back to List
-                        </button>
-                        
-                        <div class="details-header">
-                            <div class="details-title">Policy Initiative Details</div>
-                            <button class="btn-select hidden" id="selectPolicyBtn" aria-describedby="select-help">
-                                Add policy initiative to your plan
-                            </button>
-                        </div>
-                        <div class="details-content" id="policyDetailsContent">
-                            <div class="empty-state">
-                                <div class="empty-state-icon">📄</div>
-                                <div class="empty-state-text">
-                                    Select a policy initiative from the list to view its details
+                        <!-- Right Column: Initiative Details -->
+                        <div class="policy-details-column" id="policyDetailsColumn">
+                            <div class="details-header">
+                                <button class="policy-list-toggle" id="policyListToggle" aria-label="Back to policy list">
+                                    <svg class="policy-list-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                    </svg>
+                                    Back
+                                </button>
+                                <div class="details-title">Policy Initiative Details</div>
+                                <button class="btn-select hidden" id="selectPolicyBtn" aria-describedby="select-help">
+                                    <svg class="add-icon" fill="none" stroke="white" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Add to Plan
+                                </button>
+                            </div>
+                            <div class="details-content" id="policyDetailsContent">
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">📄</div>
+                                    <div class="empty-state-text">
+                                        Select a policy initiative from the list to view its details
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <span id="select-help" class="sr-only">Select this policy initiative to add it to your implementation plan</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Selected Policy Initiatives Section -->
-            <div class="section hidden" id="selectedPoliciesSection">
-                <h2>Selected Policy Initiatives</h2>
-                <div class="selected-policies-container">
-                    <div class="selected-policies-header">
-                        <span class="selected-count" id="selectedPoliciesCount">0 policy initiatives selected</span>
-                        <button class="clear-all-btn" id="clearAllBtn">Clear All</button>
-                    </div>
-                    <div class="selected-policies-list" id="selectedPoliciesList">
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📋</div>
-                            <div class="empty-state-text">
-                                No policy initiatives selected yet. Select initiatives to see them here
-                            </div>
+                            <span id="select-help" class="sr-only">Select this policy initiative to add it to your implementation plan</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Panel -->
-        <div class="right-panel">
-            <!-- Instructions with integrated export -->
-            <div class="section">
-                <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem;">How to use</h3>
-                <div style="font-size: 0.8rem; color: var(--color-gray-600); line-height: 1.5; margin-bottom: 1rem;">
-                    Search for policy initiatives or browse by policy area and phase <br> Select policy initiatives to read more <br> Export your policy plan
-                </div>
-                
-                <button class="export-btn export-pdf" onclick="exportToPDF()" style="width: 100%; justify-content: center;">
-                    Export Your Policy Plan as a PDF
-                </button>
-            </div>
-            
-            <!-- Matrix with Bars -->
-            <div class="selection-matrix-container">
-                <div class="matrix-title">Policy Plan Dashboard</div>
-                <div class="matrix-subtitle">Track your selected policy initiatives across areas and phases</div>
-                
-                <!-- Matrix Legend -->
-                <div class="matrix-legend">
-                    <div class="legend-item">
-                        <div class="legend-bar selected"></div>
-                        <span>Selected</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-bar related"></div>
-                        <span>Related</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-bar viewing"></div>
-                        <span>Viewing</span>
-                    </div>
-                </div>
-                
-                <div class="selection-coordinate-system">
-                    <div class="coordinate-grid" style="position: relative;">
-                        <div class="y-axis-labels">
-                            <div class="y-axis-label">Monitoring & Evaluation</div>
-                            <div class="y-axis-label">Implementation</div>
-                            <div class="y-axis-label">Design</div>
-                            <div class="y-axis-label">Analysis</div>
-                        </div>
-                        
-                        <div class="main-grid" id="selectionGrid"></div>
-                        
-                        <div></div> <!-- Empty cell for spacing -->
-                        
-                        <div class="x-axis-labels">
-                            <div class="x-axis-label">Infrastructure</div>
-                            <div class="x-axis-label">Legislation</div>
-                            <div class="x-axis-label">Sustainability</div>
-                            <div class="x-axis-label">Economy</div>
-                            <div class="x-axis-label">Research</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Expert Profiles -->
-            <div class="experts-section" id="expertsSection">
-                <div class="experts-title">Relevant Experts</div>
-                <div class="experts-grid" id="expertsGrid">
-                    <div class="loading-message">Loading experts...</div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Selected Policy Initiatives Section - Now separate below left panel -->
+    <div class="selected-policies-container-wrapper">
+        <div class="section hidden" id="selectedPoliciesSection">
+            <h2>Selected Policy Initiatives</h2>
+            <div class="selected-policies-container">
+                <div class="selected-policies-header">
+                    <span class="selected-count" id="selectedPoliciesCount">0 policy initiatives selected</span>
+                    <button class="clear-all-btn" id="clearAllBtn">Clear All</button>
+                </div>
+                <div class="selected-policies-list" id="selectedPoliciesList">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <div class="empty-state-text">
+                            No policy initiatives selected yet. Select initiatives to see them here
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+        <!-- Instructions with integrated export -->
+        <div class="section">
+            <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem;">How to use</h3>
+            <div style="font-size: 0.8rem; color: var(--color-gray-600); line-height: 1.5; margin-bottom: 1rem;">
+                Search for policy initiatives or browse by policy area and phase <br> Select policy initiatives to read more <br> Export your policy plan
+            </div>
+            
+            <button class="export-btn export-pdf" onclick="exportToPDF()" style="width: 100%; justify-content: center;">
+                Export Your Policy Plan as a PDF
+            </button>
+        </div>
+        
+        <!-- Matrix with Bars -->
+        <div class="selection-matrix-container">
+            <div class="matrix-title">Policy Plan Dashboard</div>
+            <div class="matrix-subtitle">Track your selected policy initiatives across areas and phases</div>
+            
+            <!-- Matrix Legend -->
+            <div class="matrix-legend">
+                <div class="legend-item">
+                    <div class="legend-bar selected"></div>
+                    <span>Selected</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-bar related"></div>
+                    <span>Related</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-bar viewing"></div>
+                    <span>Viewing</span>
+                </div>
+            </div>
+            
+            <div class="selection-coordinate-system">
+                <div class="coordinate-grid" style="position: relative;">
+                    <div class="y-axis-labels">
+                        <div class="y-axis-label">Monitoring & Evaluation</div>
+                        <div class="y-axis-label">Implementation</div>
+                        <div class="y-axis-label">Design</div>
+                        <div class="y-axis-label">Analysis</div>
+                    </div>
+                    
+                    <div class="main-grid" id="selectionGrid"></div>
+                    
+                    <div></div> <!-- Empty cell for spacing -->
+                    
+                    <div class="x-axis-labels">
+                        <div class="x-axis-label">Infrastructure</div>
+                        <div class="x-axis-label">Legislation</div>
+                        <div class="x-axis-label">Sustainability</div>
+                        <div class="x-axis-label">Economy</div>
+                        <div class="x-axis-label">Research</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expert Profiles -->
+        <div class="experts-section" id="expertsSection">
+            <div class="experts-title">Relevant Experts</div>
+            <div class="experts-grid" id="expertsGrid">
+                <div class="loading-message">Loading experts...</div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- JavaScript Modules -->
     <script type="module" src="js/main.js"></script>

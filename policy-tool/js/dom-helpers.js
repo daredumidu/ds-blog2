@@ -50,6 +50,136 @@ export const domHelpers = {
         return button;
     },
 
+    // Add this new function to domHelpers object:
+    createSidebarItem: function(dimension, index) {
+        const container = document.createElement('div');
+        container.className = 'sidebar-item-container';
+        
+        // Create the main sidebar item
+        const item = document.createElement('div');
+        item.className = 'sidebar-item';
+        item.setAttribute('data-dimension', dimension.id);
+        item.setAttribute('aria-label', `Select ${dimension.id} dimension`);
+        item.setAttribute('tabindex', '0');
+        
+        // Icon mapping for each dimension
+        const iconMap = {
+            'Enabling Infrastructure': '🏗️',
+            'Legislation & Policy': '⚖️', 
+            'Sustainability & Society': '🌱',
+            'Economy & Innovation': '💰',
+            'Research & Education': '🎓'
+        };
+        
+        // Description mapping
+        const descriptionMap = {
+            'Enabling Infrastructure': 'Build foundational systems and frameworks',
+            'Legislation & Policy': 'Develop legal frameworks and regulations',
+            'Sustainability & Society': 'Address social and environmental impacts',
+            'Economy & Innovation': 'Implement financial incentives and support',
+            'Research & Education': 'Build knowledge and capacity'
+        };
+        
+        item.innerHTML = `
+            <div class="sidebar-icon">${iconMap[dimension.id] || '📋'}</div>
+            <div class="sidebar-content">
+                <div class="sidebar-item-title">${utils.escapeHtml(dimension.short)}</div>
+            </div>
+        `;
+        
+        // Create phase dropdown
+        const phaseDropdown = this.createPhaseDropdown(dimension.id);
+        
+        // Add click handler
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!state.isLoading && utils.isValidPolicyArea(dimension.id)) {
+                buttonSystem.selectPolicyArea(dimension.id);
+            }
+        });
+        
+        container.appendChild(item);
+        container.appendChild(phaseDropdown);
+        
+        return container;
+    },
+
+
+    createPhaseDropdown: function(dimensionId) {
+        const dimensionConfig = CONFIG.DIMENSIONS.find(d => d.id === dimensionId);
+        const color = dimensionConfig ? dimensionConfig.color : '#628ac4';
+
+        const dropdown = document.createElement('div');
+        dropdown.className = 'phase-dropdown';
+        dropdown.setAttribute('data-dimension', dimensionId);
+
+        const content = document.createElement('div');
+        content.className = 'phase-dropdown-content';
+
+        const title = document.createElement('div');
+        title.className = 'phase-dropdown-title';
+        title.textContent = 'Select Phase:';
+
+        // Arrow connector with dynamic color
+        const connector = document.createElement('div');
+        connector.className = 'arrow-connector';
+        connector.innerHTML = `
+          <svg width="24" height="62" viewBox="0 0 24 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0 V47 Q12 57, 22 57" stroke="${color}" stroke-width="3" fill="none"/>
+
+          </svg>
+        `;
+
+        const grid = document.createElement('div');
+        grid.className = 'phase-buttons-grid';
+
+        CONFIG.PHASES.forEach((phase, index) => {
+            const button = this.createTimelinePhaseButton(phase, index, color);
+            grid.appendChild(button);
+        });
+
+        content.appendChild(title);
+        content.appendChild(connector);
+        content.appendChild(grid);
+        dropdown.appendChild(content);
+
+        return dropdown;
+    },
+    createTimelinePhaseButton: function(phase, index, color) {
+        const button = document.createElement('button');
+        button.className = 'phase-btn';
+        button.setAttribute('data-phase', phase.id);
+        button.setAttribute('aria-label', `Select ${phase.id} phase`);
+        button.setAttribute('tabindex', '0');
+
+        // Only show arrow for all but the last phase
+        const showArrow = index < CONFIG.PHASES.length - 1;
+        button.innerHTML = `
+          <div class="phase-circle">
+              <div class="phase-number">${index + 1}</div>
+          </div>
+          <div class="phase-label">${utils.escapeHtml(phase.short)}</div>
+          ${showArrow ? `
+          <div class="arrow-connector">
+            <svg width="24" height="80" viewBox="0 0 24 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0 V65 Q12 75, 22 75" stroke="${color}" stroke-width="3" fill="none"/>
+
+            </svg>
+          </div>
+          ` : ''}
+        `;
+
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!state.isLoading && utils.isValidPhase(phase.id)) {
+                buttonSystem.selectPhase(phase.id);
+            }
+        });
+
+        return button;
+    },
+
     // Enhanced Phase Button Creation
     createPhaseButton: function(phase, index) {
         const button = document.createElement('button');
@@ -60,18 +190,20 @@ export const domHelpers = {
         
         // Create icon mapping for phases
         const phaseIconMap = {
-            'Analysis': '',
-            'Design': '', 
-            'Implementation': '',
-            'Monitoring and Evaluation': ''
+            'Analysis': '🔍',
+            'Design': '📝', 
+            'Implementation': '⚙️',
+            'Monitoring and Evaluation': '📊'
         };
         
         button.innerHTML = `
-            <span>${phaseIconMap[phase.id] || ''} ${utils.escapeHtml(phase.short)}</span>
+            <span class="phase-icon">${phaseIconMap[phase.id] || ''}</span>
+            <span>${utils.escapeHtml(phase.short)}</span>
         `;
         
         button.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation(); // Prevent bubbling to parent
             if (!state.isLoading && utils.isValidPhase(phase.id)) {
                 buttonSystem.selectPhase(phase.id);
             }
@@ -113,9 +245,9 @@ export const domHelpers = {
     createPolicyItem: function(policyId, policyInfo, dimension, phase) {
         const policyKey = utils.getPolicyKey(dimension, phase, policyId);
         const isSelected = state.selectedPolicies.has(policyKey);
-        
+
         const button = document.createElement('button');
-        button.className = 'policy-item';
+        button.className = 'policy-item cross-dimensional';
         if (isSelected) {
             button.classList.add('selected');
         }
@@ -123,26 +255,28 @@ export const domHelpers = {
         button.setAttribute('data-policy-id', policyId);
         button.setAttribute('data-dimension', dimension);
         button.setAttribute('data-phase', phase);
-        
+
         const selectedIcon = isSelected ? '<div class="selected-icon">✓</div>' : '';
-        
+        const dimensionColor = utils.getPolicyAreaColor(dimension);
         button.innerHTML = `
-            <div class="policy-header">
-                <div class="policy-info">
-                    <span class="policy-title">${utils.escapeHtml(policyInfo.policy)}</span>
-                </div>
-                ${selectedIcon}
-            </div>
-            <div class="policy-read-more">Read more →</div>
+        <div class="policy-header">
+          <div class="policy-info" style="display: flex; flex-direction: column;">
+            <span class="policy-title">${utils.escapeHtml(policyInfo.policy)}</span>
+            <span class="policy-meta" style="font-size: 0.7rem; color: var(--color-gray-500); margin-top: 0.25rem; font-style: italic;">
+              ${utils.escapeHtml(dimension)} - ${utils.escapeHtml(phase)}
+            </span>
+          </div>
+          ${selectedIcon}
+        </div>
+        <div class="policy-read-more"></div>
         `;
-        
         button.addEventListener('click', function(e) {
             e.preventDefault();
             if (!state.isLoading && window.app) {
                 window.app.selectPolicy(policyId);
             }
         });
-        
+
         return button;
     },
 
@@ -151,7 +285,7 @@ export const domHelpers = {
         const [dimension, phase, policyId] = key.split('|');
         const policyKey = utils.getPolicyKey(dimension, phase, policyId);
         const isSelected = state.selectedPolicies.has(policyKey);
-        
+
         const button = document.createElement('button');
         button.className = 'policy-item cross-dimensional';
         if (isSelected) {
@@ -161,35 +295,32 @@ export const domHelpers = {
         button.setAttribute('data-policy-id', policyId);
         button.setAttribute('data-dimension', dimension);
         button.setAttribute('data-phase', phase);
-        
+
         const selectedIcon = isSelected ? '<div class="selected-icon">✓</div>' : '';
         const dimensionColor = utils.getPolicyAreaColor(dimension);
-        
+
         button.innerHTML = `
-            <div class="policy-header">
-                <div class="policy-info">
-                    <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.25rem;">
-                        <span class="policy-id" style="background: ${dimensionColor}; color: white;">${utils.escapeHtml(policyId)}</span>
-                    </div>
-                    <span class="policy-title">${utils.escapeHtml(policyInfo.policy)}</span>
-                </div>
-                ${selectedIcon}
-            </div>
-            <div style="font-size: 0.7rem; color: var(--color-gray-500); margin-top: 0.25rem; font-style: italic; padding-left: 0.5rem;">
+          <div class="policy-header">
+            <div class="policy-info" style="display: flex; flex-direction: column;">
+              <span class="policy-title">${utils.escapeHtml(policyInfo.policy)}</span>
+              <span class="policy-meta" style="font-size: 0.7rem; color: var(--color-gray-500); margin-top: 0.25rem; font-style: italic;">
                 ${utils.escapeHtml(dimension)} - ${utils.escapeHtml(phase)}
+              </span>
             </div>
+            ${selectedIcon}
+          </div>
+          <div class="policy-read-more"></div>
         `;
-        
+
         button.addEventListener('click', (e) => {
             e.preventDefault();
             if (!state.isLoading && window.app) {
                 window.app.selectCrossPolicyAreaPolicy(dimension, phase, policyId);
             }
         });
-        
+
         return button;
     },
-
     // Enhanced Section Creation with Progress Support
     createSectionWithProgress: function(title, stepNumber, stepName) {
         const section = document.createElement('div');
@@ -326,7 +457,6 @@ export const domHelpers = {
             </div>
             <div class="selected-policy-content">
                 <div class="selected-policy-header">
-                    <span class="selected-policy-id">${utils.escapeHtml(policyId)}</span>
                     <span class="selected-policy-phase">${utils.escapeHtml(phase)}</span>
                 </div>
                 <div class="selected-policy-title">${utils.escapeHtml(policyInfo.policy)}</div>

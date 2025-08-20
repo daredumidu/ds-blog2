@@ -1,6 +1,5 @@
-
 :root {
-  /* Updated to colorful scheme */
+  /* Color Variables */
   --color-infrastructure: #4F8EDB;
   --color-legislation: #FFA726;
   --color-sustainability: #AB47BC;
@@ -20,6 +19,7 @@
   --color-green-700: #15803d;
 }
 
+/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -34,17 +34,28 @@ body {
   line-height: 1.5;
 }
 
-/* Navigation Bar Styles - positioned over banner */
+/* Navigation Bar */
 .top-nav {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  /* background-color: rgba(92, 53, 53, 0.5); */
   border-bottom: none;
   z-index: 1000;
   backdrop-filter: none;
+}
+
+.top-nav::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 1001;
 }
 
 .nav-content {
@@ -53,21 +64,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
   padding: 1.5rem 2rem 1rem 2rem;
   height: 80px;
-}
-
-.top-nav::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.3);
-    z-index: 1001;
 }
 
 .nav-logo {
@@ -122,6 +120,7 @@ body {
   color: white;
 }
 
+
 .nav-tools {
   display: flex;
   align-items: center;
@@ -162,13 +161,12 @@ body {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Header Banner Styles */
+/* Header Banner */
 .header-banner {
   width: 100vw;
   height: min(90px, 35vw);
   min-height: 30px;
-  background-image: url('assets/icons/only-cover.png');
-  background-color:rgba(225, 26, 44, 1);
+  background-image: url('../assets/icons/only-cover.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -177,6 +175,7 @@ body {
   margin-bottom: 2rem;
   overflow: hidden;
 }
+
 
 .header-banner::before {
   content: '';
@@ -215,516 +214,346 @@ body {
   text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 
+/* Main Layout */
 .container {
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 0.02rem;
+  grid-template-rows: auto auto; /* Two rows: main content, then selected policies */
+  gap: 0.5rem;
   padding: 0 0.5rem;
 }
 
-.left-panel {
+/* Left panel container - spans both columns in first row */
+.left-panel-container {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
-.section {
+
+.sidebar-header {
+  padding: 20px 24px 16px 24px;
+  border-bottom: 1px solid var(--color-gray-200);
+  font-size: 10px;
   background: white;
-  padding: 0.4rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(255, 255, 255, 0.08);
-}
-
-.section h2 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--color-gray-800);
-  margin-bottom: 0.1rem;
-  letter-spacing: -0.025em;
-}
-
-/* Update clear-filters-btn */
-.clear-filters-btn {
-  padding: 0.5rem 0.75rem;
-  border: 2px solid var(--color-gray-200);
-  border-radius: 6px;
-  background: white;
-  color: var(--color-gray-600);
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.clear-filters-btn:hover {
-  background: var(--color-gray-50);
-  color: var(--color-gray-700);
-  border-color: var(--color-gray-300);
-}
-
-.clear-filters-btn:active {
-  transform: translateY(1px);
-}
-
-/* Enhanced Dimension Buttons - Replace existing .dimensions-container and .dimension-btn styles */
-.dimensions-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 0.51rem;
-  margin-bottom: 0.3rem;
-}
-
-.dimension-btn {
-  position: relative;
-  padding: 1rem;
-  border: 1px solid var(--accent-color, #cbd5e1); /* Add thin colored border */
-  border-radius: 12px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  outline: none;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  min-height: 80px;
-  opacity: 0.7; /* Optional: make non-active buttons slightly faded */
 }
 
 
-.dimension-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--accent-color, #cbd5e1), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.dimension-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  border-color: var(--accent-color, #cbd5e1);
-  opacity: 1; /* Full opacity on hover */
-}
 
 
-.dimension-btn:hover::before {
-  opacity: 1;
-}
-
-.dimension-btn.active {
-  background: linear-gradient(135deg, var(--accent-color, #3b82f6) 0%, var(--accent-dark, #2563eb) 100%);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  border-color: var(--accent-dark, #2563eb);
-  opacity: 1; /* Full opacity when active */
-}
-
-.dimension-btn.active::before {
-  opacity: 0;
-}
-
-/* Color variants for dimensions */
-.dimension-btn[data-dimension="Enabling Infrastructure"] {
-  --accent-color: var(--color-infrastructure);
-  --accent-dark: #3a6db0;
-}
-
-.dimension-btn[data-dimension="Legislation & Policy"] {
-  --accent-color: var(--color-legislation);
-  --accent-dark: #cc8500;
-}
-
-.dimension-btn[data-dimension="Sustainability & Society"] {
-  --accent-color: var(--color-sustainability);
-  --accent-dark: #8e359c;
-}
-
-.dimension-btn[data-dimension="Economy & Innovation"] {
-  --accent-color: var(--color-economy);
-  --accent-dark: #c62d42;
-}
-
-.dimension-btn[data-dimension="Research & Education"] {
-  --accent-color: var(--color-research);
-  --accent-dark: #388e3c;
-}
-
-.dimension-header {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.dimension-icon-container {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent-color, #3b82f6), var(--accent-dark, #2563eb));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 24px;
+.sidebar-subtitle {
+  font-size: 12px;
   font-weight: 700;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-.dimension-btn.active .dimension-icon-container {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-}
-
-.dimension-icon {
-  width: 28px;
-  height: 28px;
-  filter: brightness(0) invert(1);
-}
-
-.dimension-text {
-  font-weight:500;
-  font-size: 0.875rem;
-  line-height: 1.4;
   color: var(--color-gray-800);
-  transition: color 0.3s ease;
 }
 
-.dimension-btn.active .dimension-text {
-  color: white;
+.sidebar-menu {
+  flex: 1;
+  padding: 0;
+  background: var(--color-gray-50);
 }
 
-.dimension-description {
-  font-size: 0.875rem;
-  color: var(--color-gray-600);
-  line-height: 1.4;
-  transition: color 0.3s ease;
-}
-
-.dimension-btn.active .dimension-description {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* Enhanced Phase Buttons - Replace existing .phases-section and .phase-btn styles */
-.phases-section {
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  background-color: #091337;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-bottom: 0;
-}
-
-.phases-section.visible {
-  opacity: 1;
-  max-height: 50px;
-  background-color: #091128;
-  margin-bottom: 1rem;
-}
-
-.phases-section h2 {
-  margin-bottom: 1rem;
-  background-color: #1e40af;
-  color: var(--color-gray-600);
-  font-size: 0.85rem;
-}
-
-.phases-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  background-color: #1e40af;
-  position: relative;
-  z-index: 1;
-}
-
-.phase-btn {
-  position: relative;
-  padding: 0.25rem 0.5rem;
-  border: 2px solid var(--color-gray-200);
-  border-radius: 0px;
-  background: white;
-  color: var(--color-gray-700);
-  font-size: 0.875rem;
-  font-weight: 600;
+/* Modern Policy Area Cards */
+.sidebar-item {
+  padding: 4px 8px;
+  margin: 4px 12px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  outline: none;
-  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 40px;
-  overflow: hidden;
+  gap: 8px;
+  background: white;
+  border: 2px solid var(--color-gray-200);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
 
-.phase-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
-}
-
-.phase-btn:hover {
+.sidebar-item:hover {
+  border-color: var(--color-gray-300);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-color: var(--accent-color, var(--color-gray-300));
-  background: var(--color-gray-50);
 }
 
-.phase-btn:hover::before {
-  left: 100%;
+
+.sidebar-item.active::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
-.phase-btn.active {
-  background: linear-gradient(135deg, var(--accent-color, #3b82f6), var(--accent-dark, #2563eb));
-  color: white;
-  border-color: var(--accent-dark, #2563eb);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.phase-btn.active::before {
-  display: none;
-}
-
-/* Progress indicator */
-.progress-indicator {
+.sidebar-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--color-gray-100);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  color: var(--color-gray-600);
-}
-
-.progress-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-gray-300);
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
   transition: all 0.3s ease;
 }
 
-.progress-dot.active {
-  background: var(--accent-color, #3b82f6);
-  transform: scale(1.2);
+.sidebar-item.active[data-dimension="Enabling Infrastructure"] .sidebar-icon {
+  background: var(--color-infrastructure);
+  color: white;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .dimensions-container {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  .dimension-btn {
-    padding: 1.25rem;
-    min-height: 120px;
-  }
-
-  .dimension-header {
-    gap: 0.75rem;
-  }
-
-  .dimension-icon-container {
-    width: 40px;
-    height: 40px;
-  }
-
-  .dimension-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .dimension-text {
-    font-size: 0.875rem;
-  }
-
-  .dimension-description {
-    font-size: 0.8rem;
-  }
-
-  .phases-container {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  .phase-btn {
-    min-height: 60px;
-    padding: 1rem;
-    font-size: 0.8rem;
-  }
+.sidebar-item.active[data-dimension="Legislation & Policy"] .sidebar-icon {
+  background: var(--color-legislation);
+  color: white;
 }
 
-/* Focus states for accessibility */
-.dimension-btn:focus-visible,
-.phase-btn:focus-visible {
-  outline: 2px solid var(--accent-color, #3b82f6);
-  outline-offset: 2px;
+.sidebar-item.active[data-dimension="Sustainability & Society"] .sidebar-icon {
+  background: var(--color-sustainability);
+  color: white;
 }
 
-/* Progressive Disclosure - Phases attached to dimensions */
-.phases-section {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity:100%;
+.sidebar-item.active[data-dimension="Economy & Innovation"] .sidebar-icon {
+  background: var(--color-economy);
+  color: white;
+}
+
+.sidebar-item.active[data-dimension="Research & Education"] .sidebar-icon {
+  background: var(--color-research);
+  color: white;
+}
+
+
+
+
+
+
+
+/* Updated Left Panel Styling - Replace existing sidebar and main-content styles */
+
+/* Left Panel with Horizontal Layout - Fixed Height */
+.left-panel {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  height: 85vh; /* Fixed height */
+  min-height: 600px; /* Minimum height fallback */
+}
+
+/* Vertical Sidebar - Light Background */
+.sidebar {
+  width: 170px;
+  background: var(--color-gray-50);
+  color: var(--color-gray-800);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-gray-200);
+  height: 100%; /* Full height of left-panel */
+}
+
+
+
+.sidebar-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--color-gray-800);
+}
+
+.sidebar-item[data-dimension="Enabling Infrastructure"] {
+  border-left: 2px solid var(--color-infrastructure);
+}
+.sidebar-item[data-dimension="Legislation & Policy"] {
+  border-left:2px solid var(--color-legislation);
+}
+.sidebar-item[data-dimension="Sustainability & Society"] {
+  border-left: 2px solid var(--color-sustainability);
+}
+.sidebar-item[data-dimension="Economy & Innovation"] {
+  border-left: 2px solid var(--color-economy);
+}
+.sidebar-item[data-dimension="Research & Education"] {
+  border-left: 2px solid var(--color-research);
+}
+
+/* Dimension-specific active states */
+.sidebar-item.active[data-dimension="Enabling Infrastructure"] {
+  background: linear-gradient(135deg, #e8f3f4, #f0f9fa);
+  border-left: 4px solid var(--color-infrastructure);
+  border-color: var(--color-infrastructure);
+  box-shadow: 0 4px 16px rgba(79, 142, 219, 0.2);
+}
+
+.sidebar-item.active[data-dimension="Legislation & Policy"] {
+  background: linear-gradient(135deg, #fef6e8, #fff8ed);
+  border-left: 4px solid var(--color-legislation);
+  border-color: var(--color-legislation);
+  box-shadow: 0 4px 16px rgba(255, 167, 38, 0.2);
+}
+
+.sidebar-item.active[data-dimension="Sustainability & Society"] {
+  background: linear-gradient(135deg, #f5f0ff, #faf5ff);
+  border-left: 4px solid var(--color-sustainability);
+  border-color: var(--color-sustainability);
+  box-shadow: 0 4px 16px rgba(171, 71, 188, 0.2);
+}
+
+.sidebar-item.active[data-dimension="Economy & Innovation"] {
+  background: linear-gradient(135deg, #fef0f0, #fef5f5);
+  border-left: 4px solid var(--color-economy);
+  border-color: var(--color-economy);
+  box-shadow: 0 4px 16px rgba(239, 83, 80, 0.2);
+}
+
+.sidebar-item.active[data-dimension="Research & Education"] {
+  background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+  border-left: 4px solid var(--color-research);
+  border-color: var(--color-research);
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.2);
+}
+
+
+/* Dimension-specific icon backgrounds */
+.sidebar-item.active[data-dimension="Enabling Infrastructure"] .sidebar-icon {
+  background: var(--color-infrastructure);
+  color: white;
+}
+
+.sidebar-item.active[data-dimension="Legislation & Policy"] .sidebar-icon {
+  background: var(--color-legislation);
+  color: white;
+}
+
+.sidebar-item.active[data-dimension="Sustainability & Society"] .sidebar-icon {
+  background: var(--color-sustainability);
+  color: white;
+}
+
+.sidebar-item.active[data-dimension="Economy & Innovation"] .sidebar-icon {
+  background: var(--color-economy);
+  color: white;
+}
+
+.sidebar-item.active[data-dimension="Research & Education"] .sidebar-icon {
+  background: var(--color-research);
+  color: white;
+}
+
+.sidebar-content {
+  flex: 1;
+}
+
+.sidebar-item-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: var(--color-gray-800);
+}
+
+.sidebar-item.active .sidebar-item-title {
+  color: var(--color-gray-900);
+  font-weight: 700;
+}
+
+.sidebar-item-desc {
+  font-size: 12px;
+  color: var(--color-gray-600);
+  line-height: 1.4;
+}
+
+
+.sidebar-item.active .sidebar-item-desc {
+  color: var(--color-gray-700);
+  font-weight: 500;
+}
+
+/* Phase Dropdown under each dimension */
+.phase-dropdown {
+  position: relative;
   max-height: 0;
   overflow: hidden;
-  margin-bottom: 0;
-  margin-top: -0.2rem;
-}
-
-.phases-section.visible {
-  opacity: 1;
-  max-height: 200px;
-  margin-bottom: 0.75rem;
-}
-
-.phases-section h2 {
-  margin-bottom: 0.5rem;
-  color: var(--color-gray-600);
-  font-size: 0.95rem;
-}
-
-/* Horizontal Phase Buttons - Connected Steps Design - Full Width */
-.phases-container {
-  display: flex;
-  gap: 0.5;
-  flex-wrap: nowrap;
-  transition: all 0.3s ease;
-  justify-content: stretch;
-  width: 100%;
-}
-
-.phase-btn {
-  flex: 1;
-  padding: 0.5rem 1.2rem 0.75rem 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0 12px 8px 12px;
+  background: transparent;
   border: none;
-  background: var(--color-gray-100);
-  color: var(--color-gray-600);
-  font-size: 0.87rem;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
-  position: relative;
-  letter-spacing: -0.01em;
-  text-align: center;
-  margin-right: -1px;
-  /* clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%, 20px 50%);  */
+  box-shadow: none;
 }
 
-.phase-btn:first-child {
-  /* clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%); */
-  padding-left: 1.5rem;
-}
-
-.phase-btn:last-child {
-  /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 20px 50%); */
-  padding-right: 1.5rem;
-  margin-right: 0;
-}
-
-/* Dynamic coloring based on selected dimension */
-.phases-container[data-dimension="Enabling Infrastructure"] {
-  background: #3a6db0;
-  color: white;
-}
-
-.phases-container[data-dimension="Legislation & Policy"]  {
-  background: #cb9b3d;
-  color: white;
-
-}
-
-.phases-container[data-dimension="Sustainability & Society"]  {
-  background:#5f0085;
-  color: white;
-}
-
-.phases-container[data-dimension="Economy & Innovation"]  {
-  background:#8b2f30;
-  color: white;
-}
-
-.phases-container[data-dimension="Research & Education"] {
-  background:#005b3a;
-  color: white;
-}
-
-.phase-btn:hover {
-  background: var(--color-gray-200);
-  color: var(--color-gray-700);
-  transform: translateY(-1px);
+.phase-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -16px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 16px solid var(--color-gray-200); /* Arrow color */
   z-index: 2;
 }
 
-.phase-btn.active {
-  transform: translateY(-1px);
-  z-index: 3;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+.phase-dropdown.visible {
+  max-height: 270px;
 }
 
-/* Dynamic coloring based on selected dimension */
-.phases-container[data-dimension="Enabling Infrastructure"] .phase-btn.active {
+.phase-dropdown-content {
+  background: transparent;
+  padding: 8px 12px;
+}
+
+
+.phase-dropdown-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.phase-buttons-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 27px;
+  max-width: 180px;
+  margin: 0 auto;
+}
+
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   background: white;
-  color: #3a6db0
+  height: 100%; /* Full height of left-panel */
+  overflow: hidden; /* Prevent overflow */
 }
 
-.phases-container[data-dimension="Legislation & Policy"] .phase-btn.active {
-  background: white;
-  color: #cb9b3d;
 
-}
-
-.phases-container[data-dimension="Sustainability & Society"] .phase-btn.active {
-  background: white;
-  color: #5f0085;
-}
-
-.phases-container[data-dimension="Economy & Innovation"] .phase-btn.active {
-  background: white;
-  color: #8b2f30;
-}
-
-.phases-container[data-dimension="Research & Education"] .phase-btn.active {
-  background: white;
-  color: #005b3a;
-}
-
-/* Search and Filter Styles - Always visible */
+/* Search filter section - fixed height */
 .search-filter-section {
-  margin-bottom: 01rem;
-  opacity: 1;
-  max-height: none;
-  overflow: visible;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  flex-shrink: 0; /* Don't shrink */
 }
 
 .search-filter-row {
   display: flex;
   gap: 0.75rem;
-  align-items: center; /* Changed from flex-end */
+  align-items: center;
   flex-wrap: wrap;
   margin-bottom: 0.75rem;
 }
-
 
 .search-container {
   flex: 0 0 250px;
@@ -758,13 +587,6 @@ body {
   pointer-events: none;
 }
 
-.search-input,
-.keyword-dropdown,
-.clear-filters-btn {
-  height: 36px;
-  box-sizing: border-box;
-}
-
 .keyword-filters-container {
   display: flex;
   align-items: center;
@@ -773,28 +595,11 @@ body {
   min-width: 0;
 }
 
-.keyword-filters-header {
-  display: none; /* Keep only this line */
-}
-
-.keyword-filters-label {
-  font-size: 0.75rem;
-  color: var(--color-gray-600);
-  font-weight: 500;
-}
-
-.keyword-filters {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 1;
-}
-
 .keyword-dropdown {
   flex: 1;
   padding: 0.5rem 0.75rem;
   border: 2px solid var(--color-gray-200);
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.75rem;
   background: white;
   color: var(--color-gray-700);
@@ -802,6 +607,8 @@ body {
   transition: all 0.2s ease;
   outline: none;
   min-width: 150px;
+  height: 33px;
+  box-sizing: border-box;
 }
 
 .keyword-dropdown:focus {
@@ -813,31 +620,30 @@ body {
   border-color: var(--color-gray-300);
 }
 
-.keyword-dropdown option {
-  padding: 0.5rem;
+.clear-filters-btn {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--color-gray-200);
+  border-radius: 6px;
+  background: white;
+  color: var(--color-gray-600);
   font-size: 0.75rem;
-}
-
-.active-keywords-display {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  margin-top: 0.5rem;
-}
-
-.keyword-chip {
-  padding: 0.25rem 0.5rem;
-  background: var(--color-blue-100);
-  color: var(--color-blue-700);
-  border-radius: 12px;
-  font-size: 0.7rem;
   font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  border: 1px solid var(--color-blue-300);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  height: 36px;
+  box-sizing: border-box;
 }
-/* New inline keyword chips styles */
+
+.clear-filters-btn:hover {
+  background: var(--color-gray-50);
+  color: var(--color-gray-700);
+  border-color: var(--color-gray-300);
+}
+
+/* Active Keywords */
 .active-keywords-inline {
   display: flex;
   align-items: center;
@@ -856,12 +662,24 @@ body {
   min-width: 0;
 }
 
+.keyword-chip {
+  padding: 0.25rem 0.5rem;
+  background: var(--color-blue-100);
+  color: var(--color-blue-700);
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid var(--color-blue-300);
+}
+
 .keyword-chip-text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 
 .keyword-chip-remove {
   background: none;
@@ -884,7 +702,6 @@ body {
   color: var(--color-blue-800);
 }
 
-/* Overflow indicator */
 .keywords-overflow {
   background: var(--color-gray-100);
   color: var(--color-gray-600);
@@ -904,8 +721,6 @@ body {
   border-color: var(--color-gray-400);
 }
 
-
-/* Tooltip for showing all keywords */
 .keywords-tooltip {
   position: absolute;
   top: 100%;
@@ -930,31 +745,314 @@ body {
   flex-wrap: wrap;
   gap: 0.25rem;
 }
-/* Focus states for accessibility */
+
+/* Section Styling */
+.section {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: none;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+  margin-bottom: 0.1rem;
+  letter-spacing: -0.025em;
+}
+
+/* Phase Section and Buttons - Improved styling */
+.phases-section {
+  display: none;
+}
+
+.phases-section.visible {
+  opacity: 1;
+  max-height: 80px; /* Increased to accommodate new button size */
+  margin-bottom: 1rem;
+}
+
+/* Phase Container - Horizontal layout with smaller buttons */
+.phases-container {
+  display: flex;
+  gap: 8px; /* Reduced gap */
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 12px 0; /* Reduced padding */
+}
 
 
+.phase-btn {
+  display: flex;
+  margin-left: 0px;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
 
-/* Two-column policy layout */
+.phase-btn:hover .phase-circle {
+  transform: scale(1.15);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.phase-btn:hover .phase-label {
+  transform: scale(1.05);
+}
+
+.phase-circle {
+  width: 27px;
+  height: 27px;
+  margin-left: 4px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gray-300);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+
+.phase-circle:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.phase-number {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-gray-600);
+  transition: color 0.3s ease;
+}
+
+
+.phase-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-gray-600);
+  flex: 1;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+/* For the first arrow in phase-dropdown-content */
+.phase-dropdown-content .arrow-connector {
+  position: absolute;
+  left: -3%;  /* Adjust this value to align with the phase buttons */
+  top: -1px;
+  width: 40px;
+  height: 70px;
+  z-index: 1;
+}
+
+/* For arrows inside phase buttons */
+.phase-btn .arrow-connector {
+  position: absolute;
+  left: -20%;
+  top: -3px;
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+}
+
+
+.arrow-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.arrow-line {
+  stroke: var(--color-gray-300);
+  stroke-width: 4;
+  fill: none;
+}
+
+.arrow-head {
+  fill: var(--color-gray-300);
+}
+
+.phase-btn:last-child .arrow-connector {
+  display: none;
+}
+
+
+.phase-icon {
+  font-size: 14px; /* Reduced from 16px */
+}
+
+/* Dimension-specific colors - Infrastructure */
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-circle {
+  border-color: var(--color-infrastructure);
+}
+
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-number,
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-label {
+  color: var(--color-infrastructure);
+}
+
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .arrow-line,
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .arrow-head {
+  stroke: var(--color-infrastructure);
+  fill: var(--color-infrastructure);
+}
+
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-btn.active .phase-circle {
+  background: var(--color-infrastructure);
+}
+
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+/* Dimension-specific colors - Legislation */
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-circle {
+  border-color: var(--color-legislation);
+}
+
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-number,
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-label {
+  color: var(--color-legislation);
+}
+
+.phase-dropdown[data-dimension="Legislation & Policy"] .arrow-line,
+.phase-dropdown[data-dimension="Legislation & Policy"] .arrow-head {
+  stroke: var(--color-legislation);
+  fill: var(--color-legislation);
+}
+
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-btn.active .phase-circle {
+  background: var(--color-legislation);
+}
+
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+/* Dimension-specific colors - Sustainability */
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-circle {
+  border-color: var(--color-sustainability);
+}
+
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-number,
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-label {
+  color: var(--color-sustainability);
+}
+
+.phase-dropdown[data-dimension="Sustainability & Society"] .arrow-line,
+.phase-dropdown[data-dimension="Sustainability & Society"] .arrow-head {
+  stroke: var(--color-sustainability);
+  fill: var(--color-sustainability);
+}
+
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-btn.active .phase-circle {
+  background: var(--color-sustainability);
+}
+
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+/* Dimension-specific colors - Economy */
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-circle {
+  border-color: var(--color-economy);
+}
+
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-number,
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-label {
+  color: var(--color-economy);
+}
+
+.phase-dropdown[data-dimension="Economy & Innovation"] .arrow-line,
+.phase-dropdown[data-dimension="Economy & Innovation"] .arrow-head {
+  stroke: var(--color-economy);
+  fill: var(--color-economy);
+}
+
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-btn.active .phase-circle {
+  background: var(--color-economy);
+}
+
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+/* Dimension-specific colors - Research */
+.phase-dropdown[data-dimension="Research & Education"] .phase-circle {
+  border-color: var(--color-research);
+}
+
+.phase-dropdown[data-dimension="Research & Education"] .phase-number,
+.phase-dropdown[data-dimension="Research & Education"] .phase-label {
+  color: var(--color-research);
+}
+
+.phase-dropdown[data-dimension="Research & Education"] .arrow-line,
+.phase-dropdown[data-dimension="Research & Education"] .arrow-head {
+  stroke: var(--color-research);
+  fill: var(--color-research);
+}
+
+.phase-dropdown[data-dimension="Research & Education"] .phase-btn.active .phase-circle {
+  background: var(--color-research);
+}
+
+.phase-dropdown[data-dimension="Research & Education"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+/* Policy section - takes remaining space */
+.section#policySection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: white;
+  padding: 0; /* Remove default section padding */
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: none;
+}
+
+
+/* Policy container - full height of remaining space */
 .policy-container {
   display: grid;
-  grid-template-columns: 1fr 0fr; /* Start with details panel collapsed */
+  grid-template-columns: 1fr 0fr;
   gap: 0.5rem;
-  min-height: 630px;
+  height: 100%; /* Take full height of parent */
+  flex: 1;
   transition: grid-template-columns 0.3s ease;
 }
 
 .policy-container.details-focused {
-  grid-template-columns: 0fr 1fr; /* Hide list, show details full width */
+  grid-template-columns: 0fr 1fr;
 }
 
+/* Policy list column - scrollable content */
 .policy-list-column {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transition: all 0.3s ease;
-  min-width: 0; /* Important for grid collapse */
+  min-width: 0;
+  height: 100%;
 }
-
 
 .policy-container.details-focused .policy-details-column {
   opacity: 1;
@@ -970,9 +1068,108 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 630px;
 }
 
+
+/* Main container grid - stack left panel and selected policies */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto; /* Two rows: main content, then selected policies */
+  gap: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+/* Left panel container - spans both columns in first row */
+.left-panel-container {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Left Panel with Horizontal Layout - Fixed Height */
+.left-panel {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  height: 85vh; /* Fixed height */
+  min-height: 600px; /* Minimum height fallback */
+}
+
+/* Vertical Sidebar - Fixed width, full height of parent */
+.sidebar {
+  width: 170px;
+  background: var(--color-gray-50);
+  color: var(--color-gray-800);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-gray-200);
+  height: 100%; /* Full height of left-panel */
+}
+
+/* Main content area - takes remaining width and full height */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  height: 100%; /* Full height of left-panel */
+  overflow: hidden; /* Prevent overflow */
+}
+
+/* Search filter section - fixed height */
+.search-filter-section {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  flex-shrink: 0; /* Don't shrink */
+}
+
+/* Policy section - takes remaining space */
+.section#policySection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: white;
+  padding: 0; /* Remove default section padding */
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: none;
+}
+
+/* Policy container - full height of remaining space */
+.policy-container {
+  display: grid;
+  grid-template-columns: 1fr 0fr;
+  gap: 0.5rem;
+  height: 100%; /* Take full height of parent */
+  flex: 1;
+  transition: grid-template-columns 0.3s ease;
+}
+
+/* Policy list column - scrollable content */
+.policy-list-column {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  min-width: 0;
+  height: 100%;
+}
+
+.policy-list-column-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
 .policy-list-header {
   font-size: 1rem;
@@ -983,63 +1180,54 @@ body {
   background: var(--color-gray-50);
   border-radius: 6px;
   text-align: center;
+  flex-shrink: 0; /* Don't shrink */
 }
-
-
 
 .policy-list {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.45rem;
   overflow-y: auto;
-  flex: 1;
+  flex: 1; /* Take remaining space */
   padding-right: 0.25rem;
-  min-height: 0; /* Important for flex scrolling */
+  min-height: 0; /* Allow flex shrinking */
 }
 
 .policy-list-toggle {
-  position: relative;
-  left: 0;
-  top: 20;
-  right: 0;
-  width: 14%;
-  height: 40px;
-  background: var(--color-blue-600);
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
-  z-index: 100;
-  opacity: 0;
-  pointer-events: none;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: white;
+    background: transparent;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
-
 
 .policy-container.details-focused .policy-list-toggle {
   opacity: 1;
   pointer-events: auto;
 }
 
-
 .policy-list-toggle:hover {
-  background: rgb(75, 106, 144);
+    background: var(--color-gray-100);
+    border-color: var(--color-gray-400);
 }
-
 
 .policy-list-toggle-icon {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.2s ease;
-  color: white;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+    color: currentColor;
 }
+
 
 .policy-container.details-focused .policy-list-toggle-icon {
   transform: rotate(0deg);
@@ -1049,13 +1237,15 @@ body {
   display: none;
 }
 
-
-
+/* Policy Items */
 .policy-item {
   width: 100%;
   text-align: left;
-  padding: 0.2rem 0.3rem 2rem 0.5rem; /* Add bottom padding for read more space */
-  border: 1px solid var(--color-gray-200);
+  padding-top: 0rem;
+  padding-left: 0.5rem;
+  padding-bottom: 0.2rem;
+  padding-right: 7rem;
+  border: 2px solid var(--color-gray-300);
   border-radius: 6px;
   background: white;
   cursor: pointer;
@@ -1063,38 +1253,267 @@ body {
   position: relative;
 }
 
-
 .policy-item:hover {
   border-color: var(--color-gray-300);
   transform: translateY(-1px);
 }
 
-
 .policy-read-more {
   position: absolute;
-  top: 0.5rem;
-  right: 2.5rem;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  color: white;
-  font-weight: 600;
-  opacity: 0.8; /* Always visible */
-  transition: all 0.2s ease; /* Changed to 'all' to include border transitions */
-  background: var(--color-blue-600);
-  padding: 0.3rem 0.5rem;
-  border-radius: 4px;
-  border: 1px solid transparent; /* Add this - defines the border */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.policy-item:hover .policy-read-more {
-  opacity: 1; /* Slightly more prominent on hover */
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: 0.7rem;              /* Reduced from 0.75rem */
+  color: #2c5f6f;
+  font-weight: 500;               /* Reduced from 600 */
+  opacity: 0.7;                   /* Reduced from 1 */
+  transition: all 0.2s ease;
   background: white;
-  border-color: rgba(0, 0, 0, 0.9); /* Now this will work */
-  color: rgb(91, 122, 173);
+  padding: 0;
+  border-radius: 8px;            /* Reduced from 25px */
+  border: 1px solid #2c5f6f;     /* Reduced from 2px */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1); /* Reduced shadow */
+  overflow: hidden;
+  min-height: 26px;               /* Reduced from 32px */
 }
 
 
+.policy-read-more::before {
+  content: 'Read More';
+  padding: 0.3rem 0.6rem;         /* Reduced padding */
+  background: white;
+  color: #2c5f6f;
+  font-weight: 500;               /* Reduced from 600 */
+  font-size: 0.7rem;              /* Reduced from 0.75rem */
+}
+
+.policy-read-more::after {
+  content: '>';
+  width: 22px;                    /* Reduced from 28px */
+  height: 22px;                   /* Reduced from 28px */
+  background: #2c5f6f;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;               /* Reduced from 700 */
+  font-size: 0.8rem;              /* Reduced from 0.9rem */
+  margin: 2px;
+}
+
+
+/* Dimension-specific border and circle colors */
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more {
+  border-color: var(--color-infrastructure);
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more::before {
+  color: var(--color-infrastructure);
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more::after {
+  background: var(--color-infrastructure);
+}
+
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more {
+  border-color: var(--color-legislation);
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more::before {
+  color: var(--color-legislation);
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more::after {
+  background: var(--color-legislation);
+}
+
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more {
+  border-color: var(--color-sustainability);
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more::before {
+  color: var(--color-sustainability);
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more::after {
+  background: var(--color-sustainability);
+}
+
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more {
+  border-color: var(--color-economy);
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more::before {
+  color: var(--color-economy);
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more::after {
+  background: var(--color-economy);
+}
+
+.policy-item[data-dimension="Research & Education"] .policy-read-more {
+  border-color: var(--color-research);
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more::before {
+  color: var(--color-research);
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more::after {
+  background: var(--color-research);
+}
+
+/* Column-specific styling (same as item-specific) */
+.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more {
+  border-color: var(--color-infrastructure);
+}
+.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more::before {
+  color: var(--color-infrastructure);
+}
+.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more::after {
+  background: var(--color-infrastructure);
+}
+
+.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more {
+  border-color: var(--color-legislation);
+}
+.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more::before {
+  color: var(--color-legislation);
+}
+.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more::after {
+  background: var(--color-legislation);
+}
+
+.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more {
+  border-color: var(--color-sustainability);
+}
+.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more::before {
+  color: var(--color-sustainability);
+}
+.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more::after {
+  background: var(--color-sustainability);
+}
+
+.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more {
+  border-color: var(--color-economy);
+}
+.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more::before {
+  color: var(--color-economy);
+}
+.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more::after {
+  background: var(--color-economy);
+}
+
+.policy-list-column[data-dimension="Research & Education"] .policy-read-more {
+  border-color: var(--color-research);
+}
+.policy-list-column[data-dimension="Research & Education"] .policy-read-more::before {
+  color: var(--color-research);
+}
+.policy-list-column[data-dimension="Research & Education"] .policy-read-more::after {
+  background: var(--color-research);
+}
+
+/* Hover effects */
+.policy-read-more:hover {
+  opacity: 1;                     /* Only fully visible on hover */
+  transform: translateY(-50%) scale(1.02); /* Reduced from 1.05 */
+}
+
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover {
+  border-color: #3a6cb3;
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::before {
+  color: #3a6cb3;
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::after {
+  background: #3a6cb3;
+}
+
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover {
+  border-color: #e08c1a;
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover::before {
+  color: #e08c1a;
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover::after {
+  background: #e08c1a;
+}
+
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover {
+  border-color: #8e2bb8;
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover::before {
+  color: #8e2bb8;
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover::after {
+  background: #8e2bb8;
+}
+
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover {
+  border-color: #c62828;
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover::before {
+  color: #c62828;
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover::after {
+  background: #c62828;
+}
+
+.policy-item[data-dimension="Research & Education"] .policy-read-more:hover {
+  border-color: #388e3c;
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more:hover::before {
+  color: #388e3c;
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more:hover::after {
+  background: #388e3c;
+}
+
+/* Column hover effects (same as item hover effects) */
+.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more:hover {
+  border-color: #3a6cb3;
+}
+.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::before {
+  color: #3a6cb3;
+}
+.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::after {
+  background: #3a6cb3;
+}
+
+.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more:hover {
+  border-color: #e08c1a;
+}
+.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more:hover::before {
+  color: #e08c1a;
+}
+.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more:hover::after {
+  background: #e08c1a;
+}
+
+.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more:hover {
+  border-color: #8e2bb8;
+}
+.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more:hover::before {
+  color: #8e2bb8;
+}
+.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more:hover::after {
+  background: #8e2bb8;
+}
+
+.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more:hover {
+  border-color: #c62828;
+}
+.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more:hover::before {
+  color: #c62828;
+}
+.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more:hover::after {
+  background: #c62828;
+}
+
+.policy-list-column[data-dimension="Research & Education"] .policy-read-more:hover {
+  border-color: #388e3c;
+}
+.policy-list-column[data-dimension="Research & Education"] .policy-read-more:hover::before {
+  color: #388e3c;
+}
+.policy-list-column[data-dimension="Research & Education"] .policy-read-more:hover::after {
+  background: #388e3c;
+}
 .policy-item:focus {
   outline: 2px solid var(--color-blue-600);
   outline-offset: 2px;
@@ -1110,9 +1529,43 @@ body {
   background: #cbe5ec;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+.policy-item.selected .policy-info {
+  padding-left: 1.5rem; /* Add space for the icon */
+}
 
-.policy-item.cross-dimensional {
-  border-left: 4px solid var(--color-blue-600);
+
+.details-header-buttons {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--color-gray-200);
+    background: var(--color-gray-50);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.details-header-buttons .btn-select {
+    margin: 0;
+}
+
+.details-header-buttons .btn-select.disabled {
+    background: var(--color-blue-100);
+    color: var(--color-blue-700);
+    cursor: not-allowed;
+}
+
+.policy-item.cross-dimensional[data-dimension="Enabling Infrastructure"] {
+  border-left: 4px solid var(--color-infrastructure);
+}
+.policy-item.cross-dimensional[data-dimension="Legislation & Policy"] {
+  border-left: 4px solid var(--color-legislation);
+}
+.policy-item.cross-dimensional[data-dimension="Sustainability & Society"] {
+  border-left: 4px solid var(--color-sustainability);
+}
+.policy-item.cross-dimensional[data-dimension="Economy & Innovation"] {
+  border-left: 4px solid var(--color-economy);
+}
+.policy-item.cross-dimensional[data-dimension="Research & Education"] {
+  border-left: 4px solid var(--color-research);
 }
 
 .policy-item.cross-dimensional:hover {
@@ -1120,18 +1573,17 @@ body {
   background: var(--color-blue-50);
 }
 
-/* Policy item colors based on selected dimension - updated to colors */
+/* Policy item colors based on selected dimension */
 .policy-list-column[data-dimension="Enabling Infrastructure"] .policy-item:hover {
-  border-color: rgb(22, 102, 106);
+  border-color: var(--color-infrastructure);
   background: rgba(255, 255, 255, 0.05);
 }
 .policy-list-column[data-dimension="Enabling Infrastructure"] .policy-item.active {
-  border-color: rgb(22, 102, 106);
+  border-color: var(--color-infrastructure);
   background: #e8f3f4;
-  color: rgb(16, 92, 96);
 }
 .policy-list-column[data-dimension="Enabling Infrastructure"] .policy-item.selected {
-  border-color: rgb(16, 92, 96);
+  border-color: var(--color-infrastructure);
   background: #d0ebee;
   box-shadow: 0 1px 4px rgba(22, 102, 106, 0.2);
 }
@@ -1198,17 +1650,18 @@ body {
 
 .policy-header {
   display: flex;
-  align-items: center;
-  justify-content: flex-start; /* Changed from space-between */
-  gap: 0.5rem; /* Add gap between icon and content */
+  align-items: flex-start; /* Change from center to flex-start */
+  justify-content: flex-start;
+  gap: 0.5rem;
 }
 
 .policy-info {
   display: flex;
   align-items: flex-start;
   gap: 0.25rem;
-  padding-right: 4rem; /* Keep padding for read more space */
-  flex: 1; /* Take remaining space */
+  padding-right: 4rem;
+  flex-direction: column;
+  flex: 1;
 }
 
 .policy-id {
@@ -1239,7 +1692,6 @@ body {
 .selected-icon {
   width: 1rem;
   height: 1rem;
-  background: var(--color-blue-600);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1247,10 +1699,36 @@ body {
   color: white;
   font-size: 0.7rem;
   flex-shrink: 0;
-  order: -1; /* Ensures it stays on the left */
+  /* Remove: order: -1; */
+  /* Add these: */
+  position: absolute;
+  left: 0.25rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-/* Policy details column */
+/* Replace the existing .selected-icon rule with these */
+.policy-item[data-dimension="Enabling Infrastructure"] .selected-icon {
+  background: var(--color-infrastructure);
+}
+
+.policy-item[data-dimension="Legislation & Policy"] .selected-icon {
+  background: var(--color-legislation);
+}
+
+.policy-item[data-dimension="Sustainability & Society"] .selected-icon {
+  background: var(--color-sustainability);
+}
+
+.policy-item[data-dimension="Economy & Innovation"] .selected-icon {
+  background: var(--color-economy);
+}
+
+.policy-item[data-dimension="Research & Education"] .selected-icon {
+  background: var(--color-research);
+}
+
+/* Policy details column - full height */
 .policy-details-column {
   display: flex;
   flex-direction: column;
@@ -1259,51 +1737,110 @@ body {
   border: 1px solid var(--color-gray-200);
   border-radius: 8px;
   overflow: hidden;
-  min-height: 630px;
+  height: 100%; /* Full height of container */
   position: relative;
-  opacity: 0; /* Hidden by default */
+  opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-
-.details-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--color-gray-200);
-  background: var(--color-gray-50);
-  position: sticky;
-  top: 0;
-  z-index: 1;
+/* Dimension-specific colors for the Add button */
+.policy-details-column[data-dimension="Enabling Infrastructure"] .btn-select:not(:disabled) {
+    background: var(--color-infrastructure);
+    border-color: var(--color-infrastructure);
 }
 
+.policy-details-column[data-dimension="Legislation & Policy"] .btn-select:not(:disabled) {
+    background: var(--color-legislation);
+    border-color: var(--color-legislation);
+}
+
+.policy-details-column[data-dimension="Sustainability & Society"] .btn-select:not(:disabled) {
+    background: var(--color-sustainability);
+    border-color: var(--color-sustainability);
+}
+
+.policy-details-column[data-dimension="Economy & Innovation"] .btn-select:not(:disabled) {
+    background: var(--color-economy);
+    border-color: var(--color-economy);
+}
+
+.policy-details-column[data-dimension="Research & Education"] .btn-select:not(:disabled) {
+    background: var(--color-research);
+    border-color: var(--color-research);
+}
+
+/* Add these new rules for dimension-specific toggle colors */
+.policy-details-column[data-dimension="Enabling Infrastructure"] .policy-list-toggle {
+  background: var(--color-infrastructure);
+  color: white;
+}
+
+.policy-details-column[data-dimension="Legislation & Policy"] .policy-list-toggle {
+  background: var(--color-legislation);
+   color: white;
+}
+
+.policy-details-column[data-dimension="Sustainability & Society"] .policy-list-toggle {
+  background: var(--color-sustainability);
+   color: white;
+}
+
+.policy-details-column[data-dimension="Economy & Innovation"] .policy-list-toggle {
+  background: var(--color-economy);
+   color: white;
+}
+
+.policy-details-column[data-dimension="Research & Education"] .policy-list-toggle {
+  background: var(--color-research);
+   color: white;
+}
+
+.details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--color-gray-200);
+    background: var(--color-gray-50);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    min-height: 60px;
+}
+
+
 .details-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-gray-800);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    text-align: center;
+    flex: 1;
+    margin: 0 1rem;
 }
 
 .btn-select {
-  /* position: relative;
-  left: 0;
-  top: 0;
-  right: 0; */
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  background: rgb(255, 255, 255);
-  border-color: #999898;
-  color: rgb(59, 59, 59);
-  font-weight: 500;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: var(--color-blue-600);
+    border: 1px solid var(--color-blue-600);
+    color: white;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
+
 .btn-select:hover:not(:disabled) {
-  background: #eaebed;
-  transform: translateY(-1px);
+    background: var(--color-blue-700);
+    border-color: var(--color-blue-700);
+    transform: translateY(-1px);
 }
 
 .btn-select:focus {
@@ -1312,20 +1849,44 @@ body {
 }
 
 .btn-select:disabled {
-  background: var(--color-blue-100);
-  color: var(--color-blue-700);
-  cursor: not-allowed;
-  transform: none;
+    background: var(--color-gray-300);
+    border-color: var(--color-gray-300);
+    color: var(--color-gray-500);
+    cursor: not-allowed;
+    transform: none;
 }
 
+.add-icon {
+    width: 16px;
+    height: 16px;
+    color: white;
+}
+
+
+
+/* Selected Policies Section - New separate section below left panel */
+.selected-policies-container-wrapper {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  margin-top: 1rem;
+}
+/* Move selected policies section styling here */
+.section#selectedPoliciesSection {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+}
+
+
+
 .details-content {
-  top: 50%;
   padding: 1.75rem;
   line-height: 1.6;
   color: var(--color-gray-600);
   overflow-y: auto;
-  flex: 1;
-  min-height: 0; /* Important for flex scrolling */
+  flex: 1; /* Take remaining space after header */
+  min-height: 0; /* Allow flex shrinking */
 }
 
 .detail-section {
@@ -1340,20 +1901,100 @@ body {
 }
 
 .examples-box {
-  background: var(--color-gray-50);
-  padding: 0.75rem;
+  background: white;
+  padding: 0rem;
   border-radius: 6px;
-  border-left: 3px solid var(--color-gray-300);
   line-height: 1.5;
   font-size: 0.75rem;
 }
-/* Special Considerations Styles - Simplified to match examples-box */
+
+/* Special Considerations */
+
+.considerations-sections {
+    margin-top: 0.75rem;
+}
+
+.consideration-section {
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.consideration-toggle {
+    width: 100%;
+    background: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.consideration-toggle:hover {
+    background: var(--color-gray-100);
+}
+
+.toggle-icon {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+}
+
+.consideration-section.expanded .toggle-icon {
+    transform: rotate(90deg);
+}
+
+
+.consideration-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 0.75rem;
+    background: white;
+}
+
+.consideration-section.expanded .consideration-content {
+    max-height: 500px;
+    padding: 0.75rem;
+}
+
+.consideration-content p {
+    margin: 0.5rem 0;
+    font-weight: 600;
+    color: var(--color-gray-700);
+}
+
+.consideration-content em {
+    font-weight: 500;
+    color: var(--color-gray-600);
+}
+
+.consideration-content ul {
+    margin: 0.25rem 0 0.75rem 1rem;
+    padding: 0;
+}
+
+.consideration-content li {
+    margin-bottom: 0.5rem;
+    color: var(--color-gray-600);
+    line-height: 1.4;
+}
+
+.consideration-content li strong {
+    color: var(--color-gray-700);
+}
+
+
 .considerations-summary {
-  /* Use same styling as .examples-box */
-  background: var(--color-gray-50);
-  padding: 0.75rem;
+  background: white;
+  padding: 0rem;
   border-radius: 6px;
-  border-left: 3px solid var(--color-gray-300);
   line-height: 1.5;
   font-size: 0.75rem;
 }
@@ -1417,21 +2058,11 @@ body {
   color: var(--color-gray-700);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .considerations-summary {
-    padding: 0.5rem;
-    font-size: 0.7rem;
-  }
-  
-  .considerations-toggle {
-    font-size: 0.7rem;
-  }
-}
+/* Related Policies */
 .related-policies-section {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--color-gray-200);
+  border-top: 1px solid var(--color-gray-700);
 }
 
 .related-policies-section h3 {
@@ -1445,10 +2076,33 @@ body {
 }
 
 .related-policies-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 200px; /* Limit the height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 0.25rem; /* Space for scrollbar */
 }
+
+/* Custom scrollbar styling for related policies */
+.related-policies-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.related-policies-list::-webkit-scrollbar-track {
+    background: var(--color-gray-100);
+    border-radius: 2px;
+}
+
+.related-policies-list::-webkit-scrollbar-thumb {
+    background: var(--color-gray-300);
+    border-radius: 2px;
+}
+
+.related-policies-list::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gray-400);
+}
+
 
 .related-policy-item {
   padding: 0.5rem;
@@ -1522,37 +2176,6 @@ body {
   margin-top: 0.25rem;
 }
 
-/* Policy bar tooltip */
-.policy-bar-tooltip {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 0.5rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  line-height: 1.3;
-  max-width: 200px;
-  z-index: 1000;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.policy-bar-tooltip.visible {
-  opacity: 1;
-}
-
-.policy-bar-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 4px solid transparent;
-  border-top-color: rgba(0, 0, 0, 0.9);
-}
-
 .keywords-container {
   display: flex;
   flex-wrap: wrap;
@@ -1568,12 +2191,215 @@ body {
   font-weight: 500;
 }
 
+/* Selected Policy Initiatives */
+.selected-policies-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.selected-policies-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: var(--color-gray-50);
+  border-radius: 6px;
+}
+
+.selected-count {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+.clear-all-btn {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #dc2626;
+  border-radius: 4px;
+  background: white;
+  color: #dc2626;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-all-btn:hover {
+  background: #dc2626;
+  color: white;
+}
+
+.clear-all-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: white;
+  color: #dc2626;
+}
+
+.selected-policies-list {
+  max-height: 300px; /* Limit height to prevent taking too much space */
+  overflow-y: auto;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 8px;
+  background: white;
+}
+
+
+.selected-policy-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-gray-100);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.selected-policy-item:last-child {
+  border-bottom: none;
+}
+
+.selected-policy-item:hover {
+  background: var(--color-gray-50);
+}
+
+.selected-policy-item.highlighted {
+  background: #fef3c7;
+  border-left: 4px solid #f59e0b;
+}
+
+.selected-policy-dimension {
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.selected-policy-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.selected-policy-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.selected-policy-id {
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.selected-policy-phase {
+  font-size: 0.7rem;
+  color: var(--color-gray-500);
+  font-weight: 500;
+}
+
+.selected-policy-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-gray-800);
+  line-height: 1.3;
+}
+
+.selected-policy-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.remove-policy-btn {
+  padding: 0.25rem;
+  border: none;
+  background: transparent;
+  color: #dc2626;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.remove-policy-btn:hover {
+  background: #fee2e2;
+}
+
+/* Right panel - spans full height of first row */
 .right-panel {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  height: 85vh; /* Match left panel height */
+  overflow-y: auto; /* Allow scrolling if content exceeds */
 }
 
+/* Export Buttons */
+.export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border: 0.4px solid var(--color-gray-300);
+  border-radius: 8px;
+  background: white;
+  color: var(--color-gray-700);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.export-btn:hover {
+  background: var(--color-gray-50);
+  border-color: var(--color-gray-400);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.export-btn:active {
+  transform: translateY(0);
+}
+
+.export-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.export-pdf {
+  border-color: #302a2a;
+  color: #322626;
+}
+
+.export-pdf:hover:not(:disabled) {
+  background: #fef2f2;
+  border-color: #312424;
+}
+
+.export-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Matrix Container */
 .selection-matrix-container {
   background: white;
   padding: 0.5rem;
@@ -1595,6 +2421,41 @@ body {
   font-size: 0.75rem;
   color: var(--color-gray-600);
   margin-bottom: 0.5rem;
+}
+
+.matrix-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.65rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.legend-bar {
+  width: 12px;
+  height: 4px;
+  border-radius: 1px;
+}
+
+.legend-bar.selected {
+  background: var(--color-blue-600);
+}
+
+.legend-bar.related {
+  background: var(--color-blue-600);
+  opacity: 0.6;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.legend-bar.viewing {
+  background: var(--color-blue-600);
+  border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
 .selection-coordinate-system {
@@ -1773,346 +2634,6 @@ body {
   pointer-events: none;
 }
 
-/* Smart Suggestions Styles */
-.smart-suggestions-container {
-  background: white;
-  padding: 0.75rem;
-  border-radius: 8px;
-  border: 1px solid var(--color-gray-200);
-  margin-bottom: 0.5rem;
-}
-
-.suggestions-section {
-  margin-bottom: 1rem;
-}
-
-.suggestions-section:last-child {
-  margin-bottom: 0;
-}
-
-.suggestions-title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-gray-800);
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.25rem;
-  border-bottom: 1px solid var(--color-gray-200);
-}
-
-.template-suggestion {
-  background: var(--color-blue-50);
-  border: 1px solid var(--color-blue-200);
-  border-radius: 6px;
-  padding: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.template-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.template-count {
-  font-size: 0.75rem;
-  color: var(--color-blue-600);
-  background: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-.template-description {
-  font-size: 0.8rem;
-  color: var(--color-gray-700);
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
-}
-
-.template-context {
-  font-size: 0.75rem;
-  color: var(--color-gray-600);
-  font-style: italic;
-  margin-bottom: 0.75rem;
-  line-height: 1.3;
-}
-
-.template-btn {
-  background: var(--color-blue-600);
-  color: white;
-  border: none;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.template-btn:hover {
-  background: var(--color-blue-700);
-  transform: translateY(-1px);
-}
-
-.gap-analysis {
-  background: var(--color-green-50);
-  border: 1px solid var(--color-green-200);
-  border-radius: 6px;
-  padding: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.gap-observation {
-  font-size: 0.8rem;
-  color: var(--color-green-700);
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.gap-recommendation {
-  font-size: 0.75rem;
-  color: var(--color-gray-700);
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
-}
-
-.gap-suggestions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.suggestion-policy-btn {
-  background: var(--color-green-600);
-  color: white;
-  border: none;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.suggestion-policy-btn:hover {
-  background: var(--color-green-700);
-  transform: translateY(-1px);
-}
-
-/* Matrix guidance */
-.matrix-guidance {
-  font-size: 0.7rem;
-  color: var(--color-gray-600);
-  text-align: center;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-}
-
-.matrix-legend {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.65rem;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.legend-bar {
-  width: 12px;
-  height: 4px;
-  border-radius: 1px;
-}
-
-.legend-bar.selected {
-  background: var(--color-blue-600);
-}
-
-.legend-bar.related {
-  background: var(--color-blue-600);
-  opacity: 0.6;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-}
-
-.legend-bar.viewing {
-  background: var(--color-blue-600);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-}
-
-/* Related policies explanation */
-.related-policies-explanation {
-  background: var(--color-gray-50);
-  border: 1px solid var(--color-gray-200);
-  border-radius: 6px;
-  padding: 0.75rem;
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  color: var(--color-gray-600);
-  line-height: 1.4;
-}
-
-.policy-relationship-context {
-  background: var(--color-blue-50);
-  border-left: 3px solid var(--color-blue-400);
-  padding: 0.5rem;
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  color: var(--color-blue-700);
-  line-height: 1.4;
-}
-
-/* Selected Policy Initiatives Section Styles */
-.selected-policies-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.selected-policies-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  background: var(--color-gray-50);
-  border-radius: 6px;
-}
-
-.selected-count {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-gray-700);
-}
-
-.clear-all-btn {
-  padding: 0.25rem 0.5rem;
-  border: 1px solid #dc2626;
-  border-radius: 4px;
-  background: white;
-  color: #dc2626;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.clear-all-btn:hover {
-  background: #dc2626;
-  color: white;
-}
-
-.clear-all-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: white;
-  color: #dc2626;
-}
-
-.selected-policies-list {
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 8px;
-  background: white;
-}
-
-.selected-policy-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--color-gray-100);
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.selected-policy-item:last-child {
-  border-bottom: none;
-}
-
-.selected-policy-item:hover {
-  background: var(--color-gray-50);
-}
-
-.selected-policy-item.highlighted {
-  background: #fef3c7;
-  border-left: 4px solid #f59e0b;
-}
-
-.selected-policy-dimension {
-  min-width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 0.7rem;
-  font-weight: 600;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-
-.selected-policy-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.selected-policy-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
-}
-
-.selected-policy-id {
-  padding: 0.1rem 0.3rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  background: var(--color-gray-100);
-  color: var(--color-gray-700);
-}
-
-.selected-policy-phase {
-  font-size: 0.7rem;
-  color: var(--color-gray-500);
-  font-weight: 500;
-}
-
-.selected-policy-title {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-gray-800);
-  line-height: 1.3;
-}
-
-.selected-policy-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-}
-
-.remove-policy-btn {
-  padding: 0.25rem;
-  border: none;
-  background: transparent;
-  color: #dc2626;
-  font-size: 0.8rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.remove-policy-btn:hover {
-  background: #fee2e2;
-}
-
 .x-axis-labels {
   display: flex;
   justify-content: space-between;
@@ -2127,26 +2648,6 @@ body {
   font-weight: 500;
   text-align: center;
   flex: 1;
-}
-
-.axis-title {
-  position: absolute;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-gray-700);
-}
-
-.y-axis-title {
-  left: -45px;
-  top: 50%;
-  transform: rotate(-90deg) translateX(-50%);
-  transform-origin: center;
-}
-
-.x-axis-title {
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .current-selection {
@@ -2167,71 +2668,21 @@ body {
   font-size: 0.75rem;
   color: #1e40af;
   line-height: 1.4;
-  min-height: 80px; /* Fixed minimum height */
-  max-height: 120px; /* Maximum height to prevent excessive growth */
-  overflow-y: auto; /* Add scrollbar if content exceeds max height */
+  min-height: 80px;
+  max-height: 120px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem; /* Consistent spacing between elements */
+  gap: 0.25rem;
 }
 
-/* Export Buttons */
-.export-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.5rem;
-  border: 0.4px solid var(--color-gray-300);
-  border-radius: 8px;
-  background: white;
-  color: var(--color-gray-700);
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.export-btn:hover {
-  background: var(--color-gray-50);
-  border-color: var(--color-gray-400);
-  transform: translateY(-1px);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-
-.export-btn:active {
-  transform: translateY(0);
-}
-
-.export-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.export-pdf {
-  border-color: #302a2a;
-  color: #322626;
-}
-
-.export-pdf:hover:not(:disabled) {
-  background: #fef2f2;
-  border-color: #312424;
-}
-
-.export-icon {
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
-
-/* Expert profiles - Fixed height with scroll */
+/* Expert Profiles */
 .experts-section {
   background: white;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  height: 420px; /* Fixed height */
+  height: 420px;
   display: flex;
   flex-direction: column;
   width: 500px;
@@ -2242,7 +2693,7 @@ body {
   font-weight: 600;
   color: var(--color-gray-800);
   margin-bottom: 0.75rem;
-  flex-shrink: 0; /* Prevent title from being compressed */
+  flex-shrink: 0;
 }
 
 .experts-grid {
@@ -2251,11 +2702,10 @@ body {
   gap: 0.5rem;
   overflow-y: auto;
   overflow-x: hidden;
-  flex: 1; /* Takes remaining space */
-  padding-right: 0.25rem; /* Space for scrollbar */
+  flex: 1;
+  padding-right: 0.25rem;
 }
 
-/* Custom scrollbar styling */
 .experts-grid::-webkit-scrollbar {
   width: 4px;
 }
@@ -2274,7 +2724,6 @@ body {
   background: var(--color-gray-400);
 }
 
-/* Compact expert cards */
 .expert-card {
   display: flex;
   align-items: flex-start;
@@ -2285,7 +2734,7 @@ body {
   background: white;
   transition: all 0.2s ease;
   cursor: pointer;
-  flex-shrink: 0; /* Prevent cards from being compressed */
+  flex-shrink: 0;
 }
 
 .expert-card:hover {
@@ -2295,7 +2744,6 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Smaller avatar */
 .expert-avatar {
   width: 36px;
   height: 36px;
@@ -2331,7 +2779,6 @@ body {
   gap: 0.5rem;
 }
 
-/* Compact text sizes */
 .expert-name {
   font-size: 0.75rem;
   font-weight: 600;
@@ -2364,7 +2811,6 @@ body {
   color: var(--color-blue-800);
 }
 
-/* More compact details */
 .expert-details {
   margin-bottom: 0.25rem;
 }
@@ -2389,7 +2835,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Compact expertise tags */
 .expert-expertise {
   display: flex;
   flex-wrap: wrap;
@@ -2407,7 +2852,6 @@ body {
   line-height: 1.2;
 }
 
-/* Loading and error states */
 .experts-grid .loading-message,
 .experts-grid .error-message {
   display: flex;
@@ -2428,7 +2872,7 @@ body {
   font-size: 0.875rem;
 }
 
-
+/* Utility Classes */
 .hidden {
   display: none;
 }
@@ -2445,13 +2889,12 @@ body {
   border: 0;
 }
 
-/* Loading state */
 .loading {
   opacity: 0.5;
   pointer-events: none;
 }
 
-/* Animation for policy selection */
+/* Animations */
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -2461,7 +2904,7 @@ body {
   animation: pulse 0.5s ease-in-out;
 }
 
-/* Empty state */
+/* Empty State */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -2483,178 +2926,175 @@ body {
   line-height: 1.5;
 }
 
-/* Mobile Responsive Styles */
+
 @media (max-width: 768px) {
   .nav-content {
-      padding: 1.25rem 1rem 0.75rem 1rem;
-      height: 70px;
+    padding: 1.25rem 1rem 0.75rem 1rem;
+    height: 70px;
   }
-
-  .g20-logo-img {
-      height: 55px;
-  }
-
-  .nav-menu {
-      gap: 1rem;
-  }
-
-  .nav-links {
-      gap: 1rem;
-  }
-
-  .nav-link {
-      font-size: 0.8rem;
-      padding: 0.375rem 0.5rem;
-  }
-
-  .nav-tools {
-      margin-left: 1rem;
-      gap: 0.02rem;
-  }
-
-  .language-select {
-      padding: 0.25rem 0.5rem;
-      font-size: 0.8rem;
-  }
-
-  .search-btn {
-      padding: 0.275rem;
-  }
-
-  /* Hide some nav items on mobile for space */
-  .nav-links .nav-item:nth-child(n+3) {
-      display: none;
-  }
-
-  .header-banner {
-      height: 300px;
-      min-height: 250px;
-  }
-
-  .banner-content {
-      padding: 0 1rem;
-  }
-
-  .banner-title {
-      margin-top: 70px;
-  }
-
-  .banner-title h1 {
-      font-size: 1rem;
-  }
-
-  .container {
-      grid-template-columns: 1fr;
-      padding: 0 1rem;
-  }
-
-  .dimensions-container {
-      flex-direction: column;
-      gap: 0.5rem;
+  .left-panel {
+    flex-direction: column;
   }
   
-  .dimension-btn {
-      min-height: 50px;
-      padding: 0.6rem 0.75rem;
-      gap: 0.5rem;
-      min-width: auto;
-      max-width: none;
-      flex: none;
+  .sidebar {
+    width: 100%;
+    max-height: 100px;
+    overflow-y: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--color-gray-200);
   }
   
-  .dimension-text {
-      font-size: 0.75rem;
+  .sidebar-item {
+    margin: 6px 12px;
+    padding: 4px 12px;
   }
   
-  .dimension-icon {
-      width: 18px;
-      height: 18px;
+  .sidebar-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
   }
   
-  .phases-container {
-      flex-direction: column;
-      gap: 0.4rem;
+  .phase-dropdown {
+    margin: 0 12px 6px 12px;
+  }
+  
+  .phase-buttons-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
   
   .phase-btn {
-      padding: 0.6rem 1rem;
-      font-size: 0.75rem;
-      clip-path: none;
-      border-radius: 0px;
-      border: 2px solid var(--color-gray-200);
-      margin-right: 0;
+    padding: 8px 10px;
+    font-size: 11px;
   }
   
-  .phase-btn:first-child,
-  .phase-btn:last-child {
-      clip-path: none;
-      padding: 0.6rem 1rem;
-  }
-  
-  .phase-btn:hover {
-      border-color: var(--color-gray-300);
-  }
-  
-  .phases-container[data-dimension="Enabling Infrastructure"] .phase-btn.active {
-      border-color: rgb(22, 102, 106);
+
+  .g20-logo-img {
+    height: 55px;
   }
 
-  .phases-container[data-dimension="Legislation & Policy"] .phase-btn.active {
-      border-color: #cb9b3d;
+  .nav-menu {
+    gap: 1rem;
   }
 
-  .phases-container[data-dimension="Sustainability & Society"] .phase-btn.active {
-      border-color: #5f0085;
+  .nav-links {
+    gap: 1rem;
   }
 
-  .phases-container[data-dimension="Economy & Innovation"] .phase-btn.active {
-      border-color: #8b2f30;
-  }
-
-  .phases-container[data-dimension="Research & Education"] .phase-btn.active {
-      border-color: #005b3a;
-  }
-
-  .keyword-filters {
-      gap: 0.35rem;
-  }
-
-  .search-filter-row {
-      flex-direction: column;
-      gap: 0.75rem;
-  }
-
-  .search-container {
-      flex: none;
-  }
-
-  .keyword-dropdown {
-      font-size: 0.7rem;
-      padding: 0.4rem 0.6rem;
-  }
-
-  .keyword-chip {
-      font-size: 0.65rem;
-      padding: 0.2rem 0.4rem;
-  }
-}
-
-/* Additional responsive breakpoint for very small screens */
-@media (max-width: 480px) {
-  .nav-content {
-      padding: 0.5rem 0.75rem;
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.375rem 0.5rem;
   }
 
   .nav-tools {
-      margin-left: 0.5rem;
+    margin-left: 1rem;
+    gap: 0.02rem;
   }
 
-  /* Show only Home and one other item on very small screens */
-  .nav-links .nav-item:nth-child(n+2) {
-      display: none;
+  .language-select {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .search-btn {
+    padding: 0.275rem;
+  }
+
+  .nav-links .nav-item:nth-child(n+3) {
+    display: none;
+  }
+
+  .header-banner {
+    height: 300px;
+    min-height: 250px;
+  }
+
+  .banner-content {
+    padding: 0 1rem;
+  }
+
+  .banner-title {
+    margin-top: 70px;
   }
 
   .banner-title h1 {
-      font-size: 1rem;
+    font-size: 1rem;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+
+.left-panel {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  min-height: 85vh;
+}
+
+  
+  .sidebar-item {
+    margin: 6px 12px;
+    padding: 12px 16px;
+  }
+
+  .phases-container {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .phase-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    border: 2px solid var(--color-gray-200);
+    margin-right: 0;
+    min-width: auto;
+  }
+
+  .keyword-filters {
+    gap: 0.35rem;
+  }
+
+  .search-filter-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .search-container {
+    flex: none;
+  }
+
+  .keyword-dropdown {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .keyword-chip {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-content {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .nav-tools {
+    margin-left: 0.5rem;
+  }
+
+  .nav-links .nav-item:nth-child(n+2) {
+    display: none;
+  }
+
+  .banner-title h1 {
+    font-size: 1rem;
   }
 }
