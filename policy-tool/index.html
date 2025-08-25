@@ -71,6 +71,9 @@
         <div class="left-panel">
             <!-- Vertical Sidebar for policy areas -->
             <div class="sidebar">
+            <div class="sidebar-how-to-use">
+                </button>
+            </div>
                 <div class="sidebar-header">
                     <div class="sidebar-subtitle">Select a Policy Area</div>
                 </div>
@@ -107,7 +110,15 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="phases-section hidden" id="phasesSection">
+                    
+                    <div class="phases-header">
+                        <span class="phases-title">Select Phase</span>
+                        <div class="phases-container" id="phaseGrid">
+                            <!-- Phase buttons will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
                 <!-- Two-Column Policy Layout -->
                 <div class="section hidden" id="policySection">
                     <div class="policy-container" id="policyContainer">
@@ -115,12 +126,20 @@
                         <div class="policy-list-column">
                             <div class="policy-list-column-content">
                                 <div class="policy-list-header" id="policyListTitle">
-                                    Select a dimension and phase
+                                    <!-- Select a dimension and phase -->
                                 </div>
                                 <div class="policy-list" id="policyList">
                                     <div class="empty-state">
+
+
                                         <div class="empty-state-icon">📋</div>
                                         <div class="empty-state-text">
+                                        <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.1rem; margin-top:-0.15rem;">How to use</h3>
+                                        <p style="font-size: 0.8rem; color: var(--color-gray-600); line-height: 1.5; margin-bottom: 0.3rem;">
+                                            Search for policy initiatives or browse by policy area and phase 
+                                            <br> 
+                                            Select policy initiatives to read more <br> Export your policy plan  
+                                            <br>
                                             Choose a policy area and phase to view available initiatives
                                         </div>
                                     </div>
@@ -174,7 +193,13 @@
                     <div class="empty-state">
                         <div class="empty-state-icon">📋</div>
                         <div class="empty-state-text">
-                            No policy initiatives selected yet. Select initiatives to see them here
+                        <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.1rem; margin-top:-0.15rem;">How to use</h3>
+                        <p style="font-size: 0.8rem; color: var(--color-gray-600); line-height: 1.5; margin-bottom: 0.3rem;">
+                            Search for policy initiatives or browse by policy area and phase 
+                            <br> 
+                            Select policy initiatives to read more <br> Export your policy plan  
+                            <br>
+                            No policy initiatives selected yet. Select initiatives to see them here</p>
                         </div>
                     </div>
                 </div>
@@ -185,21 +210,11 @@
     <!-- Right Panel -->
     <div class="right-panel">
         <!-- Instructions with integrated export -->
-        <div class="section">
-            <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem;">How to use</h3>
-            <div style="font-size: 0.8rem; color: var(--color-gray-600); line-height: 1.5; margin-bottom: 1rem;">
-                Search for policy initiatives or browse by policy area and phase <br> Select policy initiatives to read more <br> Export your policy plan
-            </div>
-            
-            <button class="export-btn export-pdf" onclick="exportToPDF()" style="width: 100%; justify-content: center;">
-                Export Your Policy Plan as a PDF
-            </button>
-        </div>
+
         
-        <!-- Matrix with Bars -->
+        <!-- Matrix with Bars - AXES SWITCHED -->
         <div class="selection-matrix-container">
-            <div class="matrix-title">Policy Plan Dashboard</div>
-            <div class="matrix-subtitle">Track your selected policy initiatives across areas and phases</div>
+            <div class="matrix-subtitle"> <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.1rem; margin-top:-0.15rem;">Policy Plan Dashboard</h3>  Track your selected policy initiatives across areas and phases</div>
             
             <!-- Matrix Legend -->
             <div class="matrix-legend">
@@ -211,35 +226,43 @@
                     <div class="legend-bar related"></div>
                     <span>Related</span>
                 </div>
-                <div class="legend-item">
+                <!-- <div class="legend-item">
                     <div class="legend-bar viewing"></div>
                     <span>Viewing</span>
-                </div>
+                </div> -->
             </div>
             
+            <!-- Updated Matrix Section with Switched Axes -->
             <div class="selection-coordinate-system">
                 <div class="coordinate-grid" style="position: relative;">
+                    <!-- Y-axis now shows DIMENSIONS (what used to be X-axis) -->
                     <div class="y-axis-labels">
-                        <div class="y-axis-label">Monitoring & Evaluation</div>
-                        <div class="y-axis-label">Implementation</div>
-                        <div class="y-axis-label">Design</div>
-                        <div class="y-axis-label">Analysis</div>
+                        <div class="y-axis-label" data-full-text="Research & Education">Research</div>
+                        <div class="y-axis-label" data-full-text="Economy & Innovation">Econ</div>
+                        <div class="y-axis-label" data-full-text="Sustainability & Society">Sustain</div>
+                        <div class="y-axis-label" data-full-text="Legislation & Policy">Legal</div>
+                        <div class="y-axis-label" data-full-text="Enabling Infrastructure">Infra</div>
                     </div>
                     
                     <div class="main-grid" id="selectionGrid"></div>
                     
                     <div></div> <!-- Empty cell for spacing -->
                     
+                    <!-- X-axis now shows PHASES (what used to be Y-axis) -->
                     <div class="x-axis-labels">
-                        <div class="x-axis-label">Infrastructure</div>
-                        <div class="x-axis-label">Legislation</div>
-                        <div class="x-axis-label">Sustainability</div>
-                        <div class="x-axis-label">Economy</div>
-                        <div class="x-axis-label">Research</div>
+                        <div class="x-axis-label" data-full-text="Analysis">Analysis</div>
+                        <div class="x-axis-label" data-full-text="Design">Design</div>
+                        <div class="x-axis-label" data-full-text="Implementation">Impl</div>
+                        <div class="x-axis-label" data-full-text="Monitoring & Evaluation">M&E</div>
                     </div>
                 </div>
             </div>
+            <br>
+            <button class="export-btn export-pdf" onclick="exportToPDF()" style="width: 100%; justify-content: center;">
+                Export Your Policy Plan as a PDF
+            </button>
         </div>
+
 
         <!-- Expert Profiles -->
         <div class="experts-section" id="expertsSection">

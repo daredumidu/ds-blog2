@@ -1,5 +1,5 @@
 /**
- * Main application initialization and orchestration
+ * Updated main.js - Add this import and initialization
  */
 
 import { dataLoader } from './data-loader.js';
@@ -7,12 +7,14 @@ import { expertsManager } from './experts.js';
 import { buttonSystem } from './button-system.js';
 import { app } from './app.js';
 import { state } from './state.js';
+import { howToUseGuide } from './how-to-use-guide.js'; // Add this import
 
 class ApplicationBootstrap {
     constructor() {
         this.initializationSteps = [
             { name: 'Data Loading', fn: this.loadData.bind(this) },
             { name: 'App Initialization', fn: this.initializeApp.bind(this) },
+            { name: 'Guide Setup', fn: this.initializeGuide.bind(this) }, // Add this step
             { name: 'Final Setup', fn: this.finalizeSetup.bind(this) }
         ];
         this.currentStep = 0;
@@ -20,7 +22,7 @@ class ApplicationBootstrap {
 
     async initialize() {
         try {
-            console.log('🚀 Starting AI Policy Tool initialization...');
+            console.log('Starting AI Policy Tool initialization...');
             
             // Show loading state
             this.showLoadingState();
@@ -49,7 +51,6 @@ class ApplicationBootstrap {
         }
     }
 
-    // In the loadData method of ApplicationBootstrap class:
     async loadData() {
         const loadingResults = await dataLoader.loadAllData();
         
@@ -67,9 +68,9 @@ class ApplicationBootstrap {
         
         // Log data statistics
         const stats = dataLoader.getDataStatistics();
-        console.log(`📊 Loaded ${stats.totalPolicies} policies across ${stats.totalDimensions} dimensions`);
+        console.log(` Loaded ${stats.totalPolicies} policies across ${stats.totalDimensions} dimensions`);
         if (stats.totalExperts > 0) {
-            console.log(`👥 Loaded ${stats.totalExperts} expert profiles`);
+            console.log(` Loaded ${stats.totalExperts} expert profiles`);
         }
     }
 
@@ -82,6 +83,25 @@ class ApplicationBootstrap {
         // Initialize experts display if data is available
         if (dataLoader.isExpertsDataLoaded()) {
             expertsManager.showDefaultExperts();
+        }
+    }
+
+    // Add this new method
+    async initializeGuide() {
+        try {
+            // The guide initializes itself when imported, but we can add additional setup here
+            console.log('📖 How-to-use guide initialized');
+            
+            // Optional: Add guide to debug tools
+            if (window.PolicyToolDebug) {
+                window.PolicyToolDebug.guide = howToUseGuide;
+            }
+            
+            return true;
+        } catch (error) {
+            console.error('Failed to initialize guide:', error);
+            // Don't fail the whole app if guide fails
+            return true;
         }
     }
 
@@ -105,7 +125,7 @@ class ApplicationBootstrap {
     setupGlobalEventListeners() {
         // Listen for button system events
         document.addEventListener('tpafSelectionChange', (e) => {
-            console.log('📍 Selection changed:', e.detail);
+            console.log('🔍 Selection changed:', e.detail);
         });
 
         // Listen for visibility change to pause/resume if needed
@@ -119,11 +139,11 @@ class ApplicationBootstrap {
 
         // Listen for online/offline events
         window.addEventListener('online', () => {
-            console.log('🌐 Application back online');
+            console.log('Application back online');
         });
 
         window.addEventListener('offline', () => {
-            console.log('📴 Application offline');
+            console.log('Application offline');
         });
     }
 
@@ -132,6 +152,13 @@ class ApplicationBootstrap {
         const handleURLChange = () => {
             const url = new URL(window.location);
             const params = url.searchParams;
+            
+            // Handle guide parameter for direct linking to guide
+            if (params.has('guide') && params.get('guide') === 'start') {
+                setTimeout(() => {
+                    howToUseGuide.startGuide();
+                }, 1000);
+            }
             
             // Future: Handle deep linking parameters
             // Example: ?dimension=Infrastructure&phase=Analysis&policy=P1
@@ -159,6 +186,12 @@ class ApplicationBootstrap {
                 }
             }
             
+            // Ctrl/Cmd + H for help guide
+            if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
+                e.preventDefault();
+                howToUseGuide.startGuide();
+            }
+            
             // Escape to clear current selection
             if (e.key === 'Escape') {
                 if (state.selectedPolicy) {
@@ -175,13 +208,13 @@ class ApplicationBootstrap {
     setupErrorHandling() {
         // Global error handler
         window.addEventListener('error', (e) => {
-            console.error('🚨 Global error:', e.error);
+            console.error('Global error:', e.error);
             this.handleGlobalError(e.error);
         });
 
         // Unhandled promise rejection handler
         window.addEventListener('unhandledrejection', (e) => {
-            console.error('🚨 Unhandled promise rejection:', e.reason);
+            console.error('Unhandled promise rejection:', e.reason);
             this.handleGlobalError(e.reason);
         });
     }
@@ -241,10 +274,11 @@ class ApplicationBootstrap {
                 expertsManager,
                 buttonSystem,
                 app,
+                howToUseGuide, // Add guide to debug tools
                 clearData: () => {
                     dataLoader.clearCache();
                     state.reset();
-                    console.log('🗑️ Data and state cleared');
+                    console.log('Data and state cleared');
                 },
                 exportState: () => {
                     const stateData = state.toJSON();
@@ -259,14 +293,17 @@ class ApplicationBootstrap {
                 importState: (stateData) => {
                     try {
                         state.fromJSON(stateData);
-                        console.log('📥 State imported successfully');
+                        console.log('State imported successfully');
                     } catch (error) {
-                        console.error('📥 Failed to import state:', error);
+                        console.error('Failed to import state:', error);
                     }
-                }
+                },
+                startGuide: () => howToUseGuide.startGuide(), // Add guide control
+                restartGuide: () => howToUseGuide.restartGuide()
             };
             
-            console.log('🔧 Development debugging enabled. Access via window.PolicyToolDebug');
+            console.log('Development debugging enabled. Access via window.PolicyToolDebug');
+            console.log('Use Ctrl+H to start the how-to-use guide');
         }
     }
 

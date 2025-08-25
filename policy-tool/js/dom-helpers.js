@@ -50,12 +50,7 @@ export const domHelpers = {
         return button;
     },
 
-    // Add this new function to domHelpers object:
     createSidebarItem: function(dimension, index) {
-        const container = document.createElement('div');
-        container.className = 'sidebar-item-container';
-        
-        // Create the main sidebar item
         const item = document.createElement('div');
         item.className = 'sidebar-item';
         item.setAttribute('data-dimension', dimension.id);
@@ -71,24 +66,12 @@ export const domHelpers = {
             'Research & Education': '🎓'
         };
         
-        // Description mapping
-        const descriptionMap = {
-            'Enabling Infrastructure': 'Build foundational systems and frameworks',
-            'Legislation & Policy': 'Develop legal frameworks and regulations',
-            'Sustainability & Society': 'Address social and environmental impacts',
-            'Economy & Innovation': 'Implement financial incentives and support',
-            'Research & Education': 'Build knowledge and capacity'
-        };
-        
         item.innerHTML = `
             <div class="sidebar-icon">${iconMap[dimension.id] || '📋'}</div>
             <div class="sidebar-content">
                 <div class="sidebar-item-title">${utils.escapeHtml(dimension.short)}</div>
             </div>
         `;
-        
-        // Create phase dropdown
-        const phaseDropdown = this.createPhaseDropdown(dimension.id);
         
         // Add click handler
         item.addEventListener('click', function(e) {
@@ -98,10 +81,7 @@ export const domHelpers = {
             }
         });
         
-        container.appendChild(item);
-        container.appendChild(phaseDropdown);
-        
-        return container;
+        return item;
     },
 
 
@@ -125,7 +105,7 @@ export const domHelpers = {
         connector.className = 'arrow-connector';
         connector.innerHTML = `
           <svg width="24" height="62" viewBox="0 0 24 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 0 V47 Q12 57, 22 57" stroke="${color}" stroke-width="3" fill="none"/>
+            <path d="M12 0 V47 Q12 57, 22 57" stroke="white" opacity="0" stroke-width="3" fill="none"/>
 
           </svg>
         `;
@@ -162,7 +142,7 @@ export const domHelpers = {
           ${showArrow ? `
           <div class="arrow-connector">
             <svg width="24" height="80" viewBox="0 0 24 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 0 V65 Q12 75, 22 75" stroke="${color}" stroke-width="3" fill="none"/>
+              <path d="M12 0 V65 Q12 75, 22 75" stroke="white" opacity="0" stroke-width="3" fill="none"/>
 
             </svg>
           </div>
@@ -262,9 +242,6 @@ export const domHelpers = {
         <div class="policy-header">
           <div class="policy-info" style="display: flex; flex-direction: column;">
             <span class="policy-title">${utils.escapeHtml(policyInfo.policy)}</span>
-            <span class="policy-meta" style="font-size: 0.7rem; color: var(--color-gray-500); margin-top: 0.25rem; font-style: italic;">
-              ${utils.escapeHtml(dimension)} - ${utils.escapeHtml(phase)}
-            </span>
           </div>
           ${selectedIcon}
         </div>
@@ -304,7 +281,7 @@ export const domHelpers = {
             <div class="policy-info" style="display: flex; flex-direction: column;">
               <span class="policy-title">${utils.escapeHtml(policyInfo.policy)}</span>
               <span class="policy-meta" style="font-size: 0.7rem; color: var(--color-gray-500); margin-top: 0.25rem; font-style: italic;">
-                ${utils.escapeHtml(dimension)} - ${utils.escapeHtml(phase)}
+                Phase: ${utils.escapeHtml(phase)}
               </span>
             </div>
             ${selectedIcon}

@@ -210,6 +210,7 @@ export class PolicyToolApp {
 
     // State Change Handlers
     handlePolicyAreaChange() {
+        this.showPhasesSection(); // Add this line
         this.showPolicySection();
         this.showPolicyList();
         this.clearPolicyDetails();
@@ -322,6 +323,30 @@ export class PolicyToolApp {
         });
     }
 
+
+    showPhasesSection() {
+        const phasesSection = document.getElementById('phasesSection');
+        const phaseGrid = document.getElementById('phaseGrid');
+        
+        if (phasesSection && phaseGrid && state.selectedPolicyArea) {
+            // Set dimension attribute for styling
+            phaseGrid.setAttribute('data-dimension', state.selectedPolicyArea);
+            
+            // Show the section
+            phasesSection.classList.remove('hidden');
+            phasesSection.classList.add('visible');
+        }
+    }
+
+    hidePhasesSection() {
+        const phasesSection = document.getElementById('phasesSection');
+        
+        if (phasesSection) {
+            phasesSection.classList.add('hidden');
+            phasesSection.classList.remove('visible');
+        }
+    }
+
     // Policy Display Methods
     showPolicySection() {
         domHelpers.showElement(this.elements.policySection);
@@ -419,7 +444,7 @@ export class PolicyToolApp {
             listColumn.setAttribute('data-dimension', state.selectedPolicyArea);
         }
 
-        utils.setText(this.elements.policyListTitle, `Policy Area: ${state.selectedPolicyArea} - Phase: ${state.selectedPhase}`);
+        // utils.setText(this.elements.policyListTitle, `Policy Area: ${state.selectedPolicyArea} - Phase: ${state.selectedPhase}`);
         
         const policyData = dataLoader.getPolicyData();
         const allPolicies = policyData[state.selectedPolicyArea]?.[state.selectedPhase] || {};
@@ -446,7 +471,7 @@ export class PolicyToolApp {
             listColumn.setAttribute('data-dimension', state.selectedPolicyArea);
         }
 
-        utils.setText(this.elements.policyListTitle, `Policy Area: ${state.selectedPolicyArea} - All Phases`);
+        // utils.setText(this.elements.policyListTitle, `Policy Area: ${state.selectedPolicyArea} - All Phases`);
         
         const policyData = dataLoader.getPolicyData();
         const allPoliciesInDimension = {};
@@ -627,6 +652,10 @@ export class PolicyToolApp {
         const policyData = dataLoader.getPolicyData();
         const policyInfo = policyData[state.selectedPolicyArea]?.[state.selectedPhase]?.[state.selectedPolicy];
         if (!policyInfo) return;
+    
+        // Hide phases section when viewing details
+        this.hidePhasesSection();
+
         
         const policyContainer = this.elements.policyContainer;
         const policyDetailsColumn = this.elements.policyDetailsColumn;
@@ -888,6 +917,11 @@ export class PolicyToolApp {
             policyDetailsColumn.classList.remove('has-policy');
         }
         
+        // Show phases section when returning to list view if dimension is selected
+        if (state.selectedPolicyArea) {
+            this.showPhasesSection();
+        }
+    
         // Clear related policies
         state.setRelatedPolicies([]);
         
@@ -944,10 +978,16 @@ export class PolicyToolApp {
             const isFocused = policyContainer.classList.contains('details-focused');
             
             if (isFocused) {
+                // Going back to list view - show phases if dimension is selected
                 policyContainer.classList.remove('details-focused');
                 policyDetailsColumn.classList.remove('has-policy');
+                if (state.selectedPolicyArea) {
+                    this.showPhasesSection();
+                }
             } else {
+                // Going to details view - hide phases
                 policyContainer.classList.add('details-focused');
+                this.hidePhasesSection();
                 if (state.selectedPolicy) {
                     policyDetailsColumn.classList.add('has-policy');
                 }
@@ -1101,18 +1141,19 @@ export class PolicyToolApp {
         }
     }
 
-    // Matrix Grid Management
+    // Matrix Grid Management - AXES SWITCHED
     generateSelectionGrid() {
         if (!this.elements.selectionGrid) return;
         
         domHelpers.clearElement(this.elements.selectionGrid);
         
-        const phases = ['Monitoring and Evaluation', 'Implementation', 'Design', 'Analysis'];
+        // SWITCHED: dimensions are now rows (Y-axis), phases are now columns (X-axis)
         const dimensions = CONFIG.DIMENSIONS.map(d => d.id);
+        const phases = ['Analysis', 'Design', 'Implementation', 'Monitoring and Evaluation'];
         
-        // Create grid cells (4 rows x 5 columns)
-        phases.forEach((phase) => {
-            dimensions.forEach((dimension) => {
+        // Create grid cells (5 rows x 4 columns instead of 4 rows x 5 columns)
+        dimensions.forEach((dimension) => {
+            phases.forEach((phase) => {
                 const cell = document.createElement('div');
                 cell.className = 'grid-cell';
                 cell.setAttribute('data-dimension', dimension);
@@ -1196,10 +1237,10 @@ export class PolicyToolApp {
         bar.setAttribute('data-phase', phase);
         bar.setAttribute('data-policy-id', policyId);
         
-        // Check if this is the currently viewing policy
-        if (state.selectedPolicyArea === dimension && state.selectedPhase === phase && state.selectedPolicy === policyId) {
-            bar.classList.add('current-viewing');
-        }
+        // // Check if this is the currently viewing policy
+        // if (state.selectedPolicyArea === dimension && state.selectedPhase === phase && state.selectedPolicy === policyId) {
+        //     bar.classList.add('current-viewing');
+        // }
         
         // Add tooltip
         bar.title = policyTitle;
@@ -1228,17 +1269,17 @@ export class PolicyToolApp {
         let content = '';
         
         if (state.selectedPolicyArea) {
-            content += `<div><strong>Policy Area:</strong> ${utils.escapeHtml(state.selectedPolicyArea)}</div>`;
+            // content += `<div><strong>Policy Area:</strong> ${utils.escapeHtml(state.selectedPolicyArea)}</div>`;
         }
         if (state.selectedPhase) {
-            content += `<div><strong>Phase:</strong> ${utils.escapeHtml(state.selectedPhase)}</div>`;
+            // content += `<div><strong>Phase:</strong> ${utils.escapeHtml(state.selectedPhase)}</div>`;
         }
         if (state.selectedPolicy) {
             content += `<div><strong>Initiative Overview:</strong> ${utils.escapeHtml(state.selectedPolicy)}</div>`;
             const isSelected = state.isCurrentPolicySelected;
-            content += `<div class="status-badge ${isSelected ? 'status-selected' : 'status-viewing'}" style="background: ${isSelected ? 'var(--color-green-100)' : '#fef3c7'}; color: ${isSelected ? 'var(--color-green-700)' : '#92400e'}; display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; margin-top: 0.5rem;">
-                ${isSelected ? 'Selected' : 'Viewing'}
-            </div>`;
+            // content += `<div class="status-badge ${isSelected ? 'status-selected' : 'status-viewing'}" style="background: ${isSelected ? 'var(--color-green-100)' : '#fef3c7'}; color: ${isSelected ? 'var(--color-green-700)' : '#92400e'}; display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; margin-top: 0.5rem;">
+            //     ${isSelected ? 'Selected' : 'Viewing'}
+            // </div>`;
         }
         
         // Show active filters if no dimension/phase selected
@@ -1282,6 +1323,8 @@ export class PolicyToolApp {
         state.setLoading(true);
         state.clearPolicyArea();
         
+        this.hidePhasesSection(); // Add this line
+        
         // Clear dimension attribute for phase container
         if (this.elements.phaseGrid) {
             this.elements.phaseGrid.removeAttribute('data-dimension');
@@ -1295,7 +1338,6 @@ export class PolicyToolApp {
         
         state.setLoading(false);
     }
-
     selectPhase(phase) {
         if (!utils.isValidPhase(phase)) return;
         

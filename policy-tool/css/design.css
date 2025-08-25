@@ -17,6 +17,8 @@
   --color-green-100: #dcfce7;
   --color-green-600: #16a34a;
   --color-green-700: #15803d;
+  --container-base-height: 58px; /* Base height for all three containers */
+  --container-padding: 10px 14px 10px 14px; /* Consistent padding */
 }
 
 /* Reset and Base Styles */
@@ -120,7 +122,6 @@ body {
   color: white;
 }
 
-
 .nav-tools {
   display: flex;
   align-items: center;
@@ -176,7 +177,6 @@ body {
   overflow: hidden;
 }
 
-
 .header-banner::before {
   content: '';
   position: absolute;
@@ -220,29 +220,70 @@ body {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto auto; /* Two rows: main content, then selected policies */
+  grid-template-rows: 80vh auto; /* Change from '1fr auto' to fixed height */
   gap: 0.5rem;
   padding: 0 0.5rem;
 }
 
-/* Left panel container - spans both columns in first row */
+
 .left-panel-container {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
   display: flex;
   flex-direction: column;
+  
 }
 
+.left-panel {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  height: 100%; /* Add this */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 170px;
+  background: var(--color-gray-50);
+  color: var(--color-gray-800);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-gray-200);
+  height: 100%;
+}
+
+.sidebar-how-to-use {
+  padding: var(--container-padding);
+  border-bottom: 1px solid var(--color-gray-200);
+  background: rgb(255, 255, 255);
+  min-height: var(--container-base-height);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+}
 
 .sidebar-header {
-  padding: 20px 24px 16px 24px;
-  border-bottom: 1px solid var(--color-gray-200);
-  font-size: 10px;
-  background: white;
+  padding: var(--container-padding);
+  /* border-bottom: 1px solid var(--color-gray-200); */
+  background: rgb(236, 231, 231);
+  min-height: var(--container-base-height);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
 }
 
-
-
+.sidebar-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--color-gray-800);
+}
 
 .sidebar-subtitle {
   font-size: 12px;
@@ -253,10 +294,9 @@ body {
 .sidebar-menu {
   flex: 1;
   padding: 0;
-  background: var(--color-gray-50);
+  background: rgb(236, 231, 231);
 }
 
-/* Modern Policy Area Cards */
 .sidebar-item {
   padding: 4px 8px;
   margin: 4px 12px;
@@ -280,15 +320,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-
-.sidebar-item.active::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
 .sidebar-icon {
   width: 40px;
   height: 40px;
@@ -302,77 +333,25 @@ body {
   transition: all 0.3s ease;
 }
 
-.sidebar-item.active[data-dimension="Enabling Infrastructure"] .sidebar-icon {
-  background: var(--color-infrastructure);
-  color: white;
-}
-
-.sidebar-item.active[data-dimension="Legislation & Policy"] .sidebar-icon {
-  background: var(--color-legislation);
-  color: white;
-}
-
-.sidebar-item.active[data-dimension="Sustainability & Society"] .sidebar-icon {
-  background: var(--color-sustainability);
-  color: white;
-}
-
-.sidebar-item.active[data-dimension="Economy & Innovation"] .sidebar-icon {
-  background: var(--color-economy);
-  color: white;
-}
-
-.sidebar-item.active[data-dimension="Research & Education"] .sidebar-icon {
-  background: var(--color-research);
-  color: white;
-}
-
-
-
-
-
-
-
-/* Updated Left Panel Styling - Replace existing sidebar and main-content styles */
-
-/* Left Panel with Horizontal Layout - Fixed Height */
-.left-panel {
-  display: flex;
-  flex-direction: row;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  height: 85vh; /* Fixed height */
-  min-height: 600px; /* Minimum height fallback */
-}
-
-/* Vertical Sidebar - Light Background */
-.sidebar {
-  width: 170px;
-  background: var(--color-gray-50);
-  color: var(--color-gray-800);
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  border-right: 1px solid var(--color-gray-200);
-  height: 100%; /* Full height of left-panel */
-}
-
-
-
-.sidebar-title {
-  font-size: 18px;
-  font-weight: 700;
+.sidebar-item-title {
+  font-weight: 600;
   margin-bottom: 4px;
+  font-size: 14px;
   color: var(--color-gray-800);
 }
 
+.sidebar-item-desc {
+  font-size: 12px;
+  color: var(--color-gray-600);
+  line-height: 1.4;
+}
+
+/* Dimension-specific border and active states */
 .sidebar-item[data-dimension="Enabling Infrastructure"] {
   border-left: 2px solid var(--color-infrastructure);
 }
 .sidebar-item[data-dimension="Legislation & Policy"] {
-  border-left:2px solid var(--color-legislation);
+  border-left: 2px solid var(--color-legislation);
 }
 .sidebar-item[data-dimension="Sustainability & Society"] {
   border-left: 2px solid var(--color-sustainability);
@@ -384,7 +363,6 @@ body {
   border-left: 2px solid var(--color-research);
 }
 
-/* Dimension-specific active states */
 .sidebar-item.active[data-dimension="Enabling Infrastructure"] {
   background: linear-gradient(135deg, #e8f3f4, #f0f9fa);
   border-left: 4px solid var(--color-infrastructure);
@@ -420,42 +398,24 @@ body {
   box-shadow: 0 4px 16px rgba(76, 175, 80, 0.2);
 }
 
+.sidebar-item.active .sidebar-icon {
+  color: white;
+}
 
-/* Dimension-specific icon backgrounds */
 .sidebar-item.active[data-dimension="Enabling Infrastructure"] .sidebar-icon {
   background: var(--color-infrastructure);
-  color: white;
 }
-
 .sidebar-item.active[data-dimension="Legislation & Policy"] .sidebar-icon {
   background: var(--color-legislation);
-  color: white;
 }
-
 .sidebar-item.active[data-dimension="Sustainability & Society"] .sidebar-icon {
   background: var(--color-sustainability);
-  color: white;
 }
-
 .sidebar-item.active[data-dimension="Economy & Innovation"] .sidebar-icon {
   background: var(--color-economy);
-  color: white;
 }
-
 .sidebar-item.active[data-dimension="Research & Education"] .sidebar-icon {
   background: var(--color-research);
-  color: white;
-}
-
-.sidebar-content {
-  flex: 1;
-}
-
-.sidebar-item-title {
-  font-weight: 600;
-  margin-bottom: 4px;
-  font-size: 14px;
-  color: var(--color-gray-800);
 }
 
 .sidebar-item.active .sidebar-item-title {
@@ -463,26 +423,444 @@ body {
   font-weight: 700;
 }
 
-.sidebar-item-desc {
-  font-size: 12px;
-  color: var(--color-gray-600);
-  line-height: 1.4;
-}
-
-
 .sidebar-item.active .sidebar-item-desc {
   color: var(--color-gray-700);
   font-weight: 500;
 }
 
-/* Phase Dropdown under each dimension */
+
+/* How-to-Use Guide Styles - Add to your design.css */
+
+/* Guide Trigger Button in Sidebar */
+.how-to-use-trigger {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-blue-600), #3b82f6);
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.how-to-use-trigger::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.how-to-use-trigger:hover {
+  background: linear-gradient(135deg, #25eb5a, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(59, 246, 234, 0.4);
+}
+
+.how-to-use-trigger:hover::before {
+  left: 100%;
+}
+
+.how-to-use-trigger:active {
+  transform: translateY(0);
+}
+
+/* Demo Mode Body Styling */
+.guide-demo-mode {
+  overflow: hidden;
+}
+
+/* Guide Overlay */
+.guide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent; /* Light white background instead of dark */
+  z-index: 9999;
+  opacity: 1;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Remove backdrop-filter for no blur */
+}
+
+.guide-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Demo Mode Overlay */
+.guide-demo-overlay {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10003;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.guide-demo-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.demo-message {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  animation: demo-pulse 2s infinite;
+}
+
+@keyframes demo-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.05); }
+}
+/* Enhanced Guide Tooltip - Responsive Sizing */
+.guide-tooltip {
+  position: absolute;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.15), /* Lighter shadow */
+    0 0 0 1px rgba(0, 0, 0, 0.1);
+  z-index: 10000;
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #e5e7eb; /* Visible border for definition */
+  /* Responsive sizing */
+  width: auto;
+  max-width: min(400px, calc(100vw - 40px));
+  min-width: 280px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+
+.guide-tooltip.active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.guide-tooltip h3 {
+  margin: 0 0 12px 0;
+  color: var(--color-gray-800);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  flex: 1;
+  word-wrap: break-word;
+}
+
+
+.guide-demo-badge {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: 12px;
+  flex-shrink: 0;
+  animation: badge-glow 3s infinite;
+}
+
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
+  50% { box-shadow: 0 4px 16px rgba(245, 158, 11, 0.6); }
+}
+
+.guide-tooltip p {
+  margin: 0 0 20px 0;
+  color: var(--color-gray-600);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 400;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.guide-tooltip-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.guide-step-counter {
+  font-size: 13px;
+  color: var(--color-gray-500);
+  font-weight: 600;
+  background: var(--color-gray-100);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.guide-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.guide-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.guide-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.4s;
+}
+
+.guide-btn:hover::before {
+  left: 100%;
+}
+
+.guide-btn-skip {
+  background: transparent;
+  color: var(--color-gray-600);
+  border: 2px solid var(--color-gray-300);
+}
+
+.guide-btn-skip:hover {
+  background: var(--color-gray-50);
+  border-color: var(--color-gray-400);
+  transform: translateY(-1px);
+}
+
+.guide-btn-prev {
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  border: 2px solid var(--color-gray-200);
+}
+
+.guide-btn-prev:hover {
+  background: var(--color-gray-200);
+  border-color: var(--color-gray-300);
+  transform: translateY(-1px);
+}
+
+.guide-btn-next {
+  background: linear-gradient(135deg, var(--color-blue-600), #3b82f6);
+  color: white;
+  border: 2px solid var(--color-blue-600);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.guide-btn-next:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.guide-btn-next:active {
+  transform: translateY(0);
+}
+
+/* Enhanced Guide Arrow */
+.guide-arrow {
+  position: absolute;
+  z-index: 10001;
+  filter: drop-shadow(0 4px 8px transparent);
+  /* animation: arrow-pulse 2s infinite; */
+}
+
+@keyframes arrow-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.guide-arrow.right {
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 18px solid white;
+}
+
+.guide-arrow.left {
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 18px solid white;
+}
+
+.guide-arrow.bottom {
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 18px solid white;
+}
+
+.guide-arrow.top {
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 18px solid white;
+}
+
+/* Enhanced Element Highlight - Lighter Effect */
+.element-highlight {
+  position: absolute;
+  border: 3px solid #da1240; /* Solid blue border */
+  border-radius: 12px;
+  background: transparent; /* Very light blue background */
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.4s ease;
+  box-shadow: 
+    0 0 0 9999px rgba(255, 255, 255, 0.8), /* Light white overlay instead of dark */
+    0 0 20px rgba(59, 130, 246, 0.3); /* Subtle blue glow */
+  display: none;
+  /* animation: highlight-pulse-light 3s infinite; */
+}
+
+@keyframes highlight-pulse-light {
+  0%, 100% {
+    border-color: #09bc3c;
+
+  }
+  50% {
+    border-color: #fa60c7;
+  }
+}
+
+@keyframes highlight-pulse {
+  0%, 100% {
+    border-color: var(--color-blue-600);
+    box-shadow: 
+      0 0 0 9999px rgba(0, 0, 0, 0.5),
+      0 0 40px rgba(59, 130, 246, 0.6),
+      inset 0 0 40px rgba(59, 130, 246, 0.1);
+  }
+  50% {
+    border-color: #60a5fa;
+    box-shadow: 
+      0 0 0 9999px rgba(0, 0, 0, 0.5),
+      0 0 60px rgba(96, 165, 250, 0.8),
+      inset 0 0 60px rgba(96, 165, 250, 0.15);
+  }
+}
+
+/* Enhanced Guide Pulse Animation */
+.guide-pulse {
+  position: absolute;
+  font-size: 28px;
+  z-index: 10002;
+  pointer-events: none;
+  animation: guide-pulse-bounce 2s infinite;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes guide-pulse-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(-12px) scale(1.2) rotate(-10deg);
+    opacity: 0.8;
+  }
+  60% {
+    transform: translateY(-6px) scale(1.1) rotate(5deg);
+    opacity: 0.9;
+  }
+}
+
+/* Export Button Special Highlight */
+.guide-highlight-export {
+  position: relative;
+  overflow: hidden;
+  animation: export-special-glow 3s infinite;
+}
+
+.guide-highlight-export::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: export-shine 2s infinite;
+}
+
+@keyframes export-special-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(135, 7, 221, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(182, 10, 10, 0.8);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes export-shine {
+  0% { transform: rotate(45deg) translate(-100%, -100%); }
+  100% { transform: rotate(45deg) translate(100%, 100%); }
+}
+
+/* Demo Mode Adjustments for UI Elements */
+.guide-demo-mode .policy-item,
+.guide-demo-mode .selected-policy-item,
+.guide-demo-mode .sidebar-item {
+  transition: all 0.3s ease;
+}
+
+.guide-demo-mode .policy-item:hover,
+.guide-demo-mode .selected-policy-item:hover {
+  transform: translateY(-2px);
+}
+
+
+
+/* Phase Dropdown */
 .phase-dropdown {
   position: relative;
   max-height: 0;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: 0 12px 8px 12px;
-  background: transparent;
+  margin: 0 1px 1px 1px;
+  background: white;
   border: none;
   box-shadow: none;
 }
@@ -490,14 +868,14 @@ body {
 .phase-dropdown::before {
   content: '';
   position: absolute;
-  top: -16px; /* Adjust as needed */
+  top: -16px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-bottom: 16px solid var(--color-gray-200); /* Arrow color */
+  border-bottom: 16px solid var(--color-gray-200);
   z-index: 2;
 }
 
@@ -509,7 +887,6 @@ body {
   background: transparent;
   padding: 8px 12px;
 }
-
 
 .phase-dropdown-title {
   font-size: 12px;
@@ -523,28 +900,221 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 27px;
+  gap: 17px;
   max-width: 180px;
-  margin: 0 auto;
+  margin-left: -1px;
 }
 
+.phase-btn {
+  display: flex;
+  margin-left: 0px;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.phase-btn:hover .phase-circle {
+  transform: scale(1.15);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.phase-btn:hover .phase-label {
+  transform: scale(1.05);
+}
+
+.phase-circle {
+  width: 27px;
+  height: 27px;
+  margin-left: 4px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gray-300);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.phase-number {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-gray-600);
+  transition: color 0.3s ease;
+}
+
+.phase-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-gray-600);
+  flex: 1;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.arrow-connector {
+  position: absolute;
+  left: -20%;
+  top: -3px;
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+}
+
+.phase-dropdown-content .arrow-connector {
+  position: absolute;
+  left: -3%;
+  top: -1px;
+  width: 40px;
+  height: 70px;
+  z-index: 1;
+}
+
+.arrow-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.arrow-line {
+  stroke: var(--color-gray-300);
+  stroke-width: 4;
+  fill: none;
+}
+
+.arrow-head {
+  fill: var(--color-gray-300);
+}
+
+.phase-btn:last-child .arrow-connector {
+  display: none;
+}
+
+/* Dimension-specific phase colors */
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-circle {
+  border-color: var(--color-infrastructure);
+}
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-number,
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-label {
+  color: var(--color-infrastructure);
+}
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .arrow-line,
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .arrow-head {
+  stroke: var(--color-infrastructure);
+  fill: var(--color-infrastructure);
+}
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-btn.active .phase-circle {
+  background: var(--color-infrastructure);
+}
+.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-circle {
+  border-color: var(--color-legislation);
+}
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-number,
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-label {
+  color: var(--color-legislation);
+}
+.phase-dropdown[data-dimension="Legislation & Policy"] .arrow-line,
+.phase-dropdown[data-dimension="Legislation & Policy"] .arrow-head {
+  stroke: var(--color-legislation);
+  fill: var(--color-legislation);
+}
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-btn.active .phase-circle {
+  background: var(--color-legislation);
+}
+.phase-dropdown[data-dimension="Legislation & Policy"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-circle {
+  border-color: var(--color-sustainability);
+}
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-number,
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-label {
+  color: var(--color-sustainability);
+}
+.phase-dropdown[data-dimension="Sustainability & Society"] .arrow-line,
+.phase-dropdown[data-dimension="Sustainability & Society"] .arrow-head {
+  stroke: var(--color-sustainability);
+  fill: var(--color-sustainability);
+}
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-btn.active .phase-circle {
+  background: var(--color-sustainability);
+}
+.phase-dropdown[data-dimension="Sustainability & Society"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-circle {
+  border-color: var(--color-economy);
+}
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-number,
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-label {
+  color: var(--color-economy);
+}
+.phase-dropdown[data-dimension="Economy & Innovation"] .arrow-line,
+.phase-dropdown[data-dimension="Economy & Innovation"] .arrow-head {
+  stroke: var(--color-economy);
+  fill: var(--color-economy);
+}
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-btn.active .phase-circle {
+  background: var(--color-economy);
+}
+.phase-dropdown[data-dimension="Economy & Innovation"] .phase-btn.active .phase-number {
+  color: white;
+}
+
+.phase-dropdown[data-dimension="Research & Education"] .phase-circle {
+  border-color: var(--color-research);
+}
+.phase-dropdown[data-dimension="Research & Education"] .phase-number,
+.phase-dropdown[data-dimension="Research & Education"] .phase-label {
+  color: var(--color-research);
+}
+.phase-dropdown[data-dimension="Research & Education"] .arrow-line,
+.phase-dropdown[data-dimension="Research & Education"] .arrow-head {
+  stroke: var(--color-research);
+  fill: var(--color-research);
+}
+.phase-dropdown[data-dimension="Research & Education"] .phase-btn.active .phase-circle {
+  background: var(--color-research);
+}
+.phase-dropdown[data-dimension="Research & Education"] .phase-btn.active .phase-number {
+  color: white;
+}
 
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   background: white;
-  height: 100%; /* Full height of left-panel */
-  overflow: hidden; /* Prevent overflow */
+  height: 100%;
+  overflow: hidden;
+  min-height: 0;
+  max-height: 100%; /* Add this */
 }
 
-
-/* Search filter section - fixed height */
+/* Search Filter Section - Match sidebar header */
 .search-filter-section {
-  padding: 5px 10px;
+  padding: var(--container-padding);
   border-bottom: 1px solid var(--color-gray-200);
-  background: var(--color-gray-50);
-  flex-shrink: 0; /* Don't shrink */
+  background: white;
+  flex-shrink: 0;
+  min-height: var(--container-base-height);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center; /* Center the search row vertically */
 }
 
 .search-filter-row {
@@ -552,14 +1122,17 @@ body {
   gap: 0.75rem;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 0.75rem;
+  width: 100%;
+  margin: 0; /* Remove any margin that might affect centering */
 }
+
 
 .search-container {
   flex: 0 0 250px;
   position: relative;
 }
 
+/* Search input and dropdown height consistency */
 .search-input {
   width: 100%;
   padding: 0.5rem 1rem 0.5rem 2.5rem;
@@ -569,6 +1142,8 @@ body {
   background: white;
   transition: all 0.2s ease;
   outline: none;
+  height: 36px; /* Fixed height */
+  box-sizing: border-box;
 }
 
 .search-input:focus {
@@ -607,9 +1182,11 @@ body {
   transition: all 0.2s ease;
   outline: none;
   min-width: 150px;
-  height: 33px;
+  height: 36px; /* Match search input height */
   box-sizing: border-box;
 }
+
+
 
 .keyword-dropdown:focus {
   border-color: var(--color-blue-600);
@@ -633,7 +1210,7 @@ body {
   outline: none;
   white-space: nowrap;
   flex-shrink: 0;
-  height: 36px;
+  height: 36px; /* Match other input heights */
   box-sizing: border-box;
 }
 
@@ -767,275 +1344,182 @@ body {
   letter-spacing: -0.025em;
 }
 
-/* Phase Section and Buttons - Improved styling */
+/* Phases Section - Match sidebar header */
 .phases-section {
-  display: none;
+  padding: var(--container-padding);
+  border-bottom: 1px solid var(--color-gray-200);
+  background: white;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  min-height: var(--container-base-height);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+}
+
+
+/* Dimension-specific background colors for phases section */
+.phases-section[data-dimension="Enabling Infrastructure"] {
+  background: linear-gradient(135deg, #e8f3f4, #f0f9fa);
+  border-bottom-color: var(--color-infrastructure);
+}
+
+.phases-section[data-dimension="Legislation & Policy"] {
+  background: linear-gradient(135deg, #fef6e8, #fff8ed);
+  border-bottom-color: var(--color-legislation);
+}
+
+.phases-section[data-dimension="Sustainability & Society"] {
+  background: linear-gradient(135deg, #f5f0ff, #faf5ff);
+  border-bottom-color: var(--color-sustainability);
+}
+
+.phases-section[data-dimension="Economy & Innovation"] {
+  background: linear-gradient(135deg, #fef0f0, #fef5f5);
+  border-bottom-color: var(--color-economy);
+}
+
+.phases-section[data-dimension="Research & Education"] {
+  background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+  border-bottom-color: var(--color-research);
+}
+
+.phases-section.hidden {
+    display: none;
 }
 
 .phases-section.visible {
-  opacity: 1;
-  max-height: 80px; /* Increased to accommodate new button size */
-  margin-bottom: 1rem;
+  display: flex; /* Change from block to flex when visible */
 }
 
-/* Phase Container - Horizontal layout with smaller buttons */
+.phases-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  white-space: nowrap;
+  margin: 0; /* Ensure no margin */
+}
+
+.phases-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0; /* Remove bottom margin */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.phases-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0; /* Remove bottom margin since everything is on one line */
+}
+
 .phases-container {
   display: flex;
-  gap: 8px; /* Reduced gap */
-  flex-wrap: wrap;
+  gap: 0.3rem;
   justify-content: flex-start;
-  padding: 12px 0; /* Reduced padding */
-}
-
-
-.phase-btn {
-  display: flex;
-  margin-left: 0px;
   align-items: center;
-  gap: 4px;
-  position: relative;
-  width: 100%;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-
-.phase-btn:hover .phase-circle {
-  transform: scale(1.15);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-}
-
-.phase-btn:hover .phase-label {
-  transform: scale(1.05);
-}
-
-.phase-circle {
-  width: 27px;
-  height: 27px;
-  margin-left: 4px;
-  border-radius: 50%;
-  border: 2px solid var(--color-gray-300);
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-
-.phase-circle:hover {
-  transform: scale(1.15);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-}
-
-.phase-number {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-gray-600);
-  transition: color 0.3s ease;
-}
-
-
-.phase-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-gray-600);
   flex: 1;
-  text-align: left;
+  margin: 0; /* Remove any margin */
+}
+
+/* Ensure phase buttons don't grow too large */
+.phases-container .phase-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.6rem; /* Slightly smaller padding for better fit */
+  border: 2px solid var(--color-gray-200);
+  border-radius: 8px;
+  background: white;
+  color: var(--color-gray-700);
+  font-size: 0.75rem; /* Consistent font size */
+  font-weight: 500;
+  cursor: pointer;
   transition: all 0.3s ease;
-}
-
-/* For the first arrow in phase-dropdown-content */
-.phase-dropdown-content .arrow-connector {
-  position: absolute;
-  left: -3%;  /* Adjust this value to align with the phase buttons */
-  top: -1px;
-  width: 40px;
-  height: 70px;
-  z-index: 1;
-}
-
-/* For arrows inside phase buttons */
-.phase-btn .arrow-connector {
-  position: absolute;
-  left: -20%;
-  top: -3px;
-  width: 40px;
-  height: 40px;
-  z-index: 1;
+  min-width: auto;
+  white-space: nowrap;
+  height: 32px; /* Fixed height for consistency */
+  box-sizing: border-box;
 }
 
 
-.arrow-svg {
-  width: 100%;
-  height: 100%;
+
+.phases-container .phase-btn:hover {
+    border-color: var(--color-gray-400);
+    background: var(--color-gray-50);
+    transform: translateY(-1px);
 }
 
-.arrow-line {
-  stroke: var(--color-gray-300);
-  stroke-width: 4;
-  fill: none;
+.phases-container .phase-btn.active {
+    border-color: var(--color-blue-600);
+    background: var(--color-blue-50);
+    color: var(--color-blue-700);
+    font-weight: 600;
 }
 
-.arrow-head {
-  fill: var(--color-gray-300);
+.phases-container .phase-btn .phase-icon {
+    font-size: 1rem;
 }
-
-.phase-btn:last-child .arrow-connector {
-  display: none;
-}
-
 
 .phase-icon {
-  font-size: 14px; /* Reduced from 16px */
+  font-size: 14px;
 }
 
-/* Dimension-specific colors - Infrastructure */
-.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-circle {
-  border-color: var(--color-infrastructure);
+
+/* Dimension-specific phase button colors */
+.phases-container[data-dimension="Enabling Infrastructure"] .phase-btn.active {
+    border-color: var(--color-infrastructure);
+    background: #e8f3f4;
+    color: var(--color-infrastructure);
 }
 
-.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-number,
-.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-label {
-  color: var(--color-infrastructure);
+.phases-container[data-dimension="Legislation & Policy"] .phase-btn.active {
+    border-color: var(--color-legislation);
+    background: #fef6e8;
+    color: var(--color-legislation);
 }
 
-.phase-dropdown[data-dimension="Enabling Infrastructure"] .arrow-line,
-.phase-dropdown[data-dimension="Enabling Infrastructure"] .arrow-head {
-  stroke: var(--color-infrastructure);
-  fill: var(--color-infrastructure);
+.phases-container[data-dimension="Sustainability & Society"] .phase-btn.active {
+    border-color: var(--color-sustainability);
+    background: #f5f0ff;
+    color: var(--color-sustainability);
 }
 
-.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-btn.active .phase-circle {
-  background: var(--color-infrastructure);
+.phases-container[data-dimension="Economy & Innovation"] .phase-btn.active {
+    border-color: var(--color-economy);
+    background: #fef0f0;
+    color: var(--color-economy);
 }
 
-.phase-dropdown[data-dimension="Enabling Infrastructure"] .phase-btn.active .phase-number {
-  color: white;
+.phases-container[data-dimension="Research & Education"] .phase-btn.active {
+    border-color: var(--color-research);
+    background: #ecfdf5;
+    color: var(--color-research);
 }
-
-/* Dimension-specific colors - Legislation */
-.phase-dropdown[data-dimension="Legislation & Policy"] .phase-circle {
-  border-color: var(--color-legislation);
-}
-
-.phase-dropdown[data-dimension="Legislation & Policy"] .phase-number,
-.phase-dropdown[data-dimension="Legislation & Policy"] .phase-label {
-  color: var(--color-legislation);
-}
-
-.phase-dropdown[data-dimension="Legislation & Policy"] .arrow-line,
-.phase-dropdown[data-dimension="Legislation & Policy"] .arrow-head {
-  stroke: var(--color-legislation);
-  fill: var(--color-legislation);
-}
-
-.phase-dropdown[data-dimension="Legislation & Policy"] .phase-btn.active .phase-circle {
-  background: var(--color-legislation);
-}
-
-.phase-dropdown[data-dimension="Legislation & Policy"] .phase-btn.active .phase-number {
-  color: white;
-}
-
-/* Dimension-specific colors - Sustainability */
-.phase-dropdown[data-dimension="Sustainability & Society"] .phase-circle {
-  border-color: var(--color-sustainability);
-}
-
-.phase-dropdown[data-dimension="Sustainability & Society"] .phase-number,
-.phase-dropdown[data-dimension="Sustainability & Society"] .phase-label {
-  color: var(--color-sustainability);
-}
-
-.phase-dropdown[data-dimension="Sustainability & Society"] .arrow-line,
-.phase-dropdown[data-dimension="Sustainability & Society"] .arrow-head {
-  stroke: var(--color-sustainability);
-  fill: var(--color-sustainability);
-}
-
-.phase-dropdown[data-dimension="Sustainability & Society"] .phase-btn.active .phase-circle {
-  background: var(--color-sustainability);
-}
-
-.phase-dropdown[data-dimension="Sustainability & Society"] .phase-btn.active .phase-number {
-  color: white;
-}
-
-/* Dimension-specific colors - Economy */
-.phase-dropdown[data-dimension="Economy & Innovation"] .phase-circle {
-  border-color: var(--color-economy);
-}
-
-.phase-dropdown[data-dimension="Economy & Innovation"] .phase-number,
-.phase-dropdown[data-dimension="Economy & Innovation"] .phase-label {
-  color: var(--color-economy);
-}
-
-.phase-dropdown[data-dimension="Economy & Innovation"] .arrow-line,
-.phase-dropdown[data-dimension="Economy & Innovation"] .arrow-head {
-  stroke: var(--color-economy);
-  fill: var(--color-economy);
-}
-
-.phase-dropdown[data-dimension="Economy & Innovation"] .phase-btn.active .phase-circle {
-  background: var(--color-economy);
-}
-
-.phase-dropdown[data-dimension="Economy & Innovation"] .phase-btn.active .phase-number {
-  color: white;
-}
-
-/* Dimension-specific colors - Research */
-.phase-dropdown[data-dimension="Research & Education"] .phase-circle {
-  border-color: var(--color-research);
-}
-
-.phase-dropdown[data-dimension="Research & Education"] .phase-number,
-.phase-dropdown[data-dimension="Research & Education"] .phase-label {
-  color: var(--color-research);
-}
-
-.phase-dropdown[data-dimension="Research & Education"] .arrow-line,
-.phase-dropdown[data-dimension="Research & Education"] .arrow-head {
-  stroke: var(--color-research);
-  fill: var(--color-research);
-}
-
-.phase-dropdown[data-dimension="Research & Education"] .phase-btn.active .phase-circle {
-  background: var(--color-research);
-}
-
-.phase-dropdown[data-dimension="Research & Education"] .phase-btn.active .phase-number {
-  color: white;
-}
-
-/* Policy section - takes remaining space */
+/* Policy Section */
 .section#policySection {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: white;
-  padding: 0; /* Remove default section padding */
+  padding: 0;
   border-radius: 0;
   box-shadow: none;
   border-bottom: none;
+  min-height: 0;
+  max-height: 100%;
+  height: 100%; /* Add this to force it to fill available space */
 }
 
-
-/* Policy container - full height of remaining space */
 .policy-container {
   display: grid;
   grid-template-columns: 1fr 0fr;
   gap: 0.5rem;
-  height: 100%; /* Take full height of parent */
+  height: 100%;
   flex: 1;
   transition: grid-template-columns 0.3s ease;
 }
@@ -1044,7 +1528,6 @@ body {
   grid-template-columns: 0fr 1fr;
 }
 
-/* Policy list column - scrollable content */
 .policy-list-column {
   display: flex;
   flex-direction: column;
@@ -1052,117 +1535,11 @@ body {
   transition: all 0.3s ease;
   min-width: 0;
   height: 100%;
-}
-
-.policy-container.details-focused .policy-details-column {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .policy-container.details-focused .policy-list-column {
   opacity: 0;
   pointer-events: none;
-}
-
-.policy-list-column-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-
-/* Main container grid - stack left panel and selected policies */
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto auto; /* Two rows: main content, then selected policies */
-  gap: 0.5rem;
-  padding: 0 0.5rem;
-}
-
-/* Left panel container - spans both columns in first row */
-.left-panel-container {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Left Panel with Horizontal Layout - Fixed Height */
-.left-panel {
-  display: flex;
-  flex-direction: row;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  height: 85vh; /* Fixed height */
-  min-height: 600px; /* Minimum height fallback */
-}
-
-/* Vertical Sidebar - Fixed width, full height of parent */
-.sidebar {
-  width: 170px;
-  background: var(--color-gray-50);
-  color: var(--color-gray-800);
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  border-right: 1px solid var(--color-gray-200);
-  height: 100%; /* Full height of left-panel */
-}
-
-/* Main content area - takes remaining width and full height */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: white;
-  height: 100%; /* Full height of left-panel */
-  overflow: hidden; /* Prevent overflow */
-}
-
-/* Search filter section - fixed height */
-.search-filter-section {
-  padding: 5px 10px;
-  border-bottom: 1px solid var(--color-gray-200);
-  background: var(--color-gray-50);
-  flex-shrink: 0; /* Don't shrink */
-}
-
-/* Policy section - takes remaining space */
-.section#policySection {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: white;
-  padding: 0; /* Remove default section padding */
-  border-radius: 0;
-  box-shadow: none;
-  border-bottom: none;
-}
-
-/* Policy container - full height of remaining space */
-.policy-container {
-  display: grid;
-  grid-template-columns: 1fr 0fr;
-  gap: 0.5rem;
-  height: 100%; /* Take full height of parent */
-  flex: 1;
-  transition: grid-template-columns 0.3s ease;
-}
-
-/* Policy list column - scrollable content */
-.policy-list-column {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  min-width: 0;
-  height: 100%;
 }
 
 .policy-list-column-content {
@@ -1177,10 +1554,10 @@ body {
   color: var(--color-gray-800);
   margin-bottom: 0.5rem;
   padding: 0.5rem;
-  background: var(--color-gray-50);
+  background: white;
   border-radius: 6px;
   text-align: center;
-  flex-shrink: 0; /* Don't shrink */
+  flex-shrink: 0;
 }
 
 .policy-list {
@@ -1188,46 +1565,42 @@ body {
   flex-direction: column;
   gap: 0.45rem;
   overflow-y: auto;
-  flex: 1; /* Take remaining space */
-  padding-right: 0.25rem;
-  min-height: 0; /* Allow flex shrinking */
+  flex: 1;
+  padding-left: 0.55rem;
+  padding-right: 0.35rem;
+  min-height: 0;
+  /* max-height: 400px; */
 }
 
 .policy-list-toggle {
-    background: transparent;
-    border: 1px solid var(--color-gray-300);
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-gray-600);
-    padding: 0.5rem 1rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.policy-container.details-focused .policy-list-toggle {
-  opacity: 1;
-  pointer-events: auto;
+  background: transparent;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-gray-600);
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .policy-list-toggle:hover {
-    background: var(--color-gray-100);
-    border-color: var(--color-gray-400);
+  background: var(--color-gray-100);
+  border-color: var(--color-gray-400);
 }
 
 .policy-list-toggle-icon {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.2s ease;
-    color: currentColor;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+  color: currentColor;
 }
-
 
 .policy-container.details-focused .policy-list-toggle-icon {
   transform: rotate(0deg);
@@ -1245,9 +1618,9 @@ body {
   padding-left: 0.5rem;
   padding-bottom: 0.2rem;
   padding-right: 7rem;
-  border: 2px solid var(--color-gray-300);
+  border: 1px solid var(--color-gray-100);
   border-radius: 6px;
-  background: white;
+  background: rgba(240, 240, 240, 0.366);
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
@@ -1258,262 +1631,6 @@ body {
   transform: translateY(-1px);
 }
 
-.policy-read-more {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0.3rem;
-  display: flex;
-  align-items: center;
-  gap: 0;
-  font-size: 0.7rem;              /* Reduced from 0.75rem */
-  color: #2c5f6f;
-  font-weight: 500;               /* Reduced from 600 */
-  opacity: 0.7;                   /* Reduced from 1 */
-  transition: all 0.2s ease;
-  background: white;
-  padding: 0;
-  border-radius: 8px;            /* Reduced from 25px */
-  border: 1px solid #2c5f6f;     /* Reduced from 2px */
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1); /* Reduced shadow */
-  overflow: hidden;
-  min-height: 26px;               /* Reduced from 32px */
-}
-
-
-.policy-read-more::before {
-  content: 'Read More';
-  padding: 0.3rem 0.6rem;         /* Reduced padding */
-  background: white;
-  color: #2c5f6f;
-  font-weight: 500;               /* Reduced from 600 */
-  font-size: 0.7rem;              /* Reduced from 0.75rem */
-}
-
-.policy-read-more::after {
-  content: '>';
-  width: 22px;                    /* Reduced from 28px */
-  height: 22px;                   /* Reduced from 28px */
-  background: #2c5f6f;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;               /* Reduced from 700 */
-  font-size: 0.8rem;              /* Reduced from 0.9rem */
-  margin: 2px;
-}
-
-
-/* Dimension-specific border and circle colors */
-.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more {
-  border-color: var(--color-infrastructure);
-}
-.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more::before {
-  color: var(--color-infrastructure);
-}
-.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more::after {
-  background: var(--color-infrastructure);
-}
-
-.policy-item[data-dimension="Legislation & Policy"] .policy-read-more {
-  border-color: var(--color-legislation);
-}
-.policy-item[data-dimension="Legislation & Policy"] .policy-read-more::before {
-  color: var(--color-legislation);
-}
-.policy-item[data-dimension="Legislation & Policy"] .policy-read-more::after {
-  background: var(--color-legislation);
-}
-
-.policy-item[data-dimension="Sustainability & Society"] .policy-read-more {
-  border-color: var(--color-sustainability);
-}
-.policy-item[data-dimension="Sustainability & Society"] .policy-read-more::before {
-  color: var(--color-sustainability);
-}
-.policy-item[data-dimension="Sustainability & Society"] .policy-read-more::after {
-  background: var(--color-sustainability);
-}
-
-.policy-item[data-dimension="Economy & Innovation"] .policy-read-more {
-  border-color: var(--color-economy);
-}
-.policy-item[data-dimension="Economy & Innovation"] .policy-read-more::before {
-  color: var(--color-economy);
-}
-.policy-item[data-dimension="Economy & Innovation"] .policy-read-more::after {
-  background: var(--color-economy);
-}
-
-.policy-item[data-dimension="Research & Education"] .policy-read-more {
-  border-color: var(--color-research);
-}
-.policy-item[data-dimension="Research & Education"] .policy-read-more::before {
-  color: var(--color-research);
-}
-.policy-item[data-dimension="Research & Education"] .policy-read-more::after {
-  background: var(--color-research);
-}
-
-/* Column-specific styling (same as item-specific) */
-.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more {
-  border-color: var(--color-infrastructure);
-}
-.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more::before {
-  color: var(--color-infrastructure);
-}
-.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more::after {
-  background: var(--color-infrastructure);
-}
-
-.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more {
-  border-color: var(--color-legislation);
-}
-.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more::before {
-  color: var(--color-legislation);
-}
-.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more::after {
-  background: var(--color-legislation);
-}
-
-.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more {
-  border-color: var(--color-sustainability);
-}
-.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more::before {
-  color: var(--color-sustainability);
-}
-.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more::after {
-  background: var(--color-sustainability);
-}
-
-.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more {
-  border-color: var(--color-economy);
-}
-.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more::before {
-  color: var(--color-economy);
-}
-.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more::after {
-  background: var(--color-economy);
-}
-
-.policy-list-column[data-dimension="Research & Education"] .policy-read-more {
-  border-color: var(--color-research);
-}
-.policy-list-column[data-dimension="Research & Education"] .policy-read-more::before {
-  color: var(--color-research);
-}
-.policy-list-column[data-dimension="Research & Education"] .policy-read-more::after {
-  background: var(--color-research);
-}
-
-/* Hover effects */
-.policy-read-more:hover {
-  opacity: 1;                     /* Only fully visible on hover */
-  transform: translateY(-50%) scale(1.02); /* Reduced from 1.05 */
-}
-
-.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover {
-  border-color: #3a6cb3;
-}
-.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::before {
-  color: #3a6cb3;
-}
-.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::after {
-  background: #3a6cb3;
-}
-
-.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover {
-  border-color: #e08c1a;
-}
-.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover::before {
-  color: #e08c1a;
-}
-.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover::after {
-  background: #e08c1a;
-}
-
-.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover {
-  border-color: #8e2bb8;
-}
-.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover::before {
-  color: #8e2bb8;
-}
-.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover::after {
-  background: #8e2bb8;
-}
-
-.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover {
-  border-color: #c62828;
-}
-.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover::before {
-  color: #c62828;
-}
-.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover::after {
-  background: #c62828;
-}
-
-.policy-item[data-dimension="Research & Education"] .policy-read-more:hover {
-  border-color: #388e3c;
-}
-.policy-item[data-dimension="Research & Education"] .policy-read-more:hover::before {
-  color: #388e3c;
-}
-.policy-item[data-dimension="Research & Education"] .policy-read-more:hover::after {
-  background: #388e3c;
-}
-
-/* Column hover effects (same as item hover effects) */
-.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more:hover {
-  border-color: #3a6cb3;
-}
-.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::before {
-  color: #3a6cb3;
-}
-.policy-list-column[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::after {
-  background: #3a6cb3;
-}
-
-.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more:hover {
-  border-color: #e08c1a;
-}
-.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more:hover::before {
-  color: #e08c1a;
-}
-.policy-list-column[data-dimension="Legislation & Policy"] .policy-read-more:hover::after {
-  background: #e08c1a;
-}
-
-.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more:hover {
-  border-color: #8e2bb8;
-}
-.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more:hover::before {
-  color: #8e2bb8;
-}
-.policy-list-column[data-dimension="Sustainability & Society"] .policy-read-more:hover::after {
-  background: #8e2bb8;
-}
-
-.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more:hover {
-  border-color: #c62828;
-}
-.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more:hover::before {
-  color: #c62828;
-}
-.policy-list-column[data-dimension="Economy & Innovation"] .policy-read-more:hover::after {
-  background: #c62828;
-}
-
-.policy-list-column[data-dimension="Research & Education"] .policy-read-more:hover {
-  border-color: #388e3c;
-}
-.policy-list-column[data-dimension="Research & Education"] .policy-read-more:hover::before {
-  color: #388e3c;
-}
-.policy-list-column[data-dimension="Research & Education"] .policy-read-more:hover::after {
-  background: #388e3c;
-}
 .policy-item:focus {
   outline: 2px solid var(--color-blue-600);
   outline-offset: 2px;
@@ -1529,43 +1646,26 @@ body {
   background: #cbe5ec;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 .policy-item.selected .policy-info {
-  padding-left: 1.5rem; /* Add space for the icon */
+  padding-left: 1.5rem;
 }
 
-
-.details-header-buttons {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--color-gray-200);
-    background: var(--color-gray-50);
-    display: flex;
-    justify-content: flex-end;
-}
-
-.details-header-buttons .btn-select {
-    margin: 0;
-}
-
-.details-header-buttons .btn-select.disabled {
-    background: var(--color-blue-100);
-    color: var(--color-blue-700);
-    cursor: not-allowed;
-}
-
+/* Dimension-specific policy item styles */
 .policy-item.cross-dimensional[data-dimension="Enabling Infrastructure"] {
-  border-left: 4px solid var(--color-infrastructure);
+  border-left: 1px solid var(--color-infrastructure);
 }
 .policy-item.cross-dimensional[data-dimension="Legislation & Policy"] {
-  border-left: 4px solid var(--color-legislation);
+  border-left: 1px solid var(--color-legislation);
 }
 .policy-item.cross-dimensional[data-dimension="Sustainability & Society"] {
-  border-left: 4px solid var(--color-sustainability);
+  border-left: 1px solid var(--color-sustainability);
 }
 .policy-item.cross-dimensional[data-dimension="Economy & Innovation"] {
-  border-left: 4px solid var(--color-economy);
+  border-left: 1px solid var(--color-economy);
 }
 .policy-item.cross-dimensional[data-dimension="Research & Education"] {
-  border-left: 4px solid var(--color-research);
+  border-left: 1px solid var(--color-research);
 }
 
 .policy-item.cross-dimensional:hover {
@@ -1573,7 +1673,155 @@ body {
   background: var(--color-blue-50);
 }
 
-/* Policy item colors based on selected dimension */
+/* Read More Button */
+.policy-read-more {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: 0.7rem;
+  color: #2c5f6f;
+  font-weight: 500;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  /* background: white; */
+  padding: 0;
+  border-radius: 8px;
+  /* border: 1px solid #2c5f6f; */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+  min-height: 26px;
+}
+
+/* .policy-read-more::before {
+  content: 'Read More';
+  padding: 0.3rem 0.6rem;
+  background: white;
+  color: #2c5f6f;
+  font-weight: 500;
+  font-size: 0.7rem;
+} */
+
+.policy-read-more::after {
+  content: '▼';
+  width: 22px;
+  height: 22px;
+  background: #2c5f6f;
+  color: white;
+  border-radius:8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin: 2px;
+}
+
+.policy-read-more:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.02);
+}
+
+/* Dimension-specific read more button colors */
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more {
+  border-color: var(--color-infrastructure);
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more::before {
+  color: var(--color-infrastructure);
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more::after {
+  background: var(--color-infrastructure);
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover {
+  border-color: #3a6cb3;
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::before {
+  color: #3a6cb3;
+}
+.policy-item[data-dimension="Enabling Infrastructure"] .policy-read-more:hover::after {
+  background: #3a6cb3;
+}
+
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more {
+  border-color: var(--color-legislation);
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more::before {
+  color: var(--color-legislation);
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more::after {
+  background: var(--color-legislation);
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover {
+  border-color: #e08c1a;
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover::before {
+  color: #e08c1a;
+}
+.policy-item[data-dimension="Legislation & Policy"] .policy-read-more:hover::after {
+  background: #e08c1a;
+}
+
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more {
+  border-color: var(--color-sustainability);
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more::before {
+  color: var(--color-sustainability);
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more::after {
+  background: var(--color-sustainability);
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover {
+  border-color: #8e2bb8;
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover::before {
+  color: #8e2bb8;
+}
+.policy-item[data-dimension="Sustainability & Society"] .policy-read-more:hover::after {
+  background: #8e2bb8;
+}
+
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more {
+  border-color: var(--color-economy);
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more::before {
+  color: var(--color-economy);
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more::after {
+  background: var(--color-economy);
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover {
+  border-color: #c62828;
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover::before {
+  color: #c62828;
+}
+.policy-item[data-dimension="Economy & Innovation"] .policy-read-more:hover::after {
+  background: #c62828;
+}
+
+.policy-item[data-dimension="Research & Education"] .policy-read-more {
+  border-color: var(--color-research);
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more::before {
+  color: var(--color-research);
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more::after {
+  background: var(--color-research);
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more:hover {
+  border-color: #388e3c;
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more:hover::before {
+  color: #388e3c;
+}
+.policy-item[data-dimension="Research & Education"] .policy-read-more:hover::after {
+  background: #388e3c;
+}
+
+/* Policy list column dimension-specific colors */
 .policy-list-column[data-dimension="Enabling Infrastructure"] .policy-item:hover {
   border-color: var(--color-infrastructure);
   background: rgba(255, 255, 255, 0.05);
@@ -1650,7 +1898,7 @@ body {
 
 .policy-header {
   display: flex;
-  align-items: flex-start; /* Change from center to flex-start */
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 0.5rem;
 }
@@ -1699,36 +1947,29 @@ body {
   color: white;
   font-size: 0.7rem;
   flex-shrink: 0;
-  /* Remove: order: -1; */
-  /* Add these: */
   position: absolute;
   left: 0.25rem;
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* Replace the existing .selected-icon rule with these */
 .policy-item[data-dimension="Enabling Infrastructure"] .selected-icon {
   background: var(--color-infrastructure);
 }
-
 .policy-item[data-dimension="Legislation & Policy"] .selected-icon {
   background: var(--color-legislation);
 }
-
 .policy-item[data-dimension="Sustainability & Society"] .selected-icon {
   background: var(--color-sustainability);
 }
-
 .policy-item[data-dimension="Economy & Innovation"] .selected-icon {
   background: var(--color-economy);
 }
-
 .policy-item[data-dimension="Research & Education"] .selected-icon {
   background: var(--color-research);
 }
 
-/* Policy details column - full height */
+/* Policy Details Column */
 .policy-details-column {
   display: flex;
   flex-direction: column;
@@ -1737,110 +1978,79 @@ body {
   border: 1px solid var(--color-gray-200);
   border-radius: 8px;
   overflow: hidden;
-  height: 100%; /* Full height of container */
+  height: 100%;
   position: relative;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-/* Dimension-specific colors for the Add button */
-.policy-details-column[data-dimension="Enabling Infrastructure"] .btn-select:not(:disabled) {
-    background: var(--color-infrastructure);
-    border-color: var(--color-infrastructure);
-}
-
-.policy-details-column[data-dimension="Legislation & Policy"] .btn-select:not(:disabled) {
-    background: var(--color-legislation);
-    border-color: var(--color-legislation);
-}
-
-.policy-details-column[data-dimension="Sustainability & Society"] .btn-select:not(:disabled) {
-    background: var(--color-sustainability);
-    border-color: var(--color-sustainability);
-}
-
-.policy-details-column[data-dimension="Economy & Innovation"] .btn-select:not(:disabled) {
-    background: var(--color-economy);
-    border-color: var(--color-economy);
-}
-
-.policy-details-column[data-dimension="Research & Education"] .btn-select:not(:disabled) {
-    background: var(--color-research);
-    border-color: var(--color-research);
-}
-
-/* Add these new rules for dimension-specific toggle colors */
-.policy-details-column[data-dimension="Enabling Infrastructure"] .policy-list-toggle {
-  background: var(--color-infrastructure);
-  color: white;
-}
-
-.policy-details-column[data-dimension="Legislation & Policy"] .policy-list-toggle {
-  background: var(--color-legislation);
-   color: white;
-}
-
-.policy-details-column[data-dimension="Sustainability & Society"] .policy-list-toggle {
-  background: var(--color-sustainability);
-   color: white;
-}
-
-.policy-details-column[data-dimension="Economy & Innovation"] .policy-list-toggle {
-  background: var(--color-economy);
-   color: white;
-}
-
-.policy-details-column[data-dimension="Research & Education"] .policy-list-toggle {
-  background: var(--color-research);
-   color: white;
+.policy-container.details-focused .policy-details-column {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .details-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1.5rem;
-    border-bottom: 1px solid var(--color-gray-200);
-    background: var(--color-gray-50);
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-height: 60px;
 }
 
-
 .details-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-gray-800);
-    text-align: center;
-    flex: 1;
-    margin: 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+  text-align: center;
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.details-header-buttons {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.details-header-buttons .btn-select {
+  margin: 0;
+}
+
+.details-header-buttons .btn-select.disabled {
+  background: var(--color-blue-100);
+  color: var(--color-blue-700);
+  cursor: not-allowed;
 }
 
 .btn-select {
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    background: var(--color-blue-600);
-    border: 1px solid var(--color-blue-600);
-    color: white;
-    font-weight: 500;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: var(--color-blue-600);
+  border: 1px solid var(--color-blue-600);
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-
 .btn-select:hover:not(:disabled) {
-    background: var(--color-blue-700);
-    border-color: var(--color-blue-700);
-    transform: translateY(-1px);
+  background: var(--color-blue-700);
+  border-color: var(--color-blue-700);
+  transform: translateY(-1px);
 }
 
 .btn-select:focus {
@@ -1849,44 +2059,70 @@ body {
 }
 
 .btn-select:disabled {
-    background: var(--color-gray-300);
-    border-color: var(--color-gray-300);
-    color: var(--color-gray-500);
-    cursor: not-allowed;
-    transform: none;
+  background: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+  color: var(--color-gray-500);
+  cursor: not-allowed;
+  transform: none;
 }
 
 .add-icon {
-    width: 16px;
-    height: 16px;
-    color: white;
+  width: 16px;
+  height: 16px;
+  color: white;
 }
 
-
-
-/* Selected Policies Section - New separate section below left panel */
-.selected-policies-container-wrapper {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-  margin-top: 1rem;
+/* Dimension-specific button colors */
+.policy-details-column[data-dimension="Enabling Infrastructure"] .btn-select:not(:disabled) {
+  background: var(--color-infrastructure);
+  border-color: var(--color-infrastructure);
 }
-/* Move selected policies section styling here */
-.section#selectedPoliciesSection {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-  padding: 1rem;
+.policy-details-column[data-dimension="Legislation & Policy"] .btn-select:not(:disabled) {
+  background: var(--color-legislation);
+  border-color: var(--color-legislation);
+}
+.policy-details-column[data-dimension="Sustainability & Society"] .btn-select:not(:disabled) {
+  background: var(--color-sustainability);
+  border-color: var(--color-sustainability);
+}
+.policy-details-column[data-dimension="Economy & Innovation"] .btn-select:not(:disabled) {
+  background: var(--color-economy);
+  border-color: var(--color-economy);
+}
+.policy-details-column[data-dimension="Research & Education"] .btn-select:not(:disabled) {
+  background: var(--color-research);
+  border-color: var(--color-research);
 }
 
-
+/* Dimension-specific toggle colors */
+.policy-details-column[data-dimension="Enabling Infrastructure"] .policy-list-toggle {
+  background: var(--color-infrastructure);
+  color: white;
+}
+.policy-details-column[data-dimension="Legislation & Policy"] .policy-list-toggle {
+  background: var(--color-legislation);
+  color: white;
+}
+.policy-details-column[data-dimension="Sustainability & Society"] .policy-list-toggle {
+  background: var(--color-sustainability);
+  color: white;
+}
+.policy-details-column[data-dimension="Economy & Innovation"] .policy-list-toggle {
+  background: var(--color-economy);
+  color: white;
+}
+.policy-details-column[data-dimension="Research & Education"] .policy-list-toggle {
+  background: var(--color-research);
+  color: white;
+}
 
 .details-content {
   padding: 1.75rem;
   line-height: 1.6;
   color: var(--color-gray-600);
   overflow-y: auto;
-  flex: 1; /* Take remaining space after header */
-  min-height: 0; /* Allow flex shrinking */
+  flex: 1;
+  min-height: 0;
 }
 
 .detail-section {
@@ -1909,87 +2145,84 @@ body {
 }
 
 /* Special Considerations */
-
 .considerations-sections {
-    margin-top: 0.75rem;
+  margin-top: 0.75rem;
 }
 
 .consideration-section {
-    margin-bottom: 0.5rem;
-    border: 1px solid var(--color-gray-200);
-    border-radius: 6px;
-    overflow: hidden;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .consideration-toggle {
-    width: 100%;
-    background: white;
-    border: none;
-    padding: 0.5rem 0.75rem;
-    text-align: left;
-    cursor: pointer;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-gray-700);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: background-color 0.2s ease;
+  width: 100%;
+  background: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
 }
 
 .consideration-toggle:hover {
-    background: var(--color-gray-100);
+  background: var(--color-gray-100);
 }
 
 .toggle-icon {
-    font-size: 0.7rem;
-    transition: transform 0.2s ease;
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
 }
 
 .consideration-section.expanded .toggle-icon {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
-
 .consideration-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    padding: 0 0.75rem;
-    background: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 0.75rem;
+  background: white;
 }
 
 .consideration-section.expanded .consideration-content {
-    max-height: 500px;
-    padding: 0.75rem;
+  max-height: 500px;
+  padding: 0.75rem;
 }
 
 .consideration-content p {
-    margin: 0.5rem 0;
-    font-weight: 600;
-    color: var(--color-gray-700);
+  margin: 0.5rem 0;
+  font-weight: 600;
+  color: var(--color-gray-700);
 }
 
 .consideration-content em {
-    font-weight: 500;
-    color: var(--color-gray-600);
+  font-weight: 500;
+  color: var(--color-gray-600);
 }
 
 .consideration-content ul {
-    margin: 0.25rem 0 0.75rem 1rem;
-    padding: 0;
+  margin: 0.25rem 0 0.75rem 1rem;
+  padding: 0;
 }
 
 .consideration-content li {
-    margin-bottom: 0.5rem;
-    color: var(--color-gray-600);
-    line-height: 1.4;
+  margin-bottom: 0.5rem;
+  color: var(--color-gray-600);
+  line-height: 1.4;
 }
 
 .consideration-content li strong {
-    color: var(--color-gray-700);
+  color: var(--color-gray-700);
 }
-
 
 .considerations-summary {
   background: white;
@@ -2076,33 +2309,31 @@ body {
 }
 
 .related-policies-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    max-height: 200px; /* Limit the height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding-right: 0.25rem; /* Space for scrollbar */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
 }
 
-/* Custom scrollbar styling for related policies */
 .related-policies-list::-webkit-scrollbar {
-    width: 4px;
+  width: 4px;
 }
 
 .related-policies-list::-webkit-scrollbar-track {
-    background: var(--color-gray-100);
-    border-radius: 2px;
+  background: var(--color-gray-100);
+  border-radius: 2px;
 }
 
 .related-policies-list::-webkit-scrollbar-thumb {
-    background: var(--color-gray-300);
-    border-radius: 2px;
+  background: var(--color-gray-300);
+  border-radius: 2px;
 }
 
 .related-policies-list::-webkit-scrollbar-thumb:hover {
-    background: var(--color-gray-400);
+  background: var(--color-gray-400);
 }
-
 
 .related-policy-item {
   padding: 0.5rem;
@@ -2191,7 +2422,19 @@ body {
   font-weight: 500;
 }
 
-/* Selected Policy Initiatives */
+/* Selected Policies Section */
+.selected-policies-container-wrapper {
+  grid-column: 1 / 3; /* Span both columns */
+  grid-row: 2 / 3;
+}
+
+.section#selectedPoliciesSection {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+}
+
 .selected-policies-container {
   display: flex;
   flex-direction: column;
@@ -2238,13 +2481,12 @@ body {
 }
 
 .selected-policies-list {
-  max-height: 300px; /* Limit height to prevent taking too much space */
+  max-height: 300px;
   overflow-y: auto;
   border: 1px solid var(--color-gray-200);
   border-radius: 8px;
   background: white;
 }
-
 
 .selected-policy-item {
   display: flex;
@@ -2339,15 +2581,19 @@ body {
   background: #fee2e2;
 }
 
-/* Right panel - spans full height of first row */
+/* Right Panel */
 .right-panel {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  height: 85vh; /* Match left panel height */
-  overflow-y: auto; /* Allow scrolling if content exceeds */
+  height: 100%; /* Add this */
+  overflow: hidden; /* Uncomment this */
+}
+
+.right-panel .section:first-child {
+  flex-shrink: 0;
 }
 
 /* Export Buttons */
@@ -2365,6 +2611,11 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
+}
+
+.export-btn.export-pdf {
+  flex-shrink: 0; /* Don't let the button shrink */
+  align-self: stretch; /* Make button take full width */
 }
 
 .export-btn:hover {
@@ -2399,15 +2650,18 @@ body {
   flex-shrink: 0;
 }
 
-/* Matrix Container */
 .selection-matrix-container {
   background: white;
   padding: 0.5rem;
   border-radius: 8px;
   text-align: center;
-  overflow: auto;
-  max-height: 600px;
   border: 1px solid #e5e7eb;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 .matrix-title {
@@ -2420,14 +2674,15 @@ body {
 .matrix-subtitle {
   font-size: 0.75rem;
   color: var(--color-gray-600);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 .matrix-legend {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.1rem;
+  margin-bottom:0.5rem;
   font-size: 0.65rem;
 }
 
@@ -2458,19 +2713,41 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
+/* Make coordinate system responsive */
 .selection-coordinate-system {
   width: 100%;
-  margin: 0 auto;
-  padding: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Export button stays fixed size */
+.selection-matrix-container .export-btn {
+  margin-top: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+/* Remove br spacing */
+.selection-matrix-container br {
+  display: none;
 }
 
 .coordinate-grid {
   display: grid;
-  grid-template-columns: 60px 1fr;
-  grid-template-rows: 1fr 40px;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: 1fr 25px;
   gap: 8px;
   width: 100%;
-  height: 320px;
+  flex: 1;
+  /* Remove or reduce min-height */
+  min-height: 150px; /* Much smaller minimum */
+  max-height: 100%;
+  overflow: hidden;
 }
 
 .y-axis-labels {
@@ -2478,29 +2755,56 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  padding-right: 8px;
+  padding-right: 0px;
   padding-top: 15px;
   padding-bottom: 15px;
 }
 
 .y-axis-label {
-  font-size: 0.47rem;
   color: var(--color-gray-600);
-  font-weight: 500;
+  font-weight: 600;
   writing-mode: horizontal-tb;
   text-align: right;
   height: fit-content;
+  cursor: help;
+  position: relative;
+  writing-mode:vertical-rl;
 }
 
+.y-axis-label, .x-axis-label {
+  font-size: clamp(0.59rem, 1.125rem, 0.5rem); /* Responsive font size */
+  
+}
+
+.y-axis-label[data-full-text]:hover::after {
+  content: attr(data-full-text);
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-gray-800);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-right: 8px;
+}
+
+/* Make main grid responsive */
 .main-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 3px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: min(3px, 0.5vw);
   border: 1px solid var(--color-gray-300);
   border-radius: 6px;
-  padding: 8px;
+  padding: min(8px, 1vw);
   background: white;
+  width: 100%;
+  height: 100%; /* This should fill the available space */
+  /* Remove min-height if it's preventing scaling */
 }
 
 .grid-cell {
@@ -2510,15 +2814,18 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 4px;
+  padding: min(4px, 0.5vw);
   transition: all 0.2s ease;
   cursor: pointer;
   position: relative;
-  min-height: 60px;
-  max-height: 60px;
+  /* Remove these fixed height properties: */
+  /* min-height: 30px; */
+  /* height: 60px; */
   background: #fafafa;
   overflow: hidden;
+  /* Let the grid determine the cell size instead */
 }
+
 
 .grid-cell:hover {
   border-color: var(--color-gray-400);
@@ -2638,16 +2945,35 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .x-axis-label {
-  font-size: 0.47rem;
+  font-size: clamp(0.59rem, 1.125rem, 0.5rem); /* Responsive font size */
   color: var(--color-gray-600);
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   flex: 1;
+  cursor: help;
+  position: relative;
+}
+
+
+.x-axis-label[data-full-text]:hover::after {
+  content: attr(data-full-text);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-gray-800);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 8px;
 }
 
 .current-selection {
@@ -2679,27 +3005,30 @@ body {
 /* Expert Profiles */
 .experts-section {
   background: white;
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  height: 420px;
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 460px;
+  flex: 1;
+  min-height: 200px;
+  max-height: 300px;
+  overflow: hidden;
 }
 
 .experts-title {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-gray-800);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   flex-shrink: 0;
 }
 
 .experts-grid {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.375rem;
   overflow-y: auto;
   overflow-x: hidden;
   flex: 1;
@@ -2727,8 +3056,8 @@ body {
 .expert-card {
   display: flex;
   align-items: flex-start;
-  gap: 0.5rem;
-  padding: 0.5rem;
+  gap: 0.375rem;
+  padding: 0.375rem;
   border: 1px solid var(--color-gray-200);
   border-radius: 6px;
   background: white;
@@ -2744,25 +3073,21 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.expert-avatar {
-  width: 36px;
-  height: 36px;
+.expert-avatar,
+.expert-avatar-fallback {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  object-fit: cover;
   flex-shrink: 0;
 }
 
 .expert-avatar-fallback {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-weight: 600;
-  font-size: 0.875rem;
-  flex-shrink: 0;
+  font-size: 0.75rem;
 }
 
 .expert-info {
@@ -2780,10 +3105,10 @@ body {
 }
 
 .expert-name {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--color-gray-800);
-  margin-bottom: 0.125rem;
+  margin-bottom: 0.1rem;
   line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2791,7 +3116,7 @@ body {
 }
 
 .expert-title {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: var(--color-gray-600);
   line-height: 1.2;
   overflow: hidden;
@@ -2819,8 +3144,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  margin-bottom: 0.125rem;
-  font-size: 0.625rem;
+  margin-bottom: 0.1rem;
+  font-size: 0.55rem;
   color: var(--color-gray-600);
   line-height: 1.2;
 }
@@ -2845,9 +3170,9 @@ body {
 .expert-expertise-tag {
   background: var(--color-blue-50);
   color: var(--color-blue-800);
-  padding: 0.0625rem 0.25rem;
-  border-radius: 8px;
-  font-size: 0.6rem;
+  padding: 0.05rem 0.2rem;
+  border-radius: 6px;
+  font-size: 0.55rem;
   font-weight: 500;
   line-height: 1.2;
 }
@@ -2926,49 +3251,17 @@ body {
   line-height: 1.5;
 }
 
-
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
+  :root {
+    --container-base-height: 80px; /* Slightly taller on mobile for wrapped content */
+  }
+
+
   .nav-content {
     padding: 1.25rem 1rem 0.75rem 1rem;
     height: 70px;
   }
-  .left-panel {
-    flex-direction: column;
-  }
-  
-  .sidebar {
-    width: 100%;
-    max-height: 100px;
-    overflow-y: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--color-gray-200);
-  }
-  
-  .sidebar-item {
-    margin: 6px 12px;
-    padding: 4px 12px;
-  }
-  
-  .sidebar-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
-  }
-  
-  .phase-dropdown {
-    margin: 0 12px 6px 12px;
-  }
-  
-  .phase-buttons-grid {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-  
-  .phase-btn {
-    padding: 8px 10px;
-    font-size: 11px;
-  }
-  
 
   .g20-logo-img {
     height: 55px;
@@ -2989,7 +3282,7 @@ body {
 
   .nav-tools {
     margin-left: 1rem;
-    gap: 0.02rem;
+    gap: 0.5rem;
   }
 
   .language-select {
@@ -3019,7 +3312,7 @@ body {
   }
 
   .banner-title h1 {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .container {
@@ -3027,38 +3320,49 @@ body {
     padding: 0 1rem;
   }
 
-.left-panel {
-  display: flex;
-  flex-direction: row;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  min-height: 85vh;
-}
+  .left-panel {
+    flex-direction: column;
+    min-height: 85vh;
+  }
 
-  
+  .sidebar {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
   .sidebar-item {
     margin: 6px 12px;
     padding: 12px 16px;
+    flex-direction: row;
+    text-align: left;
   }
 
-  .phases-container {
-    flex-direction: column;
-    gap: 0.4rem;
+  .sidebar-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
   }
-  
+
+  .phase-dropdown {
+    margin: 0 12px 6px 12px;
+  }
+
+  .phase-buttons-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
   .phase-btn {
     padding: 0.6rem 1rem;
     font-size: 0.75rem;
     border-radius: 6px;
     border: 2px solid var(--color-gray-200);
-    margin-right: 0;
     min-width: auto;
-  }
-
-  .keyword-filters {
-    gap: 0.35rem;
+    background: white;
   }
 
   .search-filter-row {
@@ -3068,20 +3372,116 @@ body {
 
   .search-container {
     flex: none;
+    width: 100%;
   }
 
   .keyword-dropdown {
     font-size: 0.7rem;
     padding: 0.4rem 0.6rem;
+    width: 100%;
   }
 
   .keyword-chip {
     font-size: 0.65rem;
     padding: 0.2rem 0.4rem;
   }
-}
+
+  .search-filter-section {
+    align-items: flex-start; /* Allow for wrapping on mobile */
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  
+  .search-filter-row {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  
+  .search-container {
+    width: 100%;
+  }
+  
+  .phases-container {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+  .phases-container .phase-btn {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.7rem;
+    height: 30px;
+  }
+
+  .guide-tooltip {
+    max-width: calc(100vw - 32px);
+    min-width: calc(100vw - 32px);
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .guide-tooltip h3 {
+    font-size: 16px;
+  }
+  
+  .guide-tooltip p {
+    font-size: 14px;
+  }
+  
+  .guide-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .element-highlight {
+    border-width: 3px;
+  }
+  
+  .guide-pulse {
+    font-size: 24px;
+  }
+  
+  .guide-demo-badge {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+  
+  .demo-message {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  .right-panel {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    height: auto;
+    max-height: none;
+  }
+
+  .experts-section {
+    width: 100%;
+    max-height: 400px;
+  }
+
+  .selection-matrix-container {
+    overflow-x: auto;
+  }
+
+  .coordinate-grid {
+    min-width: 400px;
+  }
 
 @media (max-width: 480px) {
+  :root {
+    --container-base-height: 90px; /* Even taller on very small screens */
+  }
+  
+  .phases-container .phase-btn {
+    padding: 0.3rem 0.4rem;
+    font-size: 0.65rem;
+    height: 28px;
+  }
+
   .nav-content {
     padding: 0.5rem 0.75rem;
   }
@@ -3095,6 +3495,138 @@ body {
   }
 
   .banner-title h1 {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
+
+  .sidebar-item {
+    padding: 8px 12px;
+  }
+
+  .sidebar-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .phase-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+  }
+
+  .policy-item {
+    padding-right: 5rem;
+  }
+
+  .policy-read-more {
+    right: 0.2rem;
+    min-height: 24px;
+  }
+
+  .policy-read-more::before {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.65rem;
+  }
+
+  .policy-read-more::after {
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+  }
+
+  .guide-tooltip {
+    padding: 16px;
+  }
+  
+  .guide-tooltip h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .guide-tooltip p {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  
+  .guide-buttons {
+    gap: 6px;
+  }
+  
+  .guide-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  
+  .how-to-use-trigger {
+    font-size: 10px;
+    padding: 8px 10px;
+  }
+  
+  .guide-demo-badge {
+    display: none; /* Hide on very small screens */
+  }
+}
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .guide-tooltip {
+    border: 2px solid var(--color-gray-800);
+    background: white;
+  }
+  
+  .element-highlight {
+    border-color: #000;
+    border-width: 3px;
+  }
+  
+  .guide-demo-badge {
+    background: #000;
+    color: white;
+  }
+}
+
+/* Focus states for accessibility */
+.guide-btn:focus {
+  outline: 3px solid var(--color-blue-600);
+  outline-offset: 2px;
+}
+
+.how-to-use-trigger:focus {
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+/* Loading states for demo transitions */
+.guide-demo-loading {
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Enhanced demo mode indicators */
+.guide-demo-mode .sidebar,
+.guide-demo-mode .main-content,
+.guide-demo-mode .right-panel {
+  position: relative;
+}
+
+.guide-demo-mode .sidebar::before,
+.guide-demo-mode .main-content::before,
+.guide-demo-mode .right-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 1;
+  animation: demo-border-pulse 4s infinite;
+}
+
+@keyframes demo-border-pulse {
+  0%, 100% { border-color: rgba(59, 130, 246, 0.3); }
+  50% { border-color: rgba(59, 130, 246, 0.6); }
+}
+
 }

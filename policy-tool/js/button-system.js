@@ -51,6 +51,7 @@ export class TPAFButtonSystem {
 
         // Show phase dropdown for this dimension
         this.showPhaseDropdown(dimension);
+        this.updatePhasesSectionDimension(dimension);
         
         // Clear active phases in ALL dropdowns
         this.clearActivePhases();
@@ -79,8 +80,8 @@ export class TPAFButtonSystem {
         // Clear active phases
         this.clearActivePhases();
         
-        // Update state
-        state.clearPolicyArea();
+        // **ADD THIS: Clear phases section dimension**
+        this.clearPhasesSectionDimension();
         
         // Trigger deselection in main app
         if (window.app) {
@@ -140,10 +141,26 @@ export class TPAFButtonSystem {
         }
     }
 
+
+    updatePhasesSectionDimension(dimension) {
+        const phasesSection = document.querySelector('.phases-section');
+        if (phasesSection) {
+            // Remove any existing dimension attributes
+            phasesSection.removeAttribute('data-dimension');
+            // Set the new dimension
+            phasesSection.setAttribute('data-dimension', dimension);
+        }
+    }
     clearActiveDimensions() {
         document.querySelectorAll('.sidebar-item').forEach(item => {
             item.classList.remove('active');
         });
+    }
+    clearPhasesSectionDimension() {
+        const phasesSection = document.querySelector('.phases-section');
+        if (phasesSection) {
+            phasesSection.removeAttribute('data-dimension');
+        }
     }
 
     updateActivePhaseButton(phase) {
